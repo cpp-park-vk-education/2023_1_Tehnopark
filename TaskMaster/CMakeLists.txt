@@ -1,5 +1,5 @@
 add_library(TaskMaster src/Project/ProjectController.cpp
-                        src/Project/ProjectdRepo.cpp
+                        src/Project/ProjectRepo.cpp
                         src/Board/BoardController.cpp
                         src/Board/BoardRepo.cpp
                         src/Task/TaskController.cpp
