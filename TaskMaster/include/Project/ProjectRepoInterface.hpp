@@ -1,6 +1,6 @@
 #pragma once
-#include "../../models/Project.hpp"
-#include "../../models/Board.hpp"
+#include "Project.hpp"
+#include "Board.hpp"
 
 class ProjectRepoInterface
 {

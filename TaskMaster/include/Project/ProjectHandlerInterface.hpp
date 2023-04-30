@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "../../models/User.hpp"
-#include "../../models/Project.hpp"
-#include "../../models/Board.hpp"
+#include "User.hpp"
+#include "Project.hpp"
+#include "Board.hpp"
 
 class ProjectHandlerInterface
 {

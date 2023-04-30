@@ -1,19 +1,19 @@
-// #include "gmock/gmock.h"
-// #include "../../models/User.hpp"
-// #include "../../models/Project.hpp"
-// #include "../../models/Board.hpp"
-// #include "ProjectHandlerInterface.hpp"
+#include "gmock/gmock.h"
+#include "User.hpp"
+#include "Project.hpp"
+#include "Board.hpp"
+#include "ProjectHandlerInterface.hpp"
 
-// using namespace testing;
+using namespace testing;
 
-// class MockProjectHandler : public ProjectHandlerInterface
-// {
-// public:
-//     MOCK_METHOD(void, CreateBoard, (int projectId, int mainUserId, const std::string &boardName), (override));
-//     MOCK_METHOD(std::string, GetInviteLink, (int projectId, int userId), (override));
-//     MOCK_METHOD(std::vector<User>, GetAllUsers, (int projectId, int userId), (override));
-//     MOCK_METHOD(std::vector<Board>, GetAllBoards, (int projectId, int userId), (override));
-// };
+class MockProjectHandler : public ProjectHandlerInterface
+{
+public:
+    MOCK_METHOD(void, CreateBoard, (int projectId, int mainUserId, const std::string &boardName), (override));
+    MOCK_METHOD(std::string, GetInviteLink, (int projectId, int userId), (override));
+    MOCK_METHOD(std::vector<User>, GetAllUsers, (int projectId, int userId), (override));
+    MOCK_METHOD(std::vector<Board>, GetAllBoards, (int projectId, int userId), (override));
+};
 
 // /* Correct data */
 
@@ -66,97 +66,97 @@
 //     ASSERT_EQ(returnedBoards, boards);
 // }
 
-// /* Incorrect data*/
+/* Incorrect data*/
 
-// TEST(ProjectHandlerTest, CreateBoardEmptyBoardNameTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, CreateBoardEmptyBoardNameTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, ""), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, ""), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, CreateBoardNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, CreateBoardNegativeProjectIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, "Test Board"), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, "Test Board"), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, CreateBoardNegativeMainUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, CreateBoardNegativeMainUserIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(1, -2, "Test Board"), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.CreateBoard(1, -2, "Test Board"), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetInviteLinkNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetInviteLinkNegativeProjectIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(-1, 1), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetInviteLink(-1, 1), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetInviteLinkNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetInviteLinkNegativeUserIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(1, -1), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetInviteLink(1, -1), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetAllUsersNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllUsersNegativeProjectIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetAllUsersNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllUsersNegativeUserIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetAllBoardsNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllBoardsNegativeProjectIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, GetAllBoardsNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllBoardsNegativeUserIdTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
-//         .Times(0);
+    EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
+        .Times(0);
 
-//     ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
+}
 
 // /* Incorrect logic*/
 

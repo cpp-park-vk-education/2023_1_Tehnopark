@@ -7,7 +7,7 @@ add_library(TaskMaster src/Project/ProjectController.cpp
                         src/User/UserController.cpp
                         src/User/UserRepo.cpp)
 
-target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User)
+target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User models)
 
 if(BUILD_TESTS)
   add_subdirectory(tests)
