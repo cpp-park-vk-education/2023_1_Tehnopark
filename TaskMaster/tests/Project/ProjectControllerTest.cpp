@@ -15,56 +15,56 @@ public:
     MOCK_METHOD(std::vector<Board>, GetAllBoards, (int projectId, int userId), (override));
 };
 
-// /* Correct data */
+/* Correct data */
 
-// TEST(ProjectHandlerTest, CreateBoardTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, CreateBoardTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "Test Board"))
-//         .Times(1);
+    EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "Test Board"))
+        .Times(1);
 
-//     mockProjectHandler.CreateBoard(1, 2, "Test Board");
-// }
+    mockProjectHandler.CreateBoard(1, 2, "Test Board");
+}
 
-// TEST(ProjectHandlerTest, GetInviteLinkTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetInviteLinkTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 2))
-//         .WillOnce(Return("https://example.com/invite/1"));
+    EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 2))
+        .WillOnce(Return("https://example.com/invite/1"));
 
-//     std::string link = mockProjectHandler.GetInviteLink(1, 2);
-//     ASSERT_EQ(link, "https://example.com/invite/1");
-// }
+    std::string link = mockProjectHandler.GetInviteLink(1, 2);
+    ASSERT_EQ(link, "https://example.com/invite/1");
+}
 
-// TEST(ProjectHandlerTest, GetAllUsersTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-//     std::vector<User> users = {
-//         User(1, "Alice"),
-//         User(2, "Bob")};
+TEST(ProjectHandlerTest, GetAllUsersTest)
+{
+    MockProjectHandler mockProjectHandler;
+    std::vector<User> users = {
+        User(1, "Alice"),
+        User(2, "Bob")};
 
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
-//         .WillOnce(Return(users));
+    EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
+        .WillOnce(Return(users));
 
-//     std::vector<User> returnedUsers = mockProjectHandler.GetAllUsers(1, 2);
-//     ASSERT_EQ(returnedUsers, users);
-// }
+    std::vector<User> returnedUsers = mockProjectHandler.GetAllUsers(1, 2);
+    ASSERT_EQ(returnedUsers, users);
+}
 
-// TEST(ProjectHandlerTest, GetAllBoardsTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-//     std::vector<Board> boards = {
-//         Board(1, "Board 1"),
-//         Board(1, "Board 1")};
+TEST(ProjectHandlerTest, GetAllBoardsTest)
+{
+    MockProjectHandler mockProjectHandler;
+    std::vector<Board> boards = {
+        Board(1, "Board 1"),
+        Board(1, "Board 1")};
 
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(1, 2))
-//         .WillOnce(Return(boards));
+    EXPECT_CALL(mockProjectHandler, GetAllBoards(1, 2))
+        .WillOnce(Return(boards));
 
-//     std::vector<Board> returnedBoards = mockProjectHandler.GetAllBoards(1, 2);
-//     ASSERT_EQ(returnedBoards, boards);
-// }
+    std::vector<Board> returnedBoards = mockProjectHandler.GetAllBoards(1, 2);
+    ASSERT_EQ(returnedBoards, boards);
+}
 
 /* Incorrect data*/
 
@@ -158,44 +158,44 @@ TEST(ProjectHandlerTest, GetAllBoardsNegativeUserIdTest)
     ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
 }
 
-// /* Incorrect logic*/
+/* Incorrect logic*/
 
-// TEST(ProjectHandlerTest, GetInviteLinkNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetInviteLinkNotBelongingUserTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 3))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
+    EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 3))
+        .WillOnce(Throw(std::runtime_error("User does not belong to project")));
 
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(1, 3), std::invalid_argument);
-// }
+    ASSERT_THROW(mockProjectHandler.GetInviteLink(1, 3), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, CreateBoardNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, CreateBoardNotBelongingUserTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "New Board"))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
+    EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "New Board"))
+        .WillOnce(Throw(std::runtime_error("User does not belong to project")));
 
-//     EXPECT_THROW(mockProjectHandler.CreateBoard(1, 2, "New Board"), std::runtime_error);
-// }
+    EXPECT_THROW(mockProjectHandler.CreateBoard(1, 2, "New Board"), std::runtime_error);
+}
 
-// TEST(ProjectHandlerTest, GetAllUsersNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllUsersNotBelongingUserTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
+    EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
+        .WillOnce(Throw(std::runtime_error("User does not belong to project")));
 
-//     EXPECT_THROW(mockProjectHandler.GetAllUsers(1, 2), std::runtime_error);
-// }
+    EXPECT_THROW(mockProjectHandler.GetAllUsers(1, 2), std::runtime_error);
+}
 
-// TEST(ProjectHandlerTest, GetAllBoardsNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST(ProjectHandlerTest, GetAllBoardsNotBelongingUserTest)
+{
+    MockProjectHandler mockProjectHandler;
 
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(1, 2))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
+    EXPECT_CALL(mockProjectHandler, GetAllBoards(1, 2))
+        .WillOnce(Throw(std::runtime_error("User does not belong to project")));
 
-//     EXPECT_THROW(mockProjectHandler.GetAllBoards(1, 2), std::runtime_error);
-// }
+    EXPECT_THROW(mockProjectHandler.GetAllBoards(1, 2), std::runtime_error);
+}
