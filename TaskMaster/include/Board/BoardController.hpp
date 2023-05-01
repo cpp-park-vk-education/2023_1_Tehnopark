@@ -15,11 +15,13 @@ public:
 
     ~BoardController() { }
 
-    bool AddTask(int taskId) override { return true; }
+    bool AddTask(std::string name, std::string description, User user) override { return true; }
 
     void DeleteTask(int taskId) override { }
 
     void ChangeTaskStatus(int taskId, TaskStatus status) override { }
+
+    virtual void GetAllTasksForBoard(int boardId) override { }
 
 private:
     IBoardRepoUptr _boardRepo;
