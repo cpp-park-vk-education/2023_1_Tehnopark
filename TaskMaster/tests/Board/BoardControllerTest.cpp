@@ -20,7 +20,7 @@ public:
 class MockBoardRepo : public BoardRepoInterface
 {
 public:
-    MOCK_METHOD(std::vector<Board>, GetAllTasksForCompany, (int companyId), (override));
+    MOCK_METHOD(std::vector<Board>, GetAllBoardsForProject, (int projectId), (override));
     MOCK_METHOD(bool, CreateBoard, (int projectId, std::string name), (override));
     MOCK_METHOD(bool, DeleteBoard, (int boardId), (override));
 };
@@ -59,7 +59,7 @@ TEST(BoardHandlerTest, DeleteTaskTest)
     boardController.DeleteTask(1);
 }
 
-TEST(BoardHandlerTest, AddTaskToBoardTest)
+TEST(BoardHandlerTest, GetAllTasksForBoardTest)
 {
     auto mockBoardRepo = std::make_unique<MockBoardRepo>();
     auto mockBoardRepoAdr = mockBoardRepo.get();

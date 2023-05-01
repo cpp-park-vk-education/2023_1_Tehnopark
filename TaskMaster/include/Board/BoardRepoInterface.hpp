@@ -8,7 +8,7 @@ class BoardRepoInterface
 public:
     virtual ~BoardRepoInterface() { }
 
-    virtual std::vector<Board> GetAllTasksForCompany(int companyId) = 0;
+    virtual std::vector<Board> GetAllBoardsForProject(int projectId) = 0;
 
     virtual bool CreateBoard(int projectId, std::string name) = 0;
 

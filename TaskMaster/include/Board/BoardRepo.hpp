@@ -11,9 +11,9 @@ public:
 
     ~BoardRepo() { }
 
-    std::vector<Board> GetAllTasksForCompany(int companyId) override;
+    std::vector<Board> GetAllBoardsForProject(int projectId) override { }
 
-    bool CreateBoard(int projectId, std::string name) override;
+    bool CreateBoard(int projectId, std::string name) override { }
 
-    bool DeleteBoard(int boardId) override;
+    bool DeleteBoard(int boardId) override { }
 };
