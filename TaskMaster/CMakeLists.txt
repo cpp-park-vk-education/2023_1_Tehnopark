@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+project(TaskMaster)
 add_library(TaskMaster src/Project/ProjectController.cpp
                         src/Project/ProjectRepo.cpp
                         src/Board/BoardController.cpp
@@ -7,7 +9,7 @@ add_library(TaskMaster src/Project/ProjectController.cpp
                         src/User/UserController.cpp
                         src/User/UserRepo.cpp)
 
-target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User models)
+target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User include/models)
 
 if(BUILD_TESTS)
   add_subdirectory(tests)

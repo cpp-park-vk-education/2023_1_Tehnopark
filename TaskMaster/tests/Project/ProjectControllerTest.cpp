@@ -1,8 +1,10 @@
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include "ProjectHandlerInterface.hpp"
 #include "User.hpp"
 #include "Project.hpp"
 #include "Board.hpp"
-#include "ProjectHandlerInterface.hpp"
+
 
 using namespace testing;
 
