@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <memory>
+#include <string>
 #include "BoardHandlerInterface.hpp"
 #include "TaskRepoInterface.hpp"
 #include "BoardRepoInterface.hpp"
@@ -20,8 +21,8 @@ class MockBoardRepo : public BoardRepoInterface
 {
 public:
     MOCK_METHOD(std::vector<Board>, GetAllTasksForCompany, (int companyId), (override));
-    MOCK_METHOD(bool, AddTaskToBoard, (int boardId, Task task), (override));
-    MOCK_METHOD(bool, DeleteTaskOnBoard, (int taskId), (override));
+    MOCK_METHOD(bool, CreateBoard, (int projectId, std::string name), (override));
+    MOCK_METHOD(bool, DeleteBoard, (int boardId), (override));
 };
 
 TEST(BoardHandlerTest, AddTaskTest)

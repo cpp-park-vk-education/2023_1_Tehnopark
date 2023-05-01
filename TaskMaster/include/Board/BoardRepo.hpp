@@ -13,7 +13,7 @@ public:
 
     std::vector<Board> GetAllTasksForCompany(int companyId) override;
 
-    bool AddTaskToBoard(int boardId, Task task) override;
+    bool CreateBoard(int projectId, std::string name) override;
 
-    bool DeleteTaskOnBoard(int taskId) override;
+    bool DeleteBoard(int boardId) override;
 };

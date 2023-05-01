@@ -10,7 +10,7 @@ public:
 
     virtual std::vector<Board> GetAllTasksForCompany(int companyId) = 0;
 
-    virtual bool AddTaskToBoard(int boardId, Task task) = 0;
+    virtual bool CreateBoard(int projectId, std::string name) = 0;
 
-    virtual bool DeleteTaskOnBoard(int taskId) = 0;
+    virtual bool DeleteBoard(int boardId) = 0;
 };
