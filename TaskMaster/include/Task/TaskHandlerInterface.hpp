@@ -3,10 +3,10 @@
 #include "User.hpp"
 #include "Task.hpp"
 
-class ITaskHandler
+class TaskHandlerInterface
 {
 public:
-    virtual ~ITaskHandler() {}
+    virtual ~TaskHandlerInterface() {}
     bool virtual EditTask(Task newTask) = 0;
     bool virtual CreateTask(std::string name, User user, std::string description) = 0;
 };

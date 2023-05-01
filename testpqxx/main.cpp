@@ -1,6 +1,7 @@
 #include <iostream>
 #include <pqxx/pqxx>
 #include <vector>
+#include <fstream>
 #include <string>
 
 std::vector<std::vector<std::string>> result_to_vector(const pqxx::result &res)
@@ -20,23 +21,25 @@ std::vector<std::vector<std::string>> result_to_vector(const pqxx::result &res)
 
 int main(int argc, char *argv[])
 {
+    setlocale(LC_ALL, "Russian");
     try
     {
         // Создаем объект соединения с БД
-        pqxx::connection conn("dbname=askme user=postgres password=1474 hostaddr=192.168.137.1 port=5432");
+        pqxx::connection conn("hostaddr=95.165.158.58 port=28009 dbname=GraduateDBtest user=umlaut-super password=kT7/Haw~k'dTm2e@");
 
         // Создаем объект транзакции
         pqxx::work txn(conn);
 
         // Выполняем SQL-запрос
-        pqxx::result res = txn.exec("SELECT * FROM askme_answer");
+        pqxx::result res = txn.exec("SELECT Name FROM Locations");
 
         // Обрабатываем результаты запроса
         auto result_vector = result_to_vector(res);
-        
+        std::cout << "debug";
         // выводим все значения ячеек вектора result_vector в консоль
         for (const auto &row : result_vector)
         {
+            
             for (const auto &cell : row)
             {
                 std::cout << cell << " ";
@@ -51,7 +54,17 @@ int main(int argc, char *argv[])
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::ofstream myfile;
+        myfile.open ("example.txt");
+        auto message = e.what();
+        auto ptr = message;
+        while(*ptr)
+        {
+            std::cout << printf("%x",*ptr)<<" ";
+            ptr++;
+        }
+        myfile << e.what();
+        myfile.close();
         return 1;
     }
 

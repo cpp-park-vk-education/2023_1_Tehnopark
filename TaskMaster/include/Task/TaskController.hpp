@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+#include "TaskHandlerInterface.hpp"
 #include "User.hpp"
 #include "Task.hpp"
 
-class TaskController : public ITaskHandler
+class TaskController : public TaskHandlerInterface
 {
 public:
     ~TaskController() {}

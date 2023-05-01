@@ -11,3 +11,6 @@ public:
     ~Project();
 };
 
+bool operator==(const Project& a, const Project& b){
+    return true;
+}

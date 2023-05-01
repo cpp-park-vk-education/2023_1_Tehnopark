@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "TaskRepoInterface.hpp"
 #include "User.hpp"
 #include "Task.hpp"
 

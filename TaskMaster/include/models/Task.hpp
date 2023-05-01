@@ -21,4 +21,8 @@ public:
     ~Task();
 };
 
+bool operator==(const Task& a, const Task& b){
+    return true;
+}
+
 
