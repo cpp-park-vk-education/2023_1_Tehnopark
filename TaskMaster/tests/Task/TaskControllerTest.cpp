@@ -2,12 +2,12 @@
 #include "User.hpp"
 #include "Task.hpp"
 #include "TaskRepoInterface.hpp"
-#include "TaskHandlerInterface.hpp"
+#include "TaskController.hpp"
 
 
 using namespace testing;
 
-class MockTaskHandler : public ITaskRepo
+class MockTaskHandler : public TaskRepoInterface
 {
 public:
     MOCK_METHOD(bool, EditTask, (Task newTask), (override));
@@ -17,11 +17,12 @@ public:
 
 TEST(TaskHandlerTest, EditTaskCorrect)
 {
-    MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    auto mockTaskHandler = std::make_unique<MockTaskHandler>();
+    auto mockTaskHandlerAdr = mockTaskHandler.get();
+    TaskController taskContr;
     Task task = Task(1, 1, "Wash dishes");
 
-    EXPECT_CALL(mockTaskHandler, EditTask(task))
+    EXPECT_CALL(*mockTaskHandlerAdr, EditTask(task))
         .Times(1);
 
     taskContr.EditTask(task);
@@ -29,26 +30,26 @@ TEST(TaskHandlerTest, EditTaskCorrect)
 
 TEST(TaskHandlerTest, EditTaskNoTaskWithSuchId)
 {
-    MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    auto mockTaskHandler = std::make_unique<MockTaskHandler>();
+    auto mockTaskHandlerAdr = mockTaskHandler.get();
+    TaskController taskContr;
     Task task = Task(100, 1, "Wash dishes");
 
-    EXPECT_CALL(mockTaskHandler, EditTask(task))
+    EXPECT_CALL(*mockTaskHandlerAdr, EditTask(task))
         .Times(1);
 
     taskContr.EditTask(task);
 }
 
 
-
-
 TEST(TaskHandlerTest, CreateTaskCorrect)
 {
-    MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    auto mockTaskHandler = std::make_unique<MockTaskHandler>();
+    auto mockTaskHandlerAdr = mockTaskHandler.get();
+    TaskController taskContr;
     User user = User(1, "Kolya");
 
-    EXPECT_CALL(mockTaskHandler, CreateTask("task1", user, "description1"))
+    EXPECT_CALL(*mockTaskHandlerAdr, CreateTask("task1", user, "description1"))
         .Times(1);
 
     taskContr.CreateTask("task1", user, "description1");
