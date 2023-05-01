@@ -34,3 +34,5 @@
 # My
 build*
 *.sh
+
+.vscode*
