@@ -2,7 +2,7 @@
 #include "User.hpp"
 #include "Task.hpp"
 #include "TaskRepoInterface.hpp"
-#include "TaskHandlerInterface.hpp"
+#include "TaskController.hpp"
 
 
 using namespace testing;
@@ -18,7 +18,7 @@ public:
 TEST(TaskHandlerTest, EditTaskCorrect)
 {
     MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    TaskController taskContr;
     Task task = Task(1, 1, "Wash dishes");
 
     EXPECT_CALL(mockTaskHandler, EditTask(task))
@@ -30,7 +30,7 @@ TEST(TaskHandlerTest, EditTaskCorrect)
 TEST(TaskHandlerTest, EditTaskNoTaskWithSuchId)
 {
     MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    TaskController taskContr;
     Task task = Task(100, 1, "Wash dishes");
 
     EXPECT_CALL(mockTaskHandler, EditTask(task))
@@ -43,7 +43,7 @@ TEST(TaskHandlerTest, EditTaskNoTaskWithSuchId)
 TEST(TaskHandlerTest, CreateTaskCorrect)
 {
     MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
+    TaskController taskContr;
     User user = User(1, "Kolya");
 
     EXPECT_CALL(mockTaskHandler, CreateTask("task1", user, "description1"))
