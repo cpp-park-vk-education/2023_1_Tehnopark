@@ -10,3 +10,9 @@ public:
     ~Task();
 };
 
+enum TaskStatus
+{
+    Open,
+    Closed,
+    InProgress
+};

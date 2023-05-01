@@ -4,10 +4,10 @@
 #include "User.hpp"
 #include "Task.hpp"
 
-class ITaskRepo
+class TaskRepoInterface
 {
 public:
-    virtual ~ITaskRepo() {}
+    virtual ~TaskRepoInterface() {}
     bool virtual EditTask(Task newTask) = 0;
     bool virtual CreateTask(std::string name, User user, std::string description) = 0;
     std::vector<Task> virtual GetAllTasksForBoard(int boardId) = 0;

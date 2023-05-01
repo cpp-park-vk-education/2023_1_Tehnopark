@@ -4,7 +4,7 @@
 #include "User.hpp"
 #include "Task.hpp"
 
-class TaskRepo: public TaskRepo
+class TaskRepo: public TaskRepoInterface
 {
 public:
     ~TaskRepo() {}
