@@ -12,6 +12,9 @@ class MockTaskHandler : public TaskRepoInterface
 public:
     MOCK_METHOD(bool, EditTask, (Task newTask), (override));
     MOCK_METHOD(bool, CreateTask, (std::string name, User user, std::string description), (override));
+    MOCK_METHOD(std::vector<Task>, GetAllTasksForBoard,(int boardId), (override));
+    MOCK_METHOD(bool, ChangeTaskStatus,(TaskStatus status, int taskId), (override));
+    MOCK_METHOD(bool, DeleteTask,(int taskId), (override));
 };
 
 
