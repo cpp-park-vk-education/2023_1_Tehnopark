@@ -2,23 +2,27 @@
 #include "BoardHandlerInterface.hpp"
 #include "BoardRepoInterface.hpp"
 #include "TaskRepoInterface.hpp"
+#include <memory>
+
+using IBoardRepoUptr = std::unique_ptr<BoardRepoInterface>;
+using ITaskRepoUptr = std::unique_ptr<TaskRepoInterface>;
 
 class BoardController : BoardHandlerInterface
 {
 public:
-    BoardController(BoardRepoInterface boardRepo, TaskRepoInterface taskRepo): 
-                    _boardRepo(boardRepo), _taskRepo(taskRepo) { }
+    BoardController(IBoardRepoUptr boardRepo, ITaskRepoUptr taskRepo): 
+                    _boardRepo(std::move(boardRepo)), _taskRepo(std::move(taskRepo)) { }
 
     ~BoardController() { }
 
-    std::vector<Board> GetAllTasksForCompany(int companyId) override;
+    bool AddTask(int taskId) override { return true; }
 
-    bool AddTaskToBoard(int boardId, Task task) override;
+    void DeleteTask(int taskId) override { }
 
-    bool DeleteTaskOnBoard(int taskId) override;
+    void ChangeTaskStatus(int taskId, TaskStatus status) override { }
 
 private:
-    BoardRepoInterface _boardRepo;
+    IBoardRepoUptr _boardRepo;
 
-    TaskRepoInterface _taskRepo;
-}
+    ITaskRepoUptr _taskRepo;
+};
