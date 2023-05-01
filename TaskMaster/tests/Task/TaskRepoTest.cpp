@@ -1,8 +1,7 @@
 #include "gmock/gmock.h"
 #include "User.hpp"
 #include "Task.hpp"
-#include "TaskRepoInterface.hpp"
-#include "TaskHandlerInterface.hpp"
+#include "TaskRepo.hpp"
 
 using namespace testing;
 
@@ -11,33 +10,49 @@ TEST(TaskRepoTest, EditTaskCorrect)
     TaskRepo taskContr;
     Task task = Task(1, 1, "Wash dishes");
 
-    EXPECT_CALL(mockTaskHandler, EditTask(task))
-        .Times(1);
+    auto res = taskContr.EditTask(task);
 
-    taskContr.EditTask(task);
+    EXPECT_TRUE(res);
 }
 
-TEST(TaskHandlerTest, EditTaskNoTaskWithSuchId)
+TEST(TaskRepoTest, CreateTaskCorrect)
 {
-    MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
-    Task task = Task(100, 1, "Wash dishes");
+    TaskRepo taskContr;
+    Task task = Task(1, 1, "Wash dishes");
 
-    EXPECT_CALL(mockTaskHandler, EditTask(task))
-        .Times(1);
+    auto res = taskContr.CreateTask(task);
 
-    taskContr.EditTask(task);
+    EXPECT_TRUE(res);
 }
 
-
-TEST(TaskHandlerTest, CreateTaskCorrect)
+TEST(TaskRepoTest, GetAllTasksForBoardCorrect)
 {
-    MockTaskHandler mockTaskHandler;
-    ITaskHandler taskContr;
-    User user = User(1, "Kolya");
+    TaskRepo taskContr;
+    int id = 1;
+    std::vector<Task> expected = {Task(1,1, "Wash dishes"), Task(2,1, "Wash dog")}
 
-    EXPECT_CALL(mockTaskHandler, CreateTask("task1", user, "description1"))
-        .Times(1);
+    auto res = taskContr.GetAllTasksForBoard(id);
 
-    taskContr.CreateTask("task1", user, "description1");
+    EXPECT_EQ(expected, res);
+}
+
+TEST(TaskRepoTest, ChangeTaskStatusCorrect)
+{
+    TaskRepo taskContr;
+    int id = 1;
+    TaskStatus newTaskStat = TaskStatus.Open;
+
+    auto res = taskContr.ChangeTaskStatus(newTaskStat, id);
+
+    EXPECT_TRUE(res);
+}
+
+TEST(TaskRepoTest, DeleteTaskCorrect)
+{
+    TaskRepo taskContr;
+    int id = 1;
+
+    auto res = taskContr.DeleteTask(id);
+
+    EXPECT_TRUE(res);
 }

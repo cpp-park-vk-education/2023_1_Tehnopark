@@ -7,7 +7,7 @@
 
 using namespace testing;
 
-class MockTaskHandler : public ITaskRepo
+class MockTaskHandler : public TaskRepoInterface
 {
 public:
     MOCK_METHOD(bool, EditTask, (Task newTask), (override));
@@ -38,8 +38,6 @@ TEST(TaskHandlerTest, EditTaskNoTaskWithSuchId)
 
     taskContr.EditTask(task);
 }
-
-
 
 
 TEST(TaskHandlerTest, CreateTaskCorrect)
