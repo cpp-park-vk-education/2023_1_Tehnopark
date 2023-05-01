@@ -3,8 +3,11 @@
 class User
 {
 private:
-    /* data */
+
 public:
-    User(unsigned int id, const std::string &userName);
+    std::string first_name;
+    std::string last_name;
+    std::string post;
+    User();
     ~User();
 };

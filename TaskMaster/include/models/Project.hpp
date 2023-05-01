@@ -4,9 +4,10 @@
 class Project
 {
 private:
-    /* data */
+    
 public:
-    Project(int mainUserId, const std::string &projectName);
+    std::string name;
+    Project();
     ~Project();
 };
 

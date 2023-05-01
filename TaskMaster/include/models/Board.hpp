@@ -4,8 +4,10 @@
 class Board
 {
 private:
-    /* data */
+
 public:
-    Board(int projectId, const std::string &boardName);
+    std::string name;
+    std::string description;
+    Board();
     ~Board();
 };
