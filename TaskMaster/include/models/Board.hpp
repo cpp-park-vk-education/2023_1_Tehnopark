@@ -8,6 +8,6 @@ private:
 public:
     std::string name;
     std::string description;
-    Board();
+    Board(int projectId, const std::string &boardName);
     ~Board();
 };

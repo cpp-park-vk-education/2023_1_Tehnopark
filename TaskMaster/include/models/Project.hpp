@@ -7,7 +7,7 @@ private:
     
 public:
     std::string name;
-    Project();
+    Project(int mainUserId, const std::string &projectName);
     ~Project();
 };
 
