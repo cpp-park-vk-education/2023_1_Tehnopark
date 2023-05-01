@@ -9,8 +9,8 @@ class ProjectHandlerInterface
 {
 public:
     virtual ~ProjectHandlerInterface() {}
-    virtual void CreateBoard(int projectId, int mainUserId, const std::string &boardName) = 0;
+    virtual void CreateBoard(int projectId, const std::string &boardName) = 0;
     virtual std::string GetInviteLink(int projectId, int userId) = 0;
     virtual std::vector<User> GetAllUsers(int projectId, int userId) = 0;
-    virtual std::vector<Board> GetAllBoards(int projectId, int userId) = 0;
+    virtual std::vector<Board> GetAllBoards(int projectId) = 0;
 };
