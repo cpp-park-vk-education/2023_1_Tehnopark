@@ -14,5 +14,6 @@ public:
     virtual bool AddBoardToUser(User user, Board board) = 0;
     virtual std::vector<User> GetUsersForBoard(int boardId) = 0;
     virtual std::vector<User> GetUsersForTask(int userId) = 0;
+    virtual std::vector<User> GetUsersForProject(int projectId) = 0;
     virtual std::vector<User> GetUsers() = 0;
 };
