@@ -3,14 +3,10 @@
 
 class Project
 {
-private:
-    
 public:
-    std::string name;
-    Project(int mainUserId, const std::string &projectName);
-    ~Project();
-};
+    Project(int creatorId, const std::string &projectName);
 
-bool operator==(const Project& a, const Project& b){
-    return true;
-}
+private:
+    int _creatorId;
+    std::string _projectName;
+};

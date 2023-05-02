@@ -1,3 +1,0 @@
-ОШИБКА:  отношение "locations" не существует
-LINE 1: SELECT Name FROM Locations
-                         ^

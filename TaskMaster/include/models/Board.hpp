@@ -3,15 +3,12 @@
 
 class Board
 {
-private:
-
 public:
-    std::string name;
-    std::string description;
-    Board(int projectId, const std::string &boardName);
-    ~Board();
-};
+    Board(int projectId, int creatorId, const std::string &name, const std::string &text);
 
-bool operator==(const Board& a, const Board& b){
-    return true;
-}
+private:
+    int _projectId;
+    int _creatorId;
+    std::string _name;
+    std::string _text;
+};

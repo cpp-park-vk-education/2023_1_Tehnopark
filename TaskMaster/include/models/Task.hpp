@@ -10,19 +10,12 @@ enum TaskStatus
 
 class Task
 {
-private:
-    /* data */
 public:
-    std::string name;
-    std::string description;
-    TaskStatus status;
-
     Task(int projectId, int boardId, const std::string &taskName);
-    ~Task();
+
+private:
+    int _projectId; 
+    int _boardId; 
+    std::string _taskName;
+    TaskStatus _status;
 };
-
-bool operator==(const Task& a, const Task& b){
-    return true;
-}
-
-
