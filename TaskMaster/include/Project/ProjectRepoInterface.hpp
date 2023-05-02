@@ -7,7 +7,7 @@ class ProjectRepoInterface
 public:
     virtual ~ProjectRepoInterface() {}
     virtual Project GetProjectById(int projectId) = 0;
-    virtual void CreateProject(int userId) = 0;
+    virtual void CreateProject(int userId, const std::string &projectName) = 0;
     virtual void RemoveProjectById(int projectId) = 0;
     virtual void UpdateProject(const Project& project) = 0;
 };

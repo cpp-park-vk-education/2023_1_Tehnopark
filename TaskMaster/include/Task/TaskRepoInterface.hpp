@@ -8,7 +8,7 @@ class TaskRepoInterface
 {
 public:
     virtual ~TaskRepoInterface() {}
-    virtual bool EditTask(Task newTask) = 0;
+    virtual bool EditTask(const Task& newTask) = 0;
     virtual bool CreateTask(int projectId, int boardId, const std::string &taskName, const std::string &text) = 0;
     virtual std::vector<Task> GetAllTasksForBoard(int boardId) = 0;
     virtual bool ChangeTaskStatus(TaskStatus status, int taskId) = 0;

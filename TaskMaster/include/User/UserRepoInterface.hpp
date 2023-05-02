@@ -9,9 +9,9 @@ class UserRepoInterface
 {
 public:
     virtual ~UserRepoInterface() {}
-    virtual bool EditUser(User user) = 0;
-    virtual bool AddTaskToUser(User user, Task task) = 0;
-    virtual bool AddBoardToUser(User user, Board board) = 0;
+    virtual bool EditUser(const User& user) = 0;
+    virtual bool AddTaskToUser(const User& user, const Task& task) = 0;
+    virtual bool AddBoardToUser(const User& user, const Board& board) = 0;
     virtual std::vector<User> GetUsersForBoard(int boardId) = 0;
     virtual std::vector<User> GetUsersForTask(int userId) = 0;
     virtual std::vector<User> GetUsersForProject(int projectId) = 0;

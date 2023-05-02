@@ -7,5 +7,5 @@ class TaskHandlerInterface
 {
 public:
     virtual ~TaskHandlerInterface() {}
-    virtual bool EditTask(Task newTask) = 0;
+    virtual bool EditTask(const Task& newTask) = 0;
 };
