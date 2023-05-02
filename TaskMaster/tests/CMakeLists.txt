@@ -8,6 +8,8 @@ add_executable(TaskMasterTest   Project/ProjectControllerTest.cpp Project/Projec
                               
 find_package(GTest REQUIRED)
 
+target_include_directories(TaskMasterTest PUBLIC .)
+
 target_link_libraries(TaskMasterTest TaskMaster
                                  GTest::gtest_main)
                                             
