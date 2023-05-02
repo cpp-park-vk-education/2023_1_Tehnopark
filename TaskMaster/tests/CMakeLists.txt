@@ -1,5 +1,4 @@
-add_executable(TaskMasterTest   Project/ProjectControllerTest.cpp 
-                                Project/ProjectRepoTest.cpp 
+add_executable(TaskMasterTest   Project/ProjectControllerTest.cpp Project/ProjectRepoTest.cpp 
                                 Board/BoardControllerTest.cpp
                                 Board/BoardRepoTest.cpp
                                 Task/TaskControllerTest.cpp

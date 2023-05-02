@@ -7,7 +7,12 @@ add_library(TaskMaster src/Project/ProjectController.cpp
                         src/Task/TaskController.cpp
                         src/Task/TaskRepo.cpp
                         src/User/UserController.cpp
-                        src/User/UserRepo.cpp)
+                        src/User/UserRepo.cpp
+                        src/models/User.cpp
+                        src/models/Task.cpp
+                        src/models/Board.cpp
+                        src/models/Project.cpp
+                        src/DbDriver/DbDriver.cpp)
 
 target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver)
 

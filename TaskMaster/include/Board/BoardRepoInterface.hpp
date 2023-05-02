@@ -7,10 +7,7 @@ class BoardRepoInterface
 {
 public:
     virtual ~BoardRepoInterface() { }
-
     virtual std::vector<Board> GetAllBoardsForProject(int projectId) = 0;
-
-    virtual bool CreateBoard(int projectId, std::string name) = 0;
-
+    virtual bool CreateBoard(int projectId, int creatorId, const std::string &name, const std::string &text) = 0;
     virtual bool DeleteBoard(int boardId) = 0;
 };
