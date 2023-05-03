@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "ProjectHandlerInterface.hpp"
 #include "ProjectRepoInterface.hpp"
 #include "BoardRepoInterface.hpp"
+#include "UserRepoInterface.hpp"
 #include "ProjectController.hpp"
 #include "User.hpp"
 #include "Project.hpp"
@@ -10,12 +10,22 @@
 
 using namespace testing;
 
+class ProjectControllerTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+    }
+
+    void TearDown() override {
+    }
+};
+
 class MockProjectRepo : public ProjectRepoInterface
 {
 public:
     MOCK_METHOD(Project, GetProjectById, (int projectId), (override));
     MOCK_METHOD(void, CreateProject, (int userId, const std::string &projectName), (override));
     MOCK_METHOD(void, RemoveProjectById, (int projectId), (override));
+    MOCK_METHOD(void, AddUserToProject, (int projectId, const std::string &userName), (override));
     MOCK_METHOD(void, UpdateProject, (const Project& project), (override));
 };
 
@@ -23,187 +33,140 @@ class MockBoardRepo : public BoardRepoInterface
 {
 public:
     MOCK_METHOD(std::vector<Board>, GetAllBoardsForProject, (int projectId), (override));
-    MOCK_METHOD(bool, CreateBoard, (int projectId, int creatorId, const std::string &name, const std::string &text), (override));
+    MOCK_METHOD(bool, CreateBoard, (int projectId, int creatorId, const std::string &name), (override));
     MOCK_METHOD(bool, DeleteBoard, (int boardId), (override));
+};
+
+class MockUserRepo : public UserRepoInterface
+{
+public:
+    MOCK_METHOD(bool, EditUser, (const User& user), (override));
+    MOCK_METHOD(bool, AddTaskToUser, (const User& user, const Task& task), (override));
+    MOCK_METHOD(bool, AddBoardToUser, (const User& user, const Board& board), (override));
+    MOCK_METHOD(std::vector<User>, GetUsersForBoard, (int boardId), (override));
+    MOCK_METHOD(std::vector<User>, GetUsersForTask, (int userId), (override));
+    MOCK_METHOD(std::vector<User>, GetUsersForProject, (int projectId), (override));
+    MOCK_METHOD(std::vector<User>, GetUsers, (), (override));
 };
 
 /* Correct data */
 
-TEST(ProjectHandlerTest, CreateBoardTest)
+TEST_F(ProjectControllerTest, CreateBoardTest)
 {
-    // MockProjectHandler mockProjectHandler;
+    int projectId = 1;
+    std::string boardName = "TestBoard";
+    MockBoardRepo mockBoardRepo;
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, _, boardName));
+    std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
+    ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
-    // EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "Test Board"))
-    //     .Times(1);
-
-    // mockProjectHandler.CreateBoard(1, 2, "Test Board");
+    projectController.CreateBoard(1, projectId, boardName);
 }
 
-TEST(ProjectHandlerTest, GetInviteLinkTest)
+TEST_F(ProjectControllerTest, AddUserTest)
 {
-    // EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 2))
-    //     .WillOnce(Return("https://example.com/invite/1"));
+    int projectId = 1;
+    std::string userName = "Maxim";
+    MockProjectRepo mockProjecRepo;
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
+    ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
-    // std::string link = mockProjectHandler.GetInviteLink(1, 2);
-    // ASSERT_EQ(link, "https://example.com/invite/1");
+    projectController.AddUser(projectId, userName);
 }
 
-TEST(ProjectHandlerTest, GetAllUsersTest)
+TEST_F(ProjectControllerTest, GetAllUsersTest)
 {
-    // MockProjectHandler mockProjectHandler;
-    // std::vector<User> users = {
-    //     User(1, "Alice"),
-    //     User(2, "Bob")};
+    int projectId = 1;
+    MockUserRepo mockUserRepo;
+    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId));
+    std::unique_ptr<UserRepoInterface> userRepo = std::make_unique<MockUserRepo>();
+    ProjectController projectController(nullptr, nullptr, std::move(userRepo));
 
-    // EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
-    //     .WillOnce(Return(users));
-
-    // std::vector<User> returnedUsers = mockProjectHandler.GetAllUsers(1, 2);
-    // ASSERT_EQ(returnedUsers, users);
+    projectController.GetAllUsers(projectId);
 }
 
-TEST(ProjectHandlerTest, GetAllBoardsTest)
+TEST_F(ProjectControllerTest, GetAllBoardsTest)
 {
-    auto mockProjectRepo = std::make_unique<MockProjectRepo>();
-    auto mockProjectRepoAdr = mockProjectRepo.get();
-    auto mockBoardRepo = std::make_unique<MockBoardRepo>();
-    auto mockBoardRepoAdr = mockBoardRepo.get();
-    
-    ProjectController projectController(std::move(mockProjectRepo), std::move(mockBoardRepo));
-    EXPECT_CALL(*mockBoardRepoAdr, GetAllBoardsForProject(1));
-    auto bords = projectController.GetAllBoards(1);
+    int projectId = 1;
+    MockBoardRepo mockBoardRepo;
+    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId));
+    std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
+    ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
+
+    projectController.GetAllBoards(projectId);
 }
 
 /* Incorrect data*/
 
-// TEST(ProjectHandlerTest, CreateBoardEmptyBoardNameTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST_F(ProjectControllerTest, CreateBoardEmptyBoardNameTest)
+{
+    int userId = 1;
+    int projectId = 1;
+    std::string boardName = "";
+    MockBoardRepo mockBoardRepo;
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName));
+    std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
+    ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+    ASSERT_THROW(projectController.CreateBoard(userId, projectId, boardName), std::invalid_argument);
+}
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, ""), std::invalid_argument);
-// }
+TEST_F(ProjectControllerTest, CreateBoardNegativeProjectIdTest)
+{
+    int userId = 1;
+    int projectId = -1;
+    std::string boardName = "Board Name";
+    MockBoardRepo mockBoardRepo;
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName));
+    std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
+    ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
-// TEST(ProjectHandlerTest, CreateBoardNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+    ASSERT_THROW(projectController.CreateBoard(userId, projectId, boardName), std::invalid_argument);
+}
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+TEST_F(ProjectControllerTest, AddUserNegativeProjectIdTest)
+{
+    int projectId = -1;
+    std::string userName = "Maxim";
+    MockProjectRepo mockProjecRepo;
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
+    ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(-1, 2, "Test Board"), std::invalid_argument);
-// }
+    ASSERT_THROW(projectController.AddUser(projectId, userName), std::invalid_argument);
+}
 
-// TEST(ProjectHandlerTest, CreateBoardNegativeMainUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+TEST_F(ProjectControllerTest, AddUserEmptyUserNameIdTest)
+{
+    int projectId = 1;
+    std::string userName = "";
+    MockProjectRepo mockProjecRepo;
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
+    ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(_, _, _))
-//         .Times(0);
+    ASSERT_THROW(projectController.AddUser(projectId, userName), std::invalid_argument);
+}
 
-//     ASSERT_THROW(mockProjectHandler.CreateBoard(1, -2, "Test Board"), std::invalid_argument);
-// }
+TEST_F(ProjectControllerTest, GetAllUsersNegativeProjectIdTest)
+{
+    int projectId = -1;
+    MockUserRepo mockUserRepo;
+    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId));
+    std::unique_ptr<UserRepoInterface> userRepo = std::make_unique<MockUserRepo>();
+    ProjectController projectController(nullptr, nullptr, std::move(userRepo));
 
-// TEST(ProjectHandlerTest, GetInviteLinkNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
+    ASSERT_THROW(projectController.GetAllUsers(projectId), std::invalid_argument);
+}
 
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
-//         .Times(0);
+TEST_F(ProjectControllerTest, GetAllBoardsNegativeProjectIdTest)
+{
+    int projectId = -1;
+    MockBoardRepo mockBoardRepo;
+    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId));
+    std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
+    ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(-1, 1), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, GetInviteLinkNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(_, _))
-//         .Times(0);
-
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(1, -1), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, GetAllUsersNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
-//         .Times(0);
-
-//     ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, GetAllUsersNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(_, _))
-//         .Times(0);
-
-//     ASSERT_THROW(mockProjectHandler.GetAllUsers(-1, 2), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, GetAllBoardsNegativeProjectIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
-//         .Times(0);
-
-//     ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, GetAllBoardsNegativeUserIdTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(_, _))
-//         .Times(0);
-
-//     ASSERT_THROW(mockProjectHandler.GetAllBoards(-1, 2), std::invalid_argument);
-// }
-
-// /* Incorrect logic*/
-
-// TEST(ProjectHandlerTest, GetInviteLinkNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetInviteLink(1, 3))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
-
-//     ASSERT_THROW(mockProjectHandler.GetInviteLink(1, 3), std::invalid_argument);
-// }
-
-// TEST(ProjectHandlerTest, CreateBoardNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, CreateBoard(1, 2, "New Board"))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
-
-//     EXPECT_THROW(mockProjectHandler.CreateBoard(1, 2, "New Board"), std::runtime_error);
-// }
-
-// TEST(ProjectHandlerTest, GetAllUsersNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllUsers(1, 2))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
-
-//     EXPECT_THROW(mockProjectHandler.GetAllUsers(1, 2), std::runtime_error);
-// }
-
-// TEST(ProjectHandlerTest, GetAllBoardsNotBelongingUserTest)
-// {
-//     MockProjectHandler mockProjectHandler;
-
-//     EXPECT_CALL(mockProjectHandler, GetAllBoards(1, 2))
-//         .WillOnce(Throw(std::runtime_error("User does not belong to project")));
-
-//     EXPECT_THROW(mockProjectHandler.GetAllBoards(1, 2), std::runtime_error);
-// }
+    ASSERT_THROW(projectController.GetAllBoards(projectId), std::invalid_argument);
+}
