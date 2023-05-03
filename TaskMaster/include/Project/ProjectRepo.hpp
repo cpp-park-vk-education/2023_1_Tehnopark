@@ -1,15 +1,21 @@
 #pragma once
+#include <memory>
+#include "DbDriverInterface.hpp"
 #include "ProjectRepoInterface.hpp"
 #include "Project.hpp"
-#include "Board.hpp"
+
+using DbDriverSPtr = std::shared_ptr<DbDriverInterface>;
 
 class ProjectRepo : ProjectRepoInterface
 {
 public:
-    ProjectRepo();
-    virtual ~ProjectRepo();
-    virtual Project GetProjectById(int projectId);
-    virtual void CreateProject(int userId);
-    virtual void RemoveProjectById(int projectId);
-    virtual void UpdateProject(const Project& project);
+    ProjectRepo(DbDriverSPtr dr);
+    Project GetProjectById(int projectId) override;
+    bool CreateProject(int userId, const std::string &projectName) override;
+    bool RemoveProjectById(int projectId) override;
+    bool AddUserToProject(int projectId, const std::string &userName) override;
+    bool UpdateProject(const Project& project) override;
+
+private:
+    DbDriverSPtr dr_;
 };

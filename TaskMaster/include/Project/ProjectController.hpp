@@ -25,7 +25,7 @@ public:
     std::vector<Board> GetAllBoards(int projectId) override;
 
 private:
-    IProjectRepoUptr _projectRepo;
-    IBoardRepoUptr _boardRepo;
-    IUserRepoUptr _userRepo;
+    IProjectRepoUptr projectRepo_;
+    IBoardRepoUptr boardRepo_;
+    IUserRepoUptr userRepo_;
 };

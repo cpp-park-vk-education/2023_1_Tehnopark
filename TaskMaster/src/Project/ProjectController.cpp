@@ -1,7 +1,7 @@
 #include "ProjectController.hpp"
 
 ProjectController::ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUptr boardRepo, IUserRepoUptr userRepo) : 
-    _projectRepo(std::move(projectRepo)), _boardRepo(std::move(boardRepo)), _userRepo(std::move(userRepo)) {}
+    projectRepo_(std::move(projectRepo)), boardRepo_(std::move(boardRepo)), userRepo_(std::move(userRepo)) {}
 ProjectController::~ProjectController() {}
 
 void ProjectController::CreateBoard(int projectId, int creatorId, const std::string &boardName)

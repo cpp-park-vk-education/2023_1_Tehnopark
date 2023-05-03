@@ -8,7 +8,6 @@
 #include "Project.hpp"
 #include "Board.hpp"
 
-using namespace testing;
 
 class ProjectControllerTest : public ::testing::Test {
 protected:
@@ -23,10 +22,10 @@ class MockProjectRepo : public ProjectRepoInterface
 {
 public:
     MOCK_METHOD(Project, GetProjectById, (int projectId), (override));
-    MOCK_METHOD(void, CreateProject, (int userId, const std::string &projectName), (override));
-    MOCK_METHOD(void, RemoveProjectById, (int projectId), (override));
-    MOCK_METHOD(void, AddUserToProject, (int projectId, const std::string &userName), (override));
-    MOCK_METHOD(void, UpdateProject, (const Project& project), (override));
+    MOCK_METHOD(bool, CreateProject, (int userId, const std::string &projectName), (override));
+    MOCK_METHOD(bool, RemoveProjectById, (int projectId), (override));
+    MOCK_METHOD(bool, AddUserToProject, (int projectId, const std::string &userName), (override));
+    MOCK_METHOD(bool, UpdateProject, (const Project& project), (override));
 };
 
 class MockBoardRepo : public BoardRepoInterface
@@ -53,14 +52,16 @@ public:
 
 TEST_F(ProjectControllerTest, CreateBoardTest)
 {
+    int userId = 1;
     int projectId = 1;
     std::string boardName = "TestBoard";
     MockBoardRepo mockBoardRepo;
-    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, _, boardName));
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
     ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
-    projectController.CreateBoard(1, projectId, boardName);
+    projectController.CreateBoard(projectId, userId, boardName);
 }
 
 TEST_F(ProjectControllerTest, AddUserTest)
@@ -68,7 +69,8 @@ TEST_F(ProjectControllerTest, AddUserTest)
     int projectId = 1;
     std::string userName = "Maxim";
     MockProjectRepo mockProjecRepo;
-    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
     ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
@@ -79,7 +81,8 @@ TEST_F(ProjectControllerTest, GetAllUsersTest)
 {
     int projectId = 1;
     MockUserRepo mockUserRepo;
-    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId));
+    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<UserRepoInterface> userRepo = std::make_unique<MockUserRepo>();
     ProjectController projectController(nullptr, nullptr, std::move(userRepo));
 
@@ -90,7 +93,8 @@ TEST_F(ProjectControllerTest, GetAllBoardsTest)
 {
     int projectId = 1;
     MockBoardRepo mockBoardRepo;
-    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId));
+    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
     ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
@@ -105,7 +109,8 @@ TEST_F(ProjectControllerTest, CreateBoardEmptyBoardNameTest)
     int projectId = 1;
     std::string boardName = "";
     MockBoardRepo mockBoardRepo;
-    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName));
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
     ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
@@ -118,7 +123,8 @@ TEST_F(ProjectControllerTest, CreateBoardNegativeProjectIdTest)
     int projectId = -1;
     std::string boardName = "Board Name";
     MockBoardRepo mockBoardRepo;
-    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName));
+    EXPECT_CALL(mockBoardRepo, CreateBoard(projectId, userId, boardName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
     ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
@@ -130,7 +136,8 @@ TEST_F(ProjectControllerTest, AddUserNegativeProjectIdTest)
     int projectId = -1;
     std::string userName = "Maxim";
     MockProjectRepo mockProjecRepo;
-    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
     ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
@@ -142,7 +149,8 @@ TEST_F(ProjectControllerTest, AddUserEmptyUserNameIdTest)
     int projectId = 1;
     std::string userName = "";
     MockProjectRepo mockProjecRepo;
-    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName));
+    EXPECT_CALL(mockProjecRepo, AddUserToProject(projectId, userName))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<ProjectRepoInterface> projectRepo = std::make_unique<MockProjectRepo>();
     ProjectController projectController(std::move(projectRepo), nullptr, nullptr);
 
@@ -153,7 +161,8 @@ TEST_F(ProjectControllerTest, GetAllUsersNegativeProjectIdTest)
 {
     int projectId = -1;
     MockUserRepo mockUserRepo;
-    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId));
+    EXPECT_CALL(mockUserRepo, GetUsersForProject(projectId))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<UserRepoInterface> userRepo = std::make_unique<MockUserRepo>();
     ProjectController projectController(nullptr, nullptr, std::move(userRepo));
 
@@ -164,7 +173,8 @@ TEST_F(ProjectControllerTest, GetAllBoardsNegativeProjectIdTest)
 {
     int projectId = -1;
     MockBoardRepo mockBoardRepo;
-    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId));
+    EXPECT_CALL(mockBoardRepo, GetAllBoardsForProject(projectId))
+        .Times(testing::AtLeast(1));
     std::unique_ptr<BoardRepoInterface> boardRepo = std::make_unique<MockBoardRepo>();
     ProjectController projectController(nullptr, std::move(boardRepo), nullptr);
 
