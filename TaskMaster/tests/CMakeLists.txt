@@ -6,14 +6,11 @@ add_executable(TaskMasterTest   Project/ProjectControllerTest.cpp Project/Projec
                                 User/UserControllerTest.cpp
                                 User/UserRepoTest.cpp)
                               
-find_package(GTest REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
 target_link_libraries(TaskMasterTest TaskMaster
-                                 GTest::gtest_main
-                                 GTest::gmock)
+                                 GTest::gtest_main GTest::gmock)
                                  
 target_include_directories(TaskMasterTest PUBLIC .)
-                                            
- include(GoogleTest)
 
 add_test(TaskMasterTest TaskMasterTest)
