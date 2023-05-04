@@ -8,4 +8,6 @@ class TaskHandlerInterface
 public:
     virtual ~TaskHandlerInterface() {}
     virtual bool EditTask(const Task& newTask) = 0;
+    virtual bool CreateTask(const Task& Task) = 0;
+    virtual bool DeleteTask(int taskId) = 0;
 };
