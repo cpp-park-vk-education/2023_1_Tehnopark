@@ -2,6 +2,7 @@
 #include <string>
 #include "Task.hpp"
 #include "User.hpp"
+#include "Project.hpp"
 
 class BoardHandlerInterface
 {
