@@ -94,3 +94,58 @@ TEST_F(ProjectRepoTest, UpdateProjectTest){
     EXPECT_TRUE(result);
 }
 
+/* Incorrect data*/
+
+TEST_F(ProjectRepoTest, GetProjectByIdInvalidIdTest){
+    int projectId = -1;
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.GetProjectById(projectId), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, CreateProjectInvalidIdTest){
+    int userId = -1;
+    std::string projectName = "Project 1";
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.CreateProject(userId, projectName), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, CreateProjectInvalidProjectNameTest){
+    int userId = 1;
+    std::string projectName = "";
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.CreateProject(userId, projectName), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, RemoveProjectByIdInvalidIdTest){
+    int projectId = -1;
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.RemoveProjectById(projectId), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, AddUserToProjectInvalidIdTest){
+    int projectId = -1;
+    std::string userName = "Max";
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.AddUserToProject(projectId, userName), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, AddUserToProjectInvalidUserNameTest){
+    int projectId = 1;
+    std::string userName = "";
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.AddUserToProject(projectId, userName), std::runtime_error);
+}
+
+TEST_F(ProjectRepoTest, UpdateProjectInvalidProjectIdTest){
+    Project project(1, "");
+    DbDriverMock dbDriverMock;
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    ProjectRepo projectRepo(dbDriver);
+    EXPECT_THROW(projectRepo.UpdateProject(project), std::runtime_error);
+}
