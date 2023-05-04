@@ -4,6 +4,7 @@
 #include "ProjectRepoInterface.hpp"
 #include "ProjectRepo.hpp"
 #include "Project.hpp"
+#include "User.hpp"
 #include "DbDriverMock.hpp"
 
 class ProjectRepoTest : public ::testing::Test {
@@ -23,7 +24,7 @@ TEST_F(ProjectRepoTest, GetProjectByIdTest){
     EXPECT_CALL(dbDriverMock, Connected())
         .Times(testing::AtLeast(1))
         .WillRepeatedly(testing::Return(true));
-    std::shared_ptr<DbDriverMock> dbDriver = std::make_shared<DbDriverMock>();
+    auto dbDriver = std::make_shared<DbDriverMock>();
     std::string expectedSqlQuery = "SELECT * FROM projects WHERE id = " + std::to_string(projectId) + ";";
     EXPECT_CALL(dbDriverMock, Exec(expectedSqlQuery))
         .WillRepeatedly(testing::Return(std::vector<std::vector<std::string>>{}));
@@ -38,12 +39,13 @@ TEST_F(ProjectRepoTest, CreateProjectTest){
     EXPECT_CALL(dbDriverMock, Connected())
         .Times(testing::AtLeast(1))
         .WillRepeatedly(testing::Return(true));
-    std::shared_ptr<DbDriverMock> dbDriver = std::make_shared<DbDriverMock>();
+    auto dbDriver = std::make_shared<DbDriverMock>();
     std::string expectedSqlQuery = "INSERT INTO projects VALUES ( " + std::to_string(userId) + ", " + projectName + ");";
     EXPECT_CALL(dbDriverMock, Exec(expectedSqlQuery))
         .WillRepeatedly(testing::Return(std::vector<std::vector<std::string>>{}));
     ProjectRepo projectRepo(dbDriver);
-    projectRepo.CreateProject(userId, projectName);
+    bool result = projectRepo.CreateProject(userId, projectName);
+    EXPECT_TRUE(result);
 }
 
 TEST_F(ProjectRepoTest, RemoveProjectByIdTest){
@@ -52,14 +54,30 @@ TEST_F(ProjectRepoTest, RemoveProjectByIdTest){
     EXPECT_CALL(dbDriverMock, Connected())
         .Times(testing::AtLeast(1))
         .WillRepeatedly(testing::Return(true));
-    std::shared_ptr<DbDriverMock> dbDriver = std::make_shared<DbDriverMock>();
+    auto dbDriver = std::make_shared<DbDriverMock>();
     std::string expectedSqlQuery = "DELETE * FROM projects WHERE id = " + std::to_string(projectId) + ";";
     EXPECT_CALL(dbDriverMock, Exec(expectedSqlQuery))
         .WillRepeatedly(testing::Return(std::vector<std::vector<std::string>>{}));
     ProjectRepo projectRepo(dbDriver);
-    projectRepo.GetProjectById(projectId);
+    bool result = projectRepo.RemoveProjectById(projectId);
+    EXPECT_TRUE(result);
 }
-//AddUserToProject ?
+
+TEST_F(ProjectRepoTest, AddUserToProjecTest){
+    int projectId = 1;
+    std::string userName = "Max";
+    DbDriverMock dbDriverMock;
+    EXPECT_CALL(dbDriverMock, Connected())
+        .Times(testing::AtLeast(1))
+        .WillRepeatedly(testing::Return(true));
+    auto dbDriver = std::make_shared<DbDriverMock>();
+    std::string expectedSqlQuery = "INSERT INTO projects_users VALUES ( " + std::to_string(projectId) + ", " + userName + ");";
+    EXPECT_CALL(dbDriverMock, Exec(expectedSqlQuery))
+        .WillRepeatedly(testing::Return(std::vector<std::vector<std::string>>{}));
+    ProjectRepo projectRepo(dbDriver);
+    bool result = projectRepo.AddUserToProject(projectId, userName);
+    EXPECT_TRUE(result);
+}
 
 TEST_F(ProjectRepoTest, UpdateProjectTest){
     Project project(1, "Project Name");
@@ -67,11 +85,12 @@ TEST_F(ProjectRepoTest, UpdateProjectTest){
     EXPECT_CALL(dbDriverMock, Connected())
         .Times(testing::AtLeast(1))
         .WillRepeatedly(testing::Return(true));
-    std::shared_ptr<DbDriverMock> dbDriver = std::make_shared<DbDriverMock>();
+    auto dbDriver = std::make_shared<DbDriverMock>();
     std::string expectedSqlQuery = "UPDATE projects SET name = " + project.ProjectName + "WHERE name = " + project.ProjectName + ";";
     EXPECT_CALL(dbDriverMock, Exec(expectedSqlQuery))
         .WillRepeatedly(testing::Return(std::vector<std::vector<std::string>>{}));
     ProjectRepo projectRepo(dbDriver);
-    projectRepo.UpdateProject(project);
+    bool result = projectRepo.UpdateProject(project);
+    EXPECT_TRUE(result);
 }
 
