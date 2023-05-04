@@ -4,8 +4,8 @@
 class User
 {
 private:
-    size_t _id;
 public:
     User(const std::string &userName);
+    size_t Id;
     std::string UserName;
 };

@@ -5,6 +5,7 @@ class Project
 {
 public:
     Project(int creatorId, const std::string &projectName);
-    int CreatorId;
+    size_t Id;
+    size_t CreatorId;
     std::string ProjectName;
 };
