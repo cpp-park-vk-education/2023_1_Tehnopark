@@ -2,20 +2,7 @@
 #include "string"
 #include "ProjectRepo.hpp"
 #include "DbDriver.hpp"
-
-std::vector<Project> serializationProject(const std::vector<std::vector<std::string>> &answer)
-{
-    std::vector<Project> result;
-    for (const auto &data : answer)
-    {
-        Project project;
-        project.Id = std::stoi(data[0]);
-        project.Name = data[1];
-        project.CreatorId = std::stoi(data[2]);
-        result.push_back(project);
-    }
-    return result;
-}
+#include "Serialization.hpp"
 
 ProjectRepo::ProjectRepo(){}
 ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
