@@ -14,12 +14,12 @@ using IProjectRepoUptr = std::unique_ptr<ProjectRepoInterface>;
 using IBoardRepoUptr = std::unique_ptr<BoardRepoInterface>;
 using IUserRepoUptr = std::unique_ptr<UserRepoInterface>;
 
-class ProjectController : ProjectHandlerInterface
+class ProjectController : public ProjectHandlerInterface
 {
 public:
     ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUptr boardRepo, IUserRepoUptr userRepo);
     ~ProjectController();
-    void CreateBoard(int projectId, int creatorId, const std::string &boardName) override;
+    void CreateBoard(int projectId, int creatorId, const std::string &boardName, const std::string &text) override;
     void AddUser(int projectId, const std::string &userName) override;
     std::vector<User> GetAllUsers(int projectId) override;
     std::vector<Board> GetAllBoards(int projectId) override;

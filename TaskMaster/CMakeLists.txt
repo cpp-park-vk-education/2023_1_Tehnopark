@@ -12,9 +12,11 @@ add_library(TaskMaster src/Project/ProjectController.cpp
                         src/models/Task.cpp
                         src/models/Board.cpp
                         src/models/Project.cpp
-                        src/DbDriver/DbDriver.cpp)
+                        src/DbDriver/DbDriver.cpp
+                        src/MainPadge/MainPadgeController.cpp
+                        )
 
-target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver)
+target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver include/MainPadge)
 
 if(BUILD_TESTS)
   add_subdirectory(tests)

@@ -9,3 +9,11 @@ if(BUILD_TESTS)
 endif()
 
 add_subdirectory(TaskMaster)
+add_executable(main src/main.cpp)
+
+find_package(PostgreSQL REQUIRED)
+
+include_directories(TaskMaster/include)
+target_link_libraries(main TaskMaster)
+
+target_link_libraries(main pqxx pq ${PostgreSQL_LIBRARIES})

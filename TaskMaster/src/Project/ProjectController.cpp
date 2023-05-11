@@ -4,7 +4,7 @@ ProjectController::ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUpt
     projectRepo_(std::move(projectRepo)), boardRepo_(std::move(boardRepo)), userRepo_(std::move(userRepo)) {}
 ProjectController::~ProjectController() {}
 
-void ProjectController::CreateBoard(int projectId, int creatorId, const std::string &boardName)
+void ProjectController::CreateBoard(int projectId, int creatorId, const std::string &boardName, const std::string &text)
 {
 }
 void ProjectController::AddUser(int projectId, const std::string &userName)
