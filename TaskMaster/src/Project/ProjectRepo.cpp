@@ -42,6 +42,7 @@ bool ProjectRepo::RemoveProjectById(size_t projectId)
 
 bool ProjectRepo::AddUserToProject(size_t projectId, const std::string &userName)
 {
+    // dr_->Exec("INSERT INTO db_project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
     return true;
 }
 

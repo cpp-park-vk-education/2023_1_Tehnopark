@@ -19,7 +19,7 @@ class ProjectController : public ProjectHandlerInterface
 public:
     ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUptr boardRepo, IUserRepoUptr userRepo);
     ~ProjectController();
-    void CreateBoard(size_t projectId, size_t creatorId, const std::string &boardName, const std::string &text) override;
+    void CreateBoard(size_t projectId, size_t creatorId, const std::string &boardName) override;
     void AddUser(size_t projectId, const std::string &userName) override;
     std::vector<User> GetAllUsers(size_t projectId) override;
     std::vector<Board> GetAllBoards(size_t projectId) override;
