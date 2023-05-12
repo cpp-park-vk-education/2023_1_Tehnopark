@@ -1,30 +1,26 @@
 #include "Serialization.hpp"
 
-std::vector<Project> serializationProject(const std::vector<std::vector<std::string>> &answer)
+Project serializationProject(const std::vector<std::string> &answer)
 {
-    std::vector<Project> result;
-    for (const auto &data : answer)
-    {
-        Project project;
-        project.Id = std::stoi(data[0]);
-        project.Name = data[1];
-        project.CreatorId = std::stoi(data[2]);
-        result.push_back(project);
-    }
-    return result;
+    Project project;
+    project.Id = std::stoi(answer[0]);
+    project.Name = answer[1];
+    project.CreatorId = std::stoi(answer[2]);
+
+    return project;
 }
 
-std::vector<Board> serializationBoard(const std::vector<std::vector<std::string>> &answer)
+Board serializationBoard(const std::vector<std::string> &answer)
 {
-    return std::vector<Board>();
+    return Board();
 }
 
-std::vector<User> serializationUser(const std::vector<std::vector<std::string>> &answer)
+User serializationUser(const std::vector<std::string> &answer)
 {
-    return std::vector<User>();
+    return User();
 }
 
-std::vector<Task> serializationTask(const std::vector<std::vector<std::string>> &answer)
+Task serializationTask(const std::vector<std::string> &answer)
 {
-    return std::vector<Task>();
+    return Task();
 }

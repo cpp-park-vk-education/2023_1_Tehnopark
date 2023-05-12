@@ -15,5 +15,9 @@ int main()
     {
         std::cout << project.Name << std::endl;
     }
+    Project pr = mp.GetProjectById(7);
+    std::cout << pr.Name << std::endl;
+    // mp.CreateProject(2, "CreateUest");
+    
     return 0;
 }

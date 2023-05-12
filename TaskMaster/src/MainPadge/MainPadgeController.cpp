@@ -10,10 +10,10 @@ std::vector<Project> MainPadgeController::GetUserProjects(int userId)
 
 Project MainPadgeController::GetProjectById(int projectId)
 {
-    return Project();
+    return projectRepo_->GetProjectById(projectId);
 }
 
 bool MainPadgeController::CreateProject(int userId, const std::string &projectName)
 {
-    return false;
+    return projectRepo_->CreateProject(userId, projectName);
 }
