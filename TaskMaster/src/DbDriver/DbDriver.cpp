@@ -1,8 +1,5 @@
-#include <iostream>
-#include <pqxx/pqxx>
-#include <fstream>
-#include <string>
 #include "DbDriver.hpp"
+#include <iostream>
 
 std::vector<std::vector<std::string>> result_to_vector(const pqxx::result &res)
 {
@@ -19,21 +16,19 @@ std::vector<std::vector<std::string>> result_to_vector(const pqxx::result &res)
     return result_vector;
 }
 
-DbDriver::DbDriver()
-{
-}
+DbDriver::DbDriver(const std::string &connect) : conn_(connect) {}
+
+DbDriver::~DbDriver() { conn_.disconnect(); }
 
 std::vector<std::vector<std::string>> DbDriver::Exec(const std::string &query)
 {
     std::vector<std::vector<std::string>> result_vector;
     try
     {
-        pqxx::connection conn("hostaddr=192.168.137.1 port=5432 dbname=taskmanager user=postgres password=1474");
-        pqxx::work txn(conn);
+        pqxx::work txn(conn_);
         pqxx::result res = txn.exec(query);
         result_vector = result_to_vector(res);
         txn.commit();
-        conn.disconnect();
     }
     catch (const std::exception &e)
     {
