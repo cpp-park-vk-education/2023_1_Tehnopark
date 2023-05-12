@@ -9,7 +9,6 @@ using DbDriverSPtr = std::shared_ptr<DbDriverInterface>;
 class ProjectRepo : public ProjectRepoInterface
 {
 public:
-    ProjectRepo();
     ProjectRepo(DbDriverSPtr dr);
     std::vector<Project> GetUserProjects(int userId) override;
     Project GetProjectById(int projectId) override;

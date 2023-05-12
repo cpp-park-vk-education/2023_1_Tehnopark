@@ -4,7 +4,6 @@
 #include "DbDriver.hpp"
 #include "Serialization.hpp"
 
-ProjectRepo::ProjectRepo(){}
 ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
 
 std::vector<Project> ProjectRepo::GetUserProjects(int userId)
