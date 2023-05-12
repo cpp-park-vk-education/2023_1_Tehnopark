@@ -12,9 +12,9 @@ class MainPadgeController : public MainPadgeHandlerInterface
 {
 public:
     MainPadgeController(IProjectRepoUptr projectRepo);
-    std::vector<Project> GetUserProjects(int userId) override;
-    virtual Project GetProjectById(int projectId) override;
-    virtual bool CreateProject(int userId, const std::string &projectName) override;
+    std::vector<Project> GetUserProjects(size_t userId) override;
+    virtual Project GetProjectById(size_t projectId) override;
+    virtual bool CreateProject(size_t userId, const std::string &projectName) override;
 
 private:
     IProjectRepoUptr projectRepo_;

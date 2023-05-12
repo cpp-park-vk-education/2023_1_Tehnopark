@@ -4,17 +4,17 @@ ProjectController::ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUpt
     projectRepo_(std::move(projectRepo)), boardRepo_(std::move(boardRepo)), userRepo_(std::move(userRepo)) {}
 ProjectController::~ProjectController() {}
 
-void ProjectController::CreateBoard(int projectId, int creatorId, const std::string &boardName, const std::string &text)
+void ProjectController::CreateBoard(size_t projectId, size_t creatorId, const std::string &boardName, const std::string &text)
 {
 }
-void ProjectController::AddUser(int projectId, const std::string &userName)
+void ProjectController::AddUser(size_t projectId, const std::string &userName)
 {
 }
-std::vector<User> ProjectController::GetAllUsers(int projectId)
+std::vector<User> ProjectController::GetAllUsers(size_t projectId)
 {
     return std::vector<User>{};
 }
-std::vector<Board> ProjectController::GetAllBoards(int projectId)
+std::vector<Board> ProjectController::GetAllBoards(size_t projectId)
 {
     return std::vector<Board>{};
 }
