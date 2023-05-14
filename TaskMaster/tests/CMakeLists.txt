@@ -13,4 +13,7 @@ target_link_libraries(TaskMasterTest TaskMaster
                                  
 target_include_directories(TaskMasterTest PUBLIC .)
 
+target_link_libraries(TaskMasterTest TaskMaster
+                                 GTest::gtest_main)
+
 add_test(TaskMasterTest TaskMasterTest)

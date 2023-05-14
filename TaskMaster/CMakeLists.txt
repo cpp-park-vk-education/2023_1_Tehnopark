@@ -12,8 +12,10 @@ add_library(TaskMasterDB src/Project/ProjectController.cpp
                         src/models/Task.cpp
                         src/models/Board.cpp
                         src/models/Project.cpp
-                        src/DbDriver/DbDriver.cpp)
-
+                        src/DbDriver/DbDriver.cpp
+                        src/MainPadge/MainPadgeController.cpp
+                        src/Serialization/Serialization.cpp
+                        )
 
 target_include_directories(TaskMasterDB PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver)
 target_link_libraries(TaskMasterDB pqxx pq)

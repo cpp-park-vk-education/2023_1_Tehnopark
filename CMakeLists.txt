@@ -22,6 +22,7 @@ ADD_EXECUTABLE(taskmaster.wt
 )
 
 add_subdirectory(TaskMaster)
+
 target_include_directories(taskmaster.wt PUBLIC model/include view/include)
 TARGET_LINK_LIBRARIES(taskmaster.wt
   Wt::Wt
