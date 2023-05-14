@@ -4,7 +4,10 @@
 class Project
 {
 public:
-    Project(int creatorId, const std::string &projectName);
-    int CreatorId;
-    std::string ProjectName;
+    Project();
+    Project(int creatorId, const std::string &name);
+    size_t Id;
+    size_t CreatorId;
+    std::string Name;
+    std::string Description;
 };

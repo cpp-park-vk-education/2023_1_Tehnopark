@@ -13,10 +13,12 @@ enum TaskStatus
 class Task
 {
 public:
-    Task(int project, int boardId, const std::string &taskName, const std::string &text);
-    int ProjectId; 
-    int BoardId; 
-    std::string TaskName;
+    Task();
+    Task(int boardId, const std::string &name, const std::string &text);
+    size_t BoardId;
+    size_t Id; 
+    std::string Name;
     std::string Text;
     TaskStatus Status;
+    std::string DueDate;
 };
