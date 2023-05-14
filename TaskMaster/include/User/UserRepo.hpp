@@ -13,19 +13,20 @@ using DbDriverSPtr = std::shared_ptr<DbDriverInterface>;
 class UserRepo : public UserRepoInterface
 {
 public:
-    UserRepo(DbDriverSPtr dr): dr_(dr) {}
-    void EditUser(const User& user) override;
-    void AddTaskToUser(const User& user, const Task& task) override;
-    void AddBoardToUser(const User& user, const Board& board) override;
-    void AddProjectToUser(const User& user, const Project& project) override;
-    void DeleteTaskFromUser(const User& user, const Task& task) override;
-    void DeleteBoardFromUser(const User& user, const Board& board) override;
-    void DeleteProjectFromUser(const User& user, const Project& project) override;
-    std::vector<User> GetUsersForBoard(const Board& board) override;
-    std::vector<User> GetUsersForTask(const Task& task) override;
-    std::vector<User> GetUsersForProject(const Project& project) override;
+    UserRepo(DbDriverSPtr dr): _dr(dr) {}
+    bool EditUser(size_t userId, const std::string &firstName, const std::string &lastName, 
+         const std::string &userName, size_t companyId, const std::string &post) override;
+    bool AddTaskToUser(int userId, int taskId) override;
+    bool DeleteTaskFromUser(int userId, int taskId) override;
+    bool AddBoardToUser(int userId, int boardId) override;
+    bool DeleteBoardFromUser(int userId, int boardId) override;
+    bool AddProjectToUser(int userId, int projectId) override;
+    bool DeleteProjectFromUser(int userId, int projectId) override;
+    std::vector<User> GetUsersForBoard(int boardId) override;
+    std::vector<User> GetUsersForTask(int taskId) override;
+    std::vector<User> GetUsersForProject(int projectId) override;
     std::vector<User> GetUsers() override;
     ~UserRepo() {}
 private:
-    DbDriverSPtr dr_;
+    DbDriverSPtr _dr;
 };

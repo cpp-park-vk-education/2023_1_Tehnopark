@@ -7,7 +7,7 @@ bool BoardRepo::CreateBoard(int projectId, int creatorId, const std::string &nam
 {
     if (!_dbDriver->Connected())
         return false;
-    _dbDriver->Exec("INSERT INTO db_board (project_Id, creator_Id, name, text) VALUES ("
+    _dbDriver->Exec("INSERT INTO boards (project_Id, creator_Id, name, text) VALUES ("
                      + std::to_string(projectId) + ", " + std::to_string(creatorId) + ", "
                      + name + ", " + text + ");");
     return true;
@@ -17,7 +17,7 @@ Board BoardRepo::GetBoard(int boardId)
 {
     if (!_dbDriver->Connected())
         return false;
-    auto answer = _dbDriver->Exec("SELECT * FROM db_board WHERE id=" + std::to_string(boardId) + ";");
+    auto answer = _dbDriver->Exec("SELECT * FROM boards WHERE id=" + std::to_string(boardId) + ";");
     if (answer.size() == 0)
         throw std::runtime_error("Board with id=" + std::to_string(projectId) + " not found");
     return serializationBoard(answer[0]);
@@ -27,7 +27,7 @@ bool BoardRepo::DeleteBoard(int boardId)
 {
     if (!_dbDriver->Connected())
         return false;
-    _dbDriver->Exec("DELETE FROM db_board WHERE id=" + std::to_string(boardId) + ";");
+    _dbDriver->Exec("DELETE FROM boards WHERE id=" + std::to_string(boardId) + ";");
     return true;
 }
 
@@ -35,7 +35,7 @@ std::vector<Board> BoardRepo::GetAllBoardsForProject(int projectId)
 {
     if (!_dbDriver->Connected())
         throw std::runtime_error("Database is unavailable");
-    auto answer = _dbDriver->Exec("SELECT * FROM db_board WHERE project_id=" + std::to_string(projectId) + ";");
+    auto answer = _dbDriver->Exec("SELECT * FROM boards WHERE project_id=" + std::to_string(projectId) + ";");
     if (answer.size() == 0)
         throw std::runtime_error("Boards with project_Id=" + std::to_string(projectId) + " not found");
     std::vector<Board> res;
