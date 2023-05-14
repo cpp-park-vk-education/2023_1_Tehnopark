@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "Board.hpp"
+#include "Project.hpp"
 
 enum TaskStatus
 {
