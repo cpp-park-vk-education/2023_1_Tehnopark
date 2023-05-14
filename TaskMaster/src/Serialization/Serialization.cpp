@@ -12,7 +12,13 @@ Project serializationProject(const std::vector<std::string> &answer)
 
 Board serializationBoard(const std::vector<std::string> &answer)
 {
-    return Board();
+    Board board;
+    board.Id = std::stoi(answer[0]);
+    board.ProjectId = std::stoi(answer[1]);
+    board.CreatorId = std::stoi(answer[2]);
+    board.Name = std::stoi(answer[3]);
+    board.Text = std::stoi(answer[4]);
+    return board;
 }
 
 User serializationUser(const std::vector<std::string> &answer)
