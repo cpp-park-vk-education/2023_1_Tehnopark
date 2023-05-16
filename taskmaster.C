@@ -30,15 +30,17 @@ std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env,
 
 int main(int argc, char **argv)
 {
+  char* argvDebug[] = {"./taskmaster.wt", "--docroot", "../","--approot", "../", "--http-listen", "0.0.0.0"};
+  
   try {
-    Wt::WServer server(argc, argv, WTHTTP_CONFIGURATION);
+    Wt::WServer server(7, argvDebug, WTHTTP_CONFIGURATION);
 
     Session::configureAuth();
 
-    auto mainDb = std::make_shared<DbDriver>("");
+    auto mainDb = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=0FNYiW}GwcaSfMh");
 
     std::unique_ptr<Wt::Dbo::SqlConnectionPool> blogDb
-      = Session::createConnectionPool("");
+      = Session::createConnectionPool("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=0FNYiW}GwcaSfMh");
 
     server.addEntryPoint(Wt::EntryPointType::Application,
                          std::bind(&createApplication, std::placeholders::_1, blogDb.get(), mainDb), BlogUrl);

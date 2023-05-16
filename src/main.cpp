@@ -5,6 +5,8 @@
 #include "BoardController.hpp"
 #include "UserController.hpp"
 #include "UserRepo.hpp"
+#include "ProjectRepo.hpp"
+#include "MainPadgeController.hpp"
 
 int main()
 {
