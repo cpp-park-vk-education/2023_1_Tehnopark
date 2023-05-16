@@ -1,23 +1,14 @@
 #include <iostream>
 #include <memory>
-#include "MainPadge/MainPadgeController.hpp"
-#include "Project/ProjectRepo.hpp"
-#include "DbDriver/DbDriver.hpp"
+#include "DbDriver.hpp"
+#include "BoardRepo.hpp"
+#include "BoardController.hpp"
+#include "UserController.hpp"
+#include "UserRepo.hpp"
 
 int main()
 {
-    auto db = std::make_shared<DbDriver>("hostaddr=192.168.137.1 port=5432 dbname=taskmanager user=postgres password=1474");
-    auto repo = std::make_unique<ProjectRepo>(db);
-    MainPadgeController mp(std::move(repo));
-    std::vector<Project> res = mp.GetUserProjects(1);
-
-    for (const auto &project : res)
-    {
-        std::cout << project.Name << std::endl;
-    }
-    Project pr = mp.GetProjectById(7);
-    std::cout << pr.Name << std::endl;
-    // mp.CreateProject(2, "CreateUest");
-    
+    auto db = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=taskmanagerrepo user=umlaut-super password=0FNYiW}GwcaSfMh");
+    auto repo = std::make_unique<BoardRepo>(db);
     return 0;
 }
