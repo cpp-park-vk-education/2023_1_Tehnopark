@@ -25,11 +25,7 @@ User serializationUser(const std::vector<std::string> &answer)
 {
     User user;
     user.Id = std::stoi(answer[0]);
-    user.FirstName = answer[1];
-    user.LastName = answer[2];
     user.UserName = answer[3];
-    user.CompanyId = std::stoi(answer[4]);
-    user.Post = answer[5];
     return user;
 }
 

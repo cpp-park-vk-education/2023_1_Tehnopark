@@ -10,11 +10,11 @@ class ProjectRepo : public ProjectRepoInterface
 {
 public:
     ProjectRepo(DbDriverSPtr dr);
-    std::vector<Project> GetUserProjects(size_t userId) override;
-    Project GetProjectById(size_t projectId) override;
-    bool CreateProject(size_t userId, const std::string &projectName) override;
-    bool RemoveProjectById(size_t projectId) override;
-    bool AddUserToProject(size_t projectId, const std::string &userName) override;
+    std::vector<Project> GetUserProjects(int userId) override;
+    Project GetProjectById(int projectId) override;
+    bool CreateProject(int userId, const std::string &projectName) override;
+    bool RemoveProjectById(int projectId) override;
+    bool AddUserToProject(int projectId, const std::string &userName) override;
     bool UpdateProject(const Project& project) override;
 
 private:

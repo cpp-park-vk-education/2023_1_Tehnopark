@@ -16,10 +16,10 @@ bool BoardRepo::CreateBoard(int projectId, int creatorId, const std::string &nam
 Board BoardRepo::GetBoard(int boardId)
 {
     if (!_dbDriver->Connected())
-        return false;
+        throw std::runtime_error("Connection error");
     auto answer = _dbDriver->Exec("SELECT * FROM board WHERE id=" + std::to_string(boardId) + ";");
     if (answer.size() == 0)
-        throw std::runtime_error("Board with id=" + std::to_string(projectId) + " not found");
+        throw std::runtime_error("Board with id=" + std::to_string(boardId) + " not found");
     return serializationBoard(answer[0]);
 }
 
