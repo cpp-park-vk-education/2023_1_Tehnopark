@@ -70,6 +70,7 @@ dbo::ptr<AuthUser> Session::user() const
     dbo::ptr<AuthInfo> authInfo = users_.find(login_.user());
     auto id = authInfo->id();
     auto id2 = authInfo.id();
+    auto id3 = login_.user().id();
     return authInfo->user();
   } else
     return dbo::ptr<AuthUser>();
