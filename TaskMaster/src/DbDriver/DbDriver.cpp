@@ -39,5 +39,5 @@ std::vector<std::vector<std::string>> DbDriver::Exec(const std::string &query)
 
 bool DbDriver::Connected() const
 {
-    return true;
+    return conn_.is_open();
 }
