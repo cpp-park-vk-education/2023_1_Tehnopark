@@ -37,7 +37,7 @@ Task serializationTask(const std::vector<std::string> &answer)
     task.BoardId = std::stoi(answer[4]);
     task.Name = answer[1];
     task.Text = answer[2];
-    //task.Status = static_cast<TaskStatus>(std::stoi(answer[3]));
+    task.Status = static_cast<TaskStatus>(std::stoi(answer[3]));
     task.DueDate = answer[5];
     return task;
 }
