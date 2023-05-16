@@ -14,6 +14,7 @@ int main()
     auto repo = std::make_unique<UserRepo>(db);
     UserController mp(std::move(repo));
     
-    mp.CreateUserWithIdentity(1);
+    auto user = mp.GetUserByIdentity(1);
+    std::cout << user.UserName;
     return 0;
 }

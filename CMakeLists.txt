@@ -11,17 +11,17 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
-add_executable(taskmaster.wt
-  taskmaster.C
-  model/src/AuthUser.C
-  model/src/Session.C
-  view/src/MainView.C
-  view/src/LoginWidget.C
-  view/src/MainPage.C
-  view/src/ProjectListItem.C
-)
-target_include_directories(taskmaster.wt PUBLIC model/include view/include)
-target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
+# add_executable(taskmaster.wt
+#   taskmaster.C
+#   model/src/AuthUser.C
+#   model/src/Session.C
+#   view/src/MainView.C
+#   view/src/LoginWidget.C
+#   view/src/MainPage.C
+#   view/src/ProjectListItem.C
+# )
+# target_include_directories(taskmaster.wt PUBLIC model/include view/include)
+# target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
 
 add_subdirectory(TaskMaster)
 add_executable(main src/main.cpp)
