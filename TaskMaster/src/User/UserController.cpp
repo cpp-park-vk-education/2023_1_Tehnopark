@@ -42,12 +42,12 @@ User UserController::GetUser(int userId)
     return _repo->GetUser(userId);
 }
 
-User UserController::GetUserByInentity(int userIdentityId)
+User UserController::GetUserByIdentity(int userIdentityId)
 {
-    return _repo->GetUserByInentity(userIdentityId);
+    return _repo->GetUserByIdentity(userIdentityId);
 }
 
-bool UserController::CreateUserWithInentity(int userIdentityId)
+bool UserController::CreateUserWithIdentity(int userIdentityId)
 {
-    return _repo->CreateUserWithInentity(userIdentityId);
+    return _repo->CreateUserWithIdentity(userIdentityId);
 }
