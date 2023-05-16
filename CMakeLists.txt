@@ -24,4 +24,4 @@ target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopo
 add_subdirectory(TaskMaster)
 add_executable(main src/main.cpp)
 include_directories(TaskMaster/include)
-target_link_libraries(main TaskMaster)
+target_link_libraries(main TaskMasterDB)

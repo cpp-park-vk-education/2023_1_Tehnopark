@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
-project(TaskMaster)
-add_library(TaskMaster src/Project/ProjectController.cpp
+project(TaskMasterDB)
+add_library(TaskMasterDB src/Project/ProjectController.cpp
                         src/Project/ProjectRepo.cpp
                         src/Board/BoardController.cpp
                         src/Board/BoardRepo.cpp
@@ -17,8 +17,8 @@ add_library(TaskMaster src/Project/ProjectController.cpp
                         src/Serialization/Serialization.cpp
                         )
 
-target_include_directories(TaskMaster PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver include/MainPadge include/Serialization)
-target_link_libraries(TaskMaster pqxx pq)
+target_include_directories(TaskMasterDB PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver include/MainPadge include/Serialization)
+target_link_libraries(TaskMasterDB pqxx pq)
 
 if(BUILD_TESTS)
   add_subdirectory(tests)
