@@ -3,7 +3,6 @@ set(CMAKE_CXX_STANDARD 17)
 Project(TaskMaster)
 
 FIND_PACKAGE(Wt REQUIRED Wt HTTP)
-
 ADD_DEFINITIONS(-DHPDF_DLL)
 
 option(BUILD_TESTS "build tests")
@@ -12,22 +11,17 @@ if(BUILD_TESTS)
   enable_testing()
 endif()
 
-
-ADD_EXECUTABLE(taskmaster.wt
+add_executable(taskmaster.wt
   taskmaster.C
   model/src/AuthUser.C
   model/src/Session.C
   view/src/MainView.C
   view/src/LoginWidget.C
 )
+target_include_directories(taskmaster.wt PUBLIC model/include view/include)
+target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
 
 add_subdirectory(TaskMaster)
-
-target_include_directories(taskmaster.wt PUBLIC model/include view/include)
-TARGET_LINK_LIBRARIES(taskmaster.wt
-  Wt::Wt
-  Wt::HTTP
-  Wt::Dbo
-  TaskMasterDB
-  wtdbopostgres
-)
+add_executable(main src/main.cpp)
+include_directories(TaskMaster/include)
+target_link_libraries(main TaskMasterDB)
