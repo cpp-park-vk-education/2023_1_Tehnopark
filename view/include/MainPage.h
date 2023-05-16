@@ -12,6 +12,7 @@
 #include <Wt/WText.h>
 
 #include "Session.h"
+#include "ProjectListItem.h"
 
 
 class MainPage : public Wt::WTemplate
@@ -29,6 +30,9 @@ private:
   Wt::WContainerWidget *projects_;
 
   User user_;
+
+  void showProjects();
+  void showProject(const Project& proj);
 
   using WWebWidget::render;
 };

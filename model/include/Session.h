@@ -35,7 +35,7 @@ public:
 
   Session(dbo::SqlConnectionPool& connectionPool, std::shared_ptr<DbDriverInterface> mainDb);
 
-  const User& user();
+  const User user();
 
   UserDatabase& users() { return users_; }
   Wt::Auth::Login& login() { return login_; }

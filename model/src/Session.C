@@ -64,7 +64,7 @@ Session::Session(dbo::SqlConnectionPool& connectionPool, std::shared_ptr<DbDrive
   }
 }
 
-const User& Session::user()
+const User Session::user()
 {
   if (login_.loggedIn()) {
     try{
@@ -75,7 +75,7 @@ const User& Session::user()
     return userController().GetUserByIdentity(stoi(login_.user().id()));
   } else{
     User rez;
-    rez.Id == 0;
+    rez.Id = 0;
     return rez;
   }
 }

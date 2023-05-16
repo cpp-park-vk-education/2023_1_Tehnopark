@@ -144,7 +144,8 @@ private:
     if (app->internalPathMatches(basePath_)) {
       std::string path = app->internalPathNextPart(basePath_);
       if(path.empty()){
-        
+        page_->clear();
+        page_->addWidget(std::make_unique<MainPage>(session_));
       }
     }
   }
@@ -172,7 +173,7 @@ void MainView::setInternalBasePath(const std::string& basePath)
 }
 
 
-const User& MainView::user()
+const User MainView::user()
 {
   return impl_->session().user();
 }
