@@ -20,7 +20,7 @@ public:
     ProjectController(IProjectRepoUptr projectRepo, IBoardRepoUptr boardRepo, IUserRepoUptr userRepo);
     ~ProjectController();
     void CreateBoard(int projectId, int creatorId, const std::string &boardName, const std::string &text) override;
-    void AddUser(int projectId, const std::string &userName) override;
+    void AddUser(int userId, int projectId) override;
     std::vector<User> GetAllUsers(int projectId) override;
     std::vector<Board> GetAllBoards(int projectId) override;
 

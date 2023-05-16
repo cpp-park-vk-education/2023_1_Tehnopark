@@ -9,6 +9,8 @@ ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
 
 std::vector<Project> ProjectRepo::GetUserProjects(int userId)
 {
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
     auto answer = dr_->Exec("SELECT * FROM project WHERE creator_id=" + std::to_string(userId));
     std::vector<Project> res;
     for (const auto &data : answer)
@@ -20,6 +22,8 @@ std::vector<Project> ProjectRepo::GetUserProjects(int userId)
 
 Project ProjectRepo::GetProjectById(int projectId)
 {
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
     auto answer = dr_->Exec("SELECT * FROM project WHERE id=" + std::to_string(projectId));
     if (answer.size() == 0)
     {
@@ -30,23 +34,24 @@ Project ProjectRepo::GetProjectById(int projectId)
 
 bool ProjectRepo::CreateProject(int creatorId, const std::string &projectName)
 {
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
     dr_->Exec("INSERT INTO project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
     return true;
 }
 
 bool ProjectRepo::RemoveProjectById(int projectId)
 {
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
     dr_->Exec("DELETE FROM project WHERE id = " + std::to_string(projectId));
     return true;
 }
 
-bool ProjectRepo::AddUserToProject(int projectId, const std::string &userName)
+bool ProjectRepo::AddUserToProject(int userId, int projectId)
 {
-    // dr_->Exec("INSERT INTO project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
-    return true;
-}
-
-bool ProjectRepo::UpdateProject(const Project &project)
-{
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
+    dr_->Exec("INSERT INTO project_users (project_id, user_id) VALUES (" + std::to_string(projectId) + "," + std::to_string(userId) + ")");
     return true;
 }
