@@ -6,7 +6,9 @@ ProjectController::~ProjectController() {}
 
 void ProjectController::CreateBoard(int projectId, int creatorId, const std::string &boardName, const std::string &text)
 {
+
     boardRepo_->CreateBoard(projectId, creatorId, boardName, text);
+
 }
 void ProjectController::AddUser(int projectId, const std::string &userName)
 {

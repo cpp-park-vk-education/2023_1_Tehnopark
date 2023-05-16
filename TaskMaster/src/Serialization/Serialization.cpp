@@ -1,4 +1,5 @@
 #include "Serialization.hpp"
+#include <iostream>
 
 Project serializationProject(const std::vector<std::string> &answer)
 {
@@ -31,5 +32,12 @@ User serializationUser(const std::vector<std::string> &answer)
 
 Task serializationTask(const std::vector<std::string> &answer)
 {
-    return Task();
+    Task task;
+    task.Id = std::stoi(answer[0]);
+    task.BoardId = std::stoi(answer[4]);
+    task.Name = answer[1];
+    task.Text = answer[2];
+    //task.Status = static_cast<TaskStatus>(std::stoi(answer[3]));
+    task.DueDate = answer[5];
+    return task;
 }
