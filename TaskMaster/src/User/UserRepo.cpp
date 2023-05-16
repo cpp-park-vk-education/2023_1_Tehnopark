@@ -84,7 +84,7 @@ User UserRepo::GetUser(int userId)
     return serializationUser(answer[0]);
 }
 
-User UserRepo::GetUserByInentity(int userIdentityId)
+User UserRepo::GetUserByIdentity(int userIdentityId)
 {
     if (!_dr->Connected())
         throw std::runtime_error("Database is unavailable");
@@ -94,7 +94,7 @@ User UserRepo::GetUserByInentity(int userIdentityId)
     return serializationUser(answer[0]);
 }
 
-bool UserRepo::CreateUserWithInentity(int userIdentityId)
+bool UserRepo::CreateUserWithIdentity(int userIdentityId)
 {
     if (!_dr->Connected())
         return false;
