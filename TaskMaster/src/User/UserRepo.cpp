@@ -39,8 +39,8 @@ bool UserRepo::DeleteProjectFromUser(int userId, int projectId)
 std::vector<User> UserRepo::GetUsersForTask(int taskId)
 {
     auto answer = _dr->Exec("SELECT * FROM db_user INNER JOIN db_task_users ON db_task_users.user_id=db_user.id WHERE db_task_users.task_id=" + std::to_string(taskId) + ";");
- //   if (answer.size() == 0)
-  //      throw std::runtime_error("Users with task_Id=" + std::to_string(taskId) + " not found");
+    if (answer.size() == 0)
+        throw std::runtime_error("Users with task_Id=" + std::to_string(taskId) + " not found");
     std::cout << answer[0][0];
     std::vector<User> res;
     for (const auto &data : answer)
