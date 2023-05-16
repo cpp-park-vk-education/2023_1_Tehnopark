@@ -17,7 +17,7 @@ add_library(TaskMasterDB src/Project/ProjectController.cpp
                         src/Serialization/Serialization.cpp
                         )
 
-target_include_directories(TaskMasterDB PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver include/Serialization)
+target_include_directories(TaskMasterDB PUBLIC include/Project include/Board include/Task include/User include/models include/DbDriver include/MainPadge include/Serialization)
 target_link_libraries(TaskMasterDB pqxx pq)
 
 if(BUILD_TESTS)
