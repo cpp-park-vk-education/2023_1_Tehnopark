@@ -79,6 +79,7 @@ public:
       loggedIn();
     else
       loggedOut();
+    session_.user();
   }
 
   Session& session() { return session_; }
