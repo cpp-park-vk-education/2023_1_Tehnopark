@@ -6,7 +6,7 @@
 
 int main()
 {
-    auto db = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=taskmanagerrepo user=umlaut-super password=0FNYiW}GwcaSfMh");
+    auto db = std::make_shared<DbDriver>("");
     auto repo = std::make_unique<ProjectRepo>(db);
     MainPadgeController mp(std::move(repo));
     // std::vector<Project> res = mp.GetUserProjects(1);
