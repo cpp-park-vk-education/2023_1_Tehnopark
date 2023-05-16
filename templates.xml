@@ -161,12 +161,9 @@
 
   <message id="project">
     <h4>${title}</h4>
-    <div id="${anchor}">
-      <div>by ${author}</div>
       <div>
         ${description}
       </div>
-    </div>
   </message>
 
   <message id="project-page">

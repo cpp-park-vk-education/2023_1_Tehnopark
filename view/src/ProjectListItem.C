@@ -10,8 +10,9 @@ ProjectListItem::ProjectListItem(Session& session, const Project& proj) : sessio
 {
     setTemplateText(tr("project"));
 
-    this->bindWidget("projects", std::make_unique<Wt::WAnchor>(Wt::WLink(Wt::LinkType::InternalPath, "/project/" + std::to_string(proj.Id)), proj.Name));
-    this->bindWidget("description", std::make_unique<Wt::WText>(proj.Description));
+    this->bindWidget("title" ,std::make_unique<Wt::WAnchor>(Wt::WLink(Wt::LinkType::InternalPath, "/project/" + std::to_string(proj.Id)), proj.Name));
+
+    auto test = this->bindWidget("description", std::make_unique<Wt::WText>(proj.Description));
 }
 
 

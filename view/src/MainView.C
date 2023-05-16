@@ -65,6 +65,8 @@ public:
     loginStatus_->bindWidget("login-link", std::move(loginLink));
     loginStatus_->bindWidget("register-link", std::move(registerLink));
 
+    setInternalBasePath(basePath_);
+
     onUserChanged();
 
     loginWidget_->processEnvironment();
@@ -115,6 +117,7 @@ private:
 
     refresh();
     panel_->hide();
+    page_->clear();
   }
 
   void loggedIn() {
@@ -144,8 +147,9 @@ private:
     if (app->internalPathMatches(basePath_)) {
       std::string path = app->internalPathNextPart(basePath_);
       if(path.empty()){
-        page_->clear();
-        page_->addWidget(std::make_unique<MainPage>(session_));
+        if(session_.user().Id != 0)
+          page_->clear();
+          page_->addWidget(std::make_unique<MainPage>(session_));
       }
     }
   }

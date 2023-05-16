@@ -68,7 +68,8 @@ const User Session::user()
 {
   if (login_.loggedIn()) {
     try{
-       return userController().GetUserByIdentity(stoi(login_.user().id()));
+      auto id = stoi(login_.user().id());
+      return userController().GetUserByIdentity(stoi(login_.user().id()));
     } catch(std::runtime_error& e){
       userController().CreateUserWithIdentity(stoi(login_.user().id()));
     }

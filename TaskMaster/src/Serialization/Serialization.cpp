@@ -7,7 +7,7 @@ Project serializationProject(const std::vector<std::string> &answer)
     project.Id = std::stoi(answer[0]);
     project.Name = answer[1];
     project.CreatorId = std::stoi(answer[2]);
-    project.Description = answer[4];
+    project.Description = answer[3];
 
     return project;
 }
