@@ -41,7 +41,6 @@ bool TaskRepo::ChangeTaskStatus(TaskStatus status, int taskId)
     if (_dr->Connected())
         return false;
     _dr->Exec("UPDATE task SET status=" + std::to_string(static_cast<int>(status)) + " WHERE id=" + std::to_string(taskId)+";");
-
     return true;
 }
 
@@ -49,8 +48,6 @@ bool TaskRepo::DeleteTask(int taskId)
 {
     if (_dr->Connected())
         return false;
-
     _dr->Exec("DELETE FROM task WHERE id=" + std::to_string(taskId)+";");	
-
     return true;
 }
