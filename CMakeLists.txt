@@ -17,11 +17,13 @@ add_executable(taskmaster.wt
   model/src/Session.C
   view/src/MainView.C
   view/src/LoginWidget.C
+  view/src/MainPage.C
+  view/src/ProjectListItem.C
 )
 target_include_directories(taskmaster.wt PUBLIC model/include view/include)
 target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
 
 add_subdirectory(TaskMaster)
-add_executable(main src/main.cpp)
+#add_executable(main src/main.cpp)
 include_directories(TaskMaster/include)
-target_link_libraries(main TaskMasterDB)
+#target_link_libraries(main TaskMasterDB)

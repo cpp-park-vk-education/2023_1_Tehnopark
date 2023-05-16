@@ -9,7 +9,7 @@
 
 
 static const char *FeedUrl = "/blog/feed/";
-static const char *BlogUrl = "/blog";
+static const char *BlogUrl = "/";
 
 class BlogApplication : public Wt::WApplication
 {

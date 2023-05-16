@@ -60,14 +60,10 @@ public:
     registerLink->clicked().connect(loginWidget_,
                                     &LoginWidget::registerNewUser);
 
-    auto archiveLink
-        = std::make_unique<Wt::WAnchor>(Wt::WLink(Wt::LinkType::InternalPath, basePath_ + "all"),
-                                      tr("archive"));
 
     loginStatus_->bindWidget("login", std::move(loginWidget));
     loginStatus_->bindWidget("login-link", std::move(loginLink));
     loginStatus_->bindWidget("register-link", std::move(registerLink));
-    loginStatus_->bindWidget("archive-link", std::move(archiveLink));
 
     onUserChanged();
 
@@ -148,7 +144,10 @@ private:
     Wt::WApplication *app = Wt::WApplication::instance();
 
     if (app->internalPathMatches(basePath_)) {
-      
+      std::string path = app->internalPathNextPart(basePath_);
+      if(path.empty()){
+        
+      }
     }
   }
 
