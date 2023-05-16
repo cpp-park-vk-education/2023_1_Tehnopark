@@ -10,15 +10,13 @@
 class UserHandlerInterface
 {
 public:
-    virtual bool EditUser(const User& user) = 0;
-    virtual bool AddTaskToUser(const User& user, const Task& task) = 0;
-    virtual bool DeleteTaskFromUser(const User& user, const Task& task) = 0;
-    virtual bool AddBoardToUser(const User& user, const Board& board) = 0;
-    virtual bool DeleteBoardFromUser(const User& user, const Board& board) = 0;
-    virtual bool AddProjectToUser(const User& user, const Project& project) = 0;
-    virtual bool DeleteProjectFromUser(const User& user, const Project& project) = 0;
-    virtual std::vector<User> GetUsersForBoard(const Board& board) = 0;
-    virtual std::vector<User> GetUsersForTask(const Task& task) = 0;
-    virtual std::vector<User> GetUsersForProject(const Project& project) = 0;
+    virtual bool EditUser(size_t userId, const std::string &userName) = 0;
+    virtual bool CreateUser(const std::string &userName) = 0;
+    virtual bool AddTaskToUser(int userId, int taskId) = 0;
+    virtual bool DeleteTaskFromUser(int userId, int taskId) = 0;
+    virtual bool AddProjectToUser(int userId, int projectId) = 0;
+    virtual bool DeleteProjectFromUser(int userId, int projectId) = 0;
+    virtual std::vector<User> GetUsersForTask(int taskId) = 0;
+    virtual std::vector<User> GetUsersForProject(int projectId) = 0;
     virtual std::vector<User> GetUsers() = 0;
 };
