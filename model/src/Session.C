@@ -42,10 +42,14 @@ std::unique_ptr<dbo::SqlConnectionPool> Session::createConnectionPool(const std:
 
 Session::Session(dbo::SqlConnectionPool& connectionPool, std::shared_ptr<DbDriverInterface> mainDb):
     connectionPool_(connectionPool),
-    users_(*this)
+    users_(*this),
+    mainPage_(std::make_unique<MainPadgeController>(std::make_unique<ProjectRepo>(mainDb))),
+    userCont_(std::make_unique<UserController>(std::make_unique<UserRepo>(mainDb))),
+    boardCont_(std::make_unique<BoardController>(std::make_unique<TaskRepo>(mainDb))),
+    taskCont_(std::make_unique<TaskController>(std::make_unique<TaskRepo>(mainDb))),
+    projCont_(std::make_unique<ProjectController>(std::make_unique<ProjectRepo>(mainDb), std::make_unique<BoardRepo>(mainDb), std::make_unique<UserRepo>(mainDb)))
 {
   setConnectionPool(connectionPool_);
-
   mapClass<AuthUser>("auth_user");
   mapClass<AuthInfo>("auth_info");
   mapClass<AuthInfo::AuthIdentityType>("auth_identity");
@@ -64,6 +68,8 @@ dbo::ptr<AuthUser> Session::user() const
 {
   if (login_.loggedIn()) {
     dbo::ptr<AuthInfo> authInfo = users_.find(login_.user());
+    auto id = authInfo->id();
+    auto id2 = authInfo.id();
     return authInfo->user();
   } else
     return dbo::ptr<AuthUser>();

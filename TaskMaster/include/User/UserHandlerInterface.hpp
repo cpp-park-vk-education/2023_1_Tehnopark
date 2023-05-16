@@ -18,5 +18,8 @@ public:
     virtual bool DeleteProjectFromUser(int userId, int projectId) = 0;
     virtual std::vector<User> GetUsersForTask(int taskId) = 0;
     virtual std::vector<User> GetUsersForProject(int projectId) = 0;
+    virtual User GetUser(int userId) = 0;
+    virtual User GetUserByIdentity(int userIdentityId) = 0;
+    virtual bool CreateUserWithIdentity(int userIdentityId) = 0;
     virtual std::vector<User> GetUsers() = 0;
 };

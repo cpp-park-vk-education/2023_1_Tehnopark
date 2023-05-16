@@ -24,6 +24,9 @@ public:
     std::vector<User> GetUsersForTask(int taskId) override;
     std::vector<User> GetUsersForProject(int projectId) override;
     std::vector<User> GetUsers() override;
+    User GetUser(int userId) override;
+    User GetUserByIdentity(int userIdentityId) override;
+    bool CreateUserWithIdentity(int userIdentityId) override;
     ~UserController(){}
 private:
     UserRepoUPtr _repo;
