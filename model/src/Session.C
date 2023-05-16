@@ -64,16 +64,20 @@ Session::Session(dbo::SqlConnectionPool& connectionPool, std::shared_ptr<DbDrive
   }
 }
 
-dbo::ptr<AuthUser> Session::user() const
+const User& Session::user()
 {
   if (login_.loggedIn()) {
-    dbo::ptr<AuthInfo> authInfo = users_.find(login_.user());
-    auto id = authInfo->id();
-    auto id2 = authInfo.id();
-    auto id3 = login_.user().id();
-    return authInfo->user();
-  } else
-    return dbo::ptr<AuthUser>();
+    try{
+       return userController().GetUserByIdentity(stoi(login_.user().id()));
+    } catch(std::runtime_error& e){
+      userController().CreateUserWithIdentity(stoi(login_.user().id()));
+    }
+    return userController().GetUserByIdentity(stoi(login_.user().id()));
+  } else{
+    User rez;
+    rez.Id == 0;
+    return rez;
+  }
 }
 
 const Auth::AuthService& Session::auth()
