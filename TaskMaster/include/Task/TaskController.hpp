@@ -13,9 +13,9 @@ class TaskController : public TaskHandlerInterface
 public:
     TaskController(TRepoUPtr repo): _repo(std::move(repo)) {}
     
-    bool EditTask(const Task& newTask) override{return true;}
-    bool CreateTask(const Task& Task) override{return true;}
-    bool DeleteTask(int taskId) override{return true;}
+    bool EditTask(const Task& newTask) override;
+    bool CreateTask(const Task& Task) override;
+    bool DeleteTask(int taskId) override;
 
     ~TaskController();
 
