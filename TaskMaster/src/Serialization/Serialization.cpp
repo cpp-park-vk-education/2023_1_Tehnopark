@@ -15,10 +15,10 @@ Board serializationBoard(const std::vector<std::string> &answer)
 {
     Board board;
     board.Id = std::stoi(answer[0]);
-    board.ProjectId = std::stoi(answer[1]);
-    board.CreatorId = std::stoi(answer[2]);
-    board.Name = answer[3];
-    board.Text = answer[4];
+    board.Name = answer[1];
+    board.Text = answer[2];
+    board.ProjectId = std::stoi(answer[3]);
+    board.CreatorId = std::stoi(answer[4]);
     return board;
 }
 
@@ -26,7 +26,7 @@ User serializationUser(const std::vector<std::string> &answer)
 {
     User user;
     user.Id = std::stoi(answer[0]);
-    user.UserName = answer[3];
+    user.UserName = answer[1];
     return user;
 }
 
