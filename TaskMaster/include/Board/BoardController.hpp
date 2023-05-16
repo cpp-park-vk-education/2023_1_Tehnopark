@@ -11,11 +11,10 @@ class BoardController : public BoardHandlerInterface
 public:
     ~BoardController() { }
     BoardController(ITaskRepoUptr taskRepo): _taskRepo(std::move(taskRepo)) { }
-    bool AddTask(int projectId, int boardId,
-                 const std::string& taskName, const std::string &text) override { return true;};
-    void DeleteTask(int taskId) override;
-    void ChangeTaskStatus(int taskId, TaskStatus status) override;
-    void GetAllTasksForBoard(int boardId) override;
+    bool AddTask(int boardId, const std::string& taskName, const std::string &text) override;
+    bool DeleteTask(int taskId) override;
+    bool ChangeTaskStatus(int taskId, TaskStatus status) override;
+    std::vector<Task> GetAllTasksForBoard(int boardId) override;
 private:
     ITaskRepoUptr _taskRepo;
 };

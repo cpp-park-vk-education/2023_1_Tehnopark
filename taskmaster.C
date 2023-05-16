@@ -30,8 +30,10 @@ std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env,
 
 int main(int argc, char **argv)
 {
+  char* argvDebug[] = {"./taskmaster.wt", "--docroot", "../","--approot", "../", "--http-listen", "0.0.0.0"};
+  
   try {
-    Wt::WServer server(argc, argv, WTHTTP_CONFIGURATION);
+    Wt::WServer server(7, argvDebug, WTHTTP_CONFIGURATION);
 
     Session::configureAuth();
 

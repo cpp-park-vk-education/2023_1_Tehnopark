@@ -7,7 +7,7 @@
 
 ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
 
-std::vector<Project> ProjectRepo::GetUserProjects(size_t userId)
+std::vector<Project> ProjectRepo::GetUserProjects(int userId)
 {
     auto answer = dr_->Exec("SELECT * FROM db_project WHERE creator_id=" + std::to_string(userId));
     std::vector<Project> res;
@@ -18,7 +18,7 @@ std::vector<Project> ProjectRepo::GetUserProjects(size_t userId)
     return res;
 }
 
-Project ProjectRepo::GetProjectById(size_t projectId)
+Project ProjectRepo::GetProjectById(int projectId)
 {
     auto answer = dr_->Exec("SELECT * FROM db_project WHERE id=" + std::to_string(projectId));
     if (answer.size() == 0)
@@ -28,19 +28,19 @@ Project ProjectRepo::GetProjectById(size_t projectId)
     return serializationProject(answer[0]);
 }
 
-bool ProjectRepo::CreateProject(size_t creatorId, const std::string &projectName)
+bool ProjectRepo::CreateProject(int creatorId, const std::string &projectName)
 {
     dr_->Exec("INSERT INTO db_project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
     return true;
 }
 
-bool ProjectRepo::RemoveProjectById(size_t projectId)
+bool ProjectRepo::RemoveProjectById(int projectId)
 {
     dr_->Exec("DELETE FROM db_project WHERE id = " + std::to_string(projectId));
     return true;
 }
 
-bool ProjectRepo::AddUserToProject(size_t projectId, const std::string &userName)
+bool ProjectRepo::AddUserToProject(int projectId, const std::string &userName)
 {
     // dr_->Exec("INSERT INTO db_project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
     return true;
