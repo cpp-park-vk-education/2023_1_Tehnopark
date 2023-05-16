@@ -17,7 +17,7 @@ public:
 
   void setInternalBasePath(const std::string& basePath);
 
-  Wt::Dbo::ptr<AuthUser> user();
+  const User& user();
   void login(const std::string& user);
   void logout();
 

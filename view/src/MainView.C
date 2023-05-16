@@ -129,8 +129,6 @@ private:
     auto profileLink = std::make_unique<Wt::WText>(tr("profile"));
     profileLink->setStyleClass("link");
 
-    dbo::ptr<AuthUser> user = session().user();
-
     loginStatus_->bindWidget("profile-link", std::move(profileLink));
 
   }
@@ -153,14 +151,7 @@ private:
 
   bool checkLoggedIn()
   {
-    if (session_.user()) return true;
-    panel_->show();
-    if (!mustLoginWarning_){
-      mustLoginWarning_ =
-        panel_->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-mustlogin")));
-    }
-    panel_->setCurrentWidget(mustLoginWarning_);
-    return false;
+
   }
 
 };
@@ -181,10 +172,7 @@ void MainView::setInternalBasePath(const std::string& basePath)
 }
 
 
-dbo::ptr<AuthUser> MainView::user()
+const User& MainView::user()
 {
-  if (impl_->session().user())
-    return impl_->session().user();
-  else
-    return dbo::ptr<AuthUser>();
+  return impl_->session().user();
 }
