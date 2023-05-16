@@ -55,3 +55,11 @@ bool ProjectRepo::AddUserToProject(int userId, int projectId)
     dr_->Exec("INSERT INTO project_users (project_id, user_id) VALUES (" + std::to_string(projectId) + "," + std::to_string(userId) + ")");
     return true;
 }
+
+bool ProjectRepo::SetDescription(int projectId, const std::string &description)
+{
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
+    dr_->Exec("UPDATE project SET description = " + description + " WHERE projectId = " + std::to_string(projectId) + ")");
+    return true;
+}

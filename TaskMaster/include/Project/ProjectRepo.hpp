@@ -15,6 +15,7 @@ public:
     bool CreateProject(int userId, const std::string &projectName) override;
     bool RemoveProjectById(int projectId) override;
     bool AddUserToProject(int userId, int projectId) override;
+    bool SetDescription(int projectId, const std::string &description) override;
 
 private:
     DbDriverSPtr dr_;
