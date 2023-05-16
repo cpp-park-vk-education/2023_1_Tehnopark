@@ -36,3 +36,18 @@ std::vector<User> UserController::GetUsers()
 {
     return _repo->GetUsers();
 }
+
+User UserController::GetUser(int userId)
+{
+    return _repo->GetUser(userId);
+}
+
+User UserController::GetUserByInentity(int userIdentityId)
+{
+    return _repo->GetUserByInentity(userIdentityId);
+}
+
+bool UserController::CreateUserWithInentity(int userIdentityId)
+{
+    return _repo->CreateUserWithInentity(userIdentityId);
+}

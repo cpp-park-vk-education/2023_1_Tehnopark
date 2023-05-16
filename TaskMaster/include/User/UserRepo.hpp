@@ -13,7 +13,7 @@ using DbDriverSPtr = std::shared_ptr<DbDriverInterface>;
 class UserRepo : public UserRepoInterface
 {
 public:
-    UserRepo(DbDriverSPtr dr): _dr(dr) {}
+    UserRepo(DbDriverSPtr dr) : _dr(dr) {}
     bool EditUser(size_t userId, const std::string &userName) override;
     bool CreateUser(const std::string &userName) override;
     bool AddTaskToUser(int userId, int taskId) override;
@@ -23,7 +23,11 @@ public:
     std::vector<User> GetUsersForTask(int taskId) override;
     std::vector<User> GetUsersForProject(int projectId) override;
     std::vector<User> GetUsers() override;
+    User GetUser(int userId) override;
+    User GetUserByInentity(int userIdentityId) override;
+    bool CreateUserWithInentity(int userIdentityId) override;
     ~UserRepo() {}
+
 private:
     DbDriverSPtr _dr;
 };
