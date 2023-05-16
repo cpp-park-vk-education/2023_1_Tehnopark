@@ -1,5 +1,6 @@
 #include "MainPage.h"
 
+
 MainPage::MainPage(Session& session):session_(session)
 {
     setTemplateText(tr("main-page"));
