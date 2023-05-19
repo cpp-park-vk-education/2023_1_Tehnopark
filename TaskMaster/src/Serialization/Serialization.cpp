@@ -18,8 +18,8 @@ Board serializationBoard(const std::vector<std::string> &answer)
     board.Id = std::stoi(answer[0]);
     board.Name = answer[1];
     board.Text = answer[2];
-    board.ProjectId = std::stoi(answer[3]);
-    board.CreatorId = std::stoi(answer[4]);
+    board.CreatorId = std::stoi(answer[3]);
+    board.ProjectId = std::stoi(answer[4]);
     return board;
 }
 

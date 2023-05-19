@@ -172,6 +172,16 @@
     <div>${boards}</div>
   </message>
 
+    <message id="board">
+    <h4>${title}</h4>
+      <div>
+        ${description}
+      </div>
+      <div>
+        Created by ${creator}
+      </div>
+  </message>
+
   <message id="blog-post-brief">
     <h4>${title}</h4>
     <div>by ${author} on ${date}</div>

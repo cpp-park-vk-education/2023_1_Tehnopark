@@ -17,6 +17,7 @@
 
 #include "Session.h"
 #include "LoginWidget.h"
+#include "ProjectPage.h"
 
 namespace dbo = Wt::Dbo;
 
@@ -35,7 +36,8 @@ public:
     Wt::WApplication *app = Wt::WApplication::instance();
 
     app->messageResourceBundle().use(Wt::WApplication::appRoot() + "templates");
-    app->useStyleSheet("style.css");
+    app->useStyleSheet("css/style.css");
+    app->useStyleSheet("css/bootstrap.min.css");
     app->internalPathChanged().connect(this, &ViewImpl::handlePathChange);
 
     loginStatus_ = this->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-login-status")));
@@ -150,6 +152,11 @@ private:
         if(session_.user().Id != 0)
           page_->clear();
           page_->addWidget(std::make_unique<MainPage>(session_));
+      } else if (path == "project"){                 // добавить проверку что пользователь принадлежит проекту
+        std::string projIdstr = app->internalPathNextPart("/project/");
+        int projId = std::stoi(projIdstr);
+        page_->clear();
+        page_->addWidget(std::make_unique<ProjectPage>(session_, session_.mainPadgeController().GetProjectById(projId)));
       }
     }
   }
