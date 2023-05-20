@@ -21,7 +21,11 @@ add_executable(taskmaster.wt
   view/src/ProjectListItem.C
   view/src/ProjectPage.C
   view/src/BoardListItem.C
+  view/src/BoardPage.C
+  view/src/TaskListItem.C
+  view/src/TasksContainer.C
 )
+
 target_include_directories(taskmaster.wt PUBLIC model/include view/include)
 target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
 

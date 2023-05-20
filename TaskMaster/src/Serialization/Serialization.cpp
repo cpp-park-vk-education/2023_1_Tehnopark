@@ -35,10 +35,10 @@ Task serializationTask(const std::vector<std::string> &answer)
 {
     Task task;
     task.Id = std::stoi(answer[0]);
-    task.BoardId = std::stoi(answer[4]);
     task.Name = answer[1];
     task.Text = answer[2];
     task.Status = static_cast<TaskStatus>(std::stoi(answer[3]));
+    task.BoardId = std::stoi(answer[4]);
     task.DueDate = answer[5];
     return task;
 }

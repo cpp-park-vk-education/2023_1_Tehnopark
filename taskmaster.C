@@ -2,6 +2,7 @@
 #include <Wt/WContainerWidget.h>
 #include <Wt/WServer.h>
 #include <Wt/Dbo/SqlConnectionPool.h>
+#include <Wt/WJavaScriptPreamble.h>
 
 #include "Session.h"
 #include "MainView.h"
@@ -19,7 +20,7 @@ public:
   {
     root()->addWidget(std::make_unique<MainView>(BlogUrl, blogDb, mainDb));
     useStyleSheet("css/style.css");
-    useStyleSheet("css/bootstrap.min.css");
+    useStyleSheet("css/bootstrap.css");
   }
 };
 

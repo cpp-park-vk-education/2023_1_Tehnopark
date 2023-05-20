@@ -5,6 +5,8 @@
 #include "Board.hpp"
 #include "Session.h"
 
+using namespace Wt;
+
 namespace Wt {
   class WText;
 }
@@ -20,6 +22,8 @@ protected:
 private:
   Session& session_;
   Board board_;
+
+
 
   using WWebWidget::render;
 };

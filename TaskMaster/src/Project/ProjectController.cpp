@@ -20,3 +20,8 @@ std::vector<Board> ProjectController::GetAllBoards(int projectId)
 {
     return boardRepo_->GetAllBoardsForProject(projectId);
 }
+
+Board ProjectController::GetBoard(int boardId)
+{
+    return boardRepo_->GetBoard(boardId);
+}

@@ -3,7 +3,7 @@
 #include "BoardListItem.h"
 
 
-ProjectPage::ProjectPage(Session& session, const Project& proj):session_(session)
+ProjectPage::ProjectPage(Session& session, const Project& proj):session_(session), proj_(proj)
 {
     setTemplateText(tr("project-page"));
     this->bindString("projectName", proj.Name);

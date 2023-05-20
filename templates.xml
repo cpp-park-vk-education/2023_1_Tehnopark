@@ -124,35 +124,7 @@
     </div>
   </message>
 
-  <message id="blog-author-panel">
-    <div class="author-panel">
-      <h4>Author panel for <span class="poster">${user}</span></h4>
-      Statistics:
-      <ul>
-        <li>${unpublished-count} unpublished post(s)</li>
-        <li>${published-count} published post(s)</li>
-      </ul>
-      ${new-post}
-      ${unpublished-posts}
-    </div>
-  </message>
 
-  <message id="blog-post">
-    <h4>${title}</h4>
-    <div id="${anchor}">
-      <div>by ${author} on ${date}</div>
-      <div class="asciidoc">
-        ${brief+body}
-      </div>
-      <div style="margin-top: 10px;">${comment-count}</div>
-      <div>
-        ${publish} ${edit} ${delete}
-      </div>
-    </div>
-    <div id="${anchor}/comments">
-      ${comments}
-    </div>
-  </message>
 
   <message id="main-page">
     <h1>Your projects</h1>
@@ -172,7 +144,44 @@
     <div>${boards}</div>
   </message>
 
-    <message id="board">
+  <message id="board-page">
+    <h1>${boardName}</h1>
+    <div>${description}</div>
+    <div>Created by ${creator}</div>
+    <div>${unlockDrag}</div>
+    <div class="row">
+      <div class="col-4 task-list">
+        <h2>Open</h2>
+        <div class="cont">${openTasks}</div>
+      </div>
+      <div class="col-4 task-list">
+        <h2>In Progres</h2>
+        <div class="cont">${inProgressTasks}</div>
+      </div>
+      <div class="col-4 task-list">
+        <h2>Closed</h2>
+        <div class="cont">${closedTasks}</div>
+      </div>
+    </div>
+  </message>
+
+  <message id="task-list-item">
+    <ul class="m-d expand-list">
+	  <li data-md-content="200">
+		<label name="tab" for="tab1" tabindex="-1" class="tab_lab" role="tab">${title}</label>
+		<input type="checkbox" class="tab" id="tab1" tabindex="0"/>
+		<div class="content">
+            ${nameInput}
+            <div>Text: ${text}${textInput}</div>
+            <div>AssignedUsers:</div>
+            <div>${AssignedUsers}</div>
+            <div>${cancelButton} ${editButton}</div>
+        </div>
+    </li>
+  </ul>
+  </message>
+
+  <message id="board-list-item">
     <h4>${title}</h4>
       <div>
         ${description}
@@ -182,73 +191,7 @@
       </div>
   </message>
 
-  <message id="blog-post-brief">
-    <h4>${title}</h4>
-    <div>by ${author} on ${date}</div>
-    <div class="asciidoc">
-      ${brief}
-    </div>
-    <div>${read-more}</div>
-    <div style="margin-top: 10px">
-      ${publish} ${edit} ${delete}
-    </div>
-    <div style="margin-top: 10px;">${comment-count}</div>
-  </message>
-
-  <message id="blog-post-edit">
-    <h4></h4>
-    <div class="blogpost-edit">
-      <div>Title: ${title-edit}</div>
-      <div>${brief-edit}</div>
-      <div>${body-edit}</div>
-      <div>
-        ${save} ${cancel}
-      </div>
-    </div>
-  </message>
-
-  <message id="blog-comment">
-    <div class="comment-icon" />
-    <div class="comment-body">
-      <div class="comment-info">
-        <span class="poster">${author}</span>
-        ${date} ${collapse-expand}
-      </div>
-      ${contents}
-      <div class="comment-links">
-        ${reply} ${edit} ${delete}
-      </div>
-      ${children}
-    </div>
-  </message>
-
-  <message id="blog-root-comment">
-    <div class="comment-links">
-      ${reply}
-    </div>
-    ${children}
-  </message>
-
-  <message id="blog-edit-comment">
-    <div class="comment-edit-icon" />
-    <div class="comment-body comment-edit">
-      <div>${area}</div>
-      <div style="float: right"><i>plain text</i> or (&lt;code&gt;...&lt;/code&gt;)</div>
-      ${save}
-      ${cancel}
-    </div>
-  </message>
-
-  <message id="blog-no-post">
-    <h4>No posts found</h4>
-    Sorry, no blog posts found that match your selection.
-  </message>
-
-  <message id="blog-no-author">
-    <h4>No author</h4>
-    Sorry, {1} is not a registered blog author.
-  </message>
-
+ 
   <message id="archive-title">
     <h4>Archive</h4>
   </message>

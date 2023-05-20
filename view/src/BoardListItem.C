@@ -8,7 +8,7 @@
 
 BoardListItem::BoardListItem(Session& session, const Board& board) : session_(session), board_(board)
 {
-    setTemplateText(tr("board"));
+    setTemplateText(tr("board-list-item"));
 
     this->bindWidget("title" ,std::make_unique<Wt::WAnchor>(Wt::WLink(Wt::LinkType::InternalPath, "/board/" + std::to_string(board.Id)), board.Name));
 
