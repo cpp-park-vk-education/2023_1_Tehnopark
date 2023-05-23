@@ -4,12 +4,11 @@
 
 bool UserRepo::EditUser(size_t userId, const std::string &userName)
 {
-    _dr->Exec("UPDATE \"user\" SET name=\'" + userName + "\' WHERE id=" + std::to_string(userId) + ";");
+    _dr->Exec("UPDATE \"user\" SET identity=\'" + userName + "\' WHERE id=" + std::to_string(userId) + ";");
     return true;
 }
 bool UserRepo::CreateUser(const std::string &userName)
 {
-    _dr->Exec("INSERT INTO \"user\" (name) VALUES (\'" + userName + "\');");
     return true;
 }
 
@@ -17,7 +16,7 @@ User UserRepo::GetUserByName(const std::string &userName)
 {
     if (!_dr->Connected())
         throw std::runtime_error("Database is unavailable");
-    auto answer = _dr->Exec("SELECT * FROM \"user\" WHERE name=" + userName + ";");
+    auto answer = _dr->Exec("SELECT id, identity FROM \"user\" WHERE identity=" + userName + ";");
     if (answer.size() == 0)
         throw std::runtime_error("User with name=" + userName + " not found");
     return serializationUser(answer[0]);
@@ -49,7 +48,7 @@ bool UserRepo::DeleteProjectFromUser(int userId, int projectId)
 }
 std::vector<User> UserRepo::GetUsersForTask(int taskId)
 {
-    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN task_users ON task_users.user_id=\"user\".id WHERE task_users.task_id=" + std::to_string(taskId) + ";");
+    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN task_users ON task_users.user_id=users.id WHERE task_users.task_id=" + std::to_string(taskId) + ";");
    if (answer.size() == 0)
        throw std::runtime_error("Users with task_Id=" + std::to_string(taskId) + " not found");
     std::vector<User> res;
@@ -62,7 +61,7 @@ std::vector<User> UserRepo::GetUsersForTask(int taskId)
 
 std::vector<User> UserRepo::GetUsersForProject(int projectId)
 {
-    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN project_users ON project_users.user_id=\"user\".id WHERE project_users.project_id="+ std::to_string(projectId) + ";");
+    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN project_users ON project_users.user_id=users.id WHERE project_users.project_id="+ std::to_string(projectId) + ";");
     if (answer.size() == 0)
         throw std::runtime_error("Users with project_Id=" + std::to_string(projectId) + " not found");
     std::vector<User> res;
@@ -77,7 +76,7 @@ std::vector<User> UserRepo::GetUsers()
 {
     auto answer = _dr->Exec("SELECT * FROM user;");
     if (answer.size() == 0)
-        throw std::runtime_error("Database has no users");
+        throw std::runtime_error("Database has no \"user\"");
     std::vector<User> res;
     for (const auto &data : answer)
     {
@@ -100,16 +99,13 @@ User UserRepo::GetUserByIdentity(int userIdentityId)
 {
     if (!_dr->Connected())
         throw std::runtime_error("Database is unavailable");
-    auto answer = _dr->Exec("SELECT * FROM \"user\" WHERE auth_identity_id=" + std::to_string(userIdentityId) + ";");
+    auto answer = _dr->Exec("SELECT id, identity FROM \"user\" WHERE auth_info_id = " + std::to_string(userIdentityId) + ";");
     if (answer.size() == 0)
-        throw std::runtime_error("Users with auth_identity_id=" + std::to_string(userIdentityId) + " not found");
+        throw std::runtime_error("Users with auth_info_id=" + std::to_string(userIdentityId) + " not found");
     return serializationUser(answer[0]);
 }
 
 bool UserRepo::CreateUserWithIdentity(int userIdentityId)
 {
-    if (!_dr->Connected())
-        return false;
-    _dr->Exec("INSERT INTO \"user\" (name, auth_identity_id) SELECT auth_identity.identity, auth_identity.id FROM auth_identity WHERE auth_identity.id =" + std::to_string(userIdentityId) + ";");
     return true;
 }

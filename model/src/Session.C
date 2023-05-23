@@ -51,7 +51,7 @@ Session::Session(dbo::SqlConnectionPool &connectionPool, std::shared_ptr<DbDrive
   setConnectionPool(connectionPool_);
   mapClass<AuthUser>("auth_user");
   mapClass<AuthInfo>("auth_info");
-  mapClass<AuthInfo::AuthIdentityType>("auth_identity");
+  mapClass<AuthInfo::AuthIdentityType>("user");
   mapClass<AuthInfo::AuthTokenType>("auth_token");
 
   try
