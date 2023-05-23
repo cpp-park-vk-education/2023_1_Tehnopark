@@ -16,7 +16,7 @@ class UserController : public UserHandlerInterface
 public:
     UserController(UserRepoUPtr repo): _repo(std::move(repo)) {}
     bool EditUser(size_t userId, const std::string &userName) override;
-    bool CreateUser(const std::string &userName) override;
+    User CreateUser(const std::string &userName) override;
     bool AddTaskToUser(int userId, int taskId) override;
     bool DeleteTaskFromUser(int userId, int taskId) override;
     bool AddProjectToUser(int userId, int projectId) override;
@@ -26,7 +26,7 @@ public:
     std::vector<User> GetUsers() override;
     User GetUser(int userId) override;
     User GetUserByIdentity(int userIdentityId) override;
-    bool CreateUserWithIdentity(int userIdentityId) override;
+    User CreateUserWithIdentity(int userIdentityId) override;
     ~UserController(){}
 private:
     UserRepoUPtr _repo;
