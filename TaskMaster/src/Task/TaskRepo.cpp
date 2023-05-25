@@ -18,7 +18,7 @@ Task TaskRepo::CreateTask(const Task& Task)
 {
     if (!_dr->Connected())
         std::runtime_error("Database is unavailable");
-    auto obj = _dr->Exec("INSERT INTO task (board_id, name, text) VALUES (" + std::to_string(Task.BoardId) + ",\'" + Task.Name + "\'," + "\'" + Task.Text + "\') RETURNING *;");
+    auto obj = _dr->Exec("INSERT INTO task (board_id, name, text, status) VALUES (" + std::to_string(Task.BoardId) + ",\'" + Task.Name + "\'," + "\'" + Task.Text + "\',0) RETURNING *;");
     return serializationTask(obj[0]);
 }
     

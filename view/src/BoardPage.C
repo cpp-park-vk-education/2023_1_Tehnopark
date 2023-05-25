@@ -118,7 +118,7 @@ void BoardPage::showDialogAddTask()
 
     dialog->contents()->addStyleClass("form-group");
 
-    auto validator = std::make_shared<Wt::WRegExpValidator>(".");
+    auto validator = std::make_shared<Wt::WRegExpValidator>("^(?!\\s*$).+");
     validator->setMandatory(true);
     nameEdit->setValidator(validator);
     descriptionEdit->setValidator(validator);
@@ -159,9 +159,9 @@ void BoardPage::showDialogAddTask()
             Task task;
             task.BoardId = board_.Id;
             task.Name = nameEdit->text().toUTF8();
-            task.Text = nameEdit->text().toUTF8();
+            task.Text = descriptionEdit->text().toUTF8();
             task.Status = TaskStatus::Open;
-            session_.taskController().CreateTask(task);
+            task = session_.taskController().CreateTask(task);
             openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
         }
         this->removeChild(dialog);
