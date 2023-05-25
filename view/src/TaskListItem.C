@@ -36,17 +36,13 @@ TaskListItem::TaskListItem(Session& session, const Task& task) :
 
 void TaskListItem::CancelBtnClicked()
 {
-    if(new_)
-        this->removeFromParent();
-    else{
-        descriptionLabel_->show();
-        titleLabel_->show();
-        titleEdit_->hide();
-        descriptionEdit_->hide();
-        cancelButton_->hide();
-        editButton_->setText("edit");
-        editStatus_ = false;
-    }
+    descriptionLabel_->show();
+    titleLabel_->show();
+    titleEdit_->hide();
+    descriptionEdit_->hide();
+    cancelButton_->hide();
+    editButton_->setText("edit");
+    editStatus_ = false;
 }
 
 void TaskListItem::EditBtnClicked()
@@ -56,12 +52,7 @@ void TaskListItem::EditBtnClicked()
         task_.Text = descriptionEdit_->text().toUTF8();
         titleLabel_->setText(titleEdit_->text());
         descriptionLabel_->setText(descriptionEdit_->text());
-        if(!new_)
-            session_.taskController().EditTask(task_);
-        else{
-            session_.taskController().CreateTask(task_);
-            new_ = false;
-        }
+        session_.taskController().EditTask(task_);
         CancelBtnClicked();
     }else{
         editButton_->setText("save");

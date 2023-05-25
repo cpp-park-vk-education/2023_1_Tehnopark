@@ -39,6 +39,7 @@ private:
   Wt::WContainerWidget *progressListWidget_;
   Wt::WPushButton* dragChangeButton_;
 
+  void showDialogAddTask();
   void showTasks();
   void showTask(const Task& task);
   void SetDrag(bool drag);

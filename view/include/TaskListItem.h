@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Wt/WTemplate.h>
+#include <Wt/WComboBox.h>
+#include <Wt/WStringListModel.h>
 
 
 #include "Session.h"
@@ -33,6 +35,9 @@ private:
   WText* descriptionLabel_;
   WLineEdit* titleEdit_;
   WLineEdit* descriptionEdit_;
+
+  Wt::WSelectionBox* userSelectionBox_;
+  std::shared_ptr<Wt::WStringListModel> userStringModel_;
 
   void ShowUsers();
   void EditBtnClicked();

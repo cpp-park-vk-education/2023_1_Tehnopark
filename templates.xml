@@ -171,6 +171,7 @@
       <div>${description}</div>
       <div>Created by ${creator}</div>
       <div class="btn-enable">${unlockDrag}</div>
+      <div class="btn-enable">${createTask}</div>
       <div class="row boards-tasks">
         <div class="col-4 task-list">
           <h2>Open</h2>
