@@ -10,8 +10,6 @@ ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
 std::vector<Project> ProjectRepo::GetUserProjects(int userId)
 {
     auto answer = dr_->Exec("SELECT * FROM project INNER JOIN project_users ON project_users.project_id=project.id WHERE project_users.user_id=" + std::to_string(userId) + ";");
-    if (answer.size() == 0)
-        throw std::runtime_error("Projects with user_Id=" + std::to_string(userId) + " not found");
     std::vector<Project> res;
     for (const auto &data : answer)
     {
@@ -25,10 +23,6 @@ Project ProjectRepo::GetProjectById(int projectId)
     if (!dr_->Connected())
         throw std::runtime_error("Database is unavailable");
     auto answer = dr_->Exec("SELECT * FROM project WHERE id=" + std::to_string(projectId));
-    if (answer.size() == 0)
-    {
-        throw std::runtime_error("Project with ID " + std::to_string(projectId) + " not found");
-    }
     return serializationProject(answer[0]);
 }
 

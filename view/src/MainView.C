@@ -150,7 +150,7 @@ private:
     if (app->internalPathMatches(basePath_)) {
       std::string path = app->internalPathNextPart(basePath_);
       if(path.empty()){
-        if(session_.user().Id != 0){
+        if(int(session_.user().Id) != 0){
           page_->clear();
           page_->addWidget(std::make_unique<MainPage>(session_));
         }
