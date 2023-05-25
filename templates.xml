@@ -8,11 +8,16 @@
 
   <message id="blog-login-status">
     <div class="login-box">
-      <div class="login-menu">
-        ${login} ${login-link} | ${register-link}
+      <div>
+        <h1>TaskMaster</h1>
       </div>
-      <div class="user-menu">
-         ${profile-link} ${author-panel-link} ${userlist-link}
+      <div class="menu">
+        <div class="login-menu">
+          ${login} ${login-link} | ${register-link}
+        </div>
+        <div class="user-menu">
+          ${profile-link} ${author-panel-link} ${userlist-link}
+        </div>
       </div>
     </div>
   </message>
@@ -127,40 +132,50 @@
 
 
   <message id="main-page">
-    <h1>Your projects</h1>
-    <div>${projects}</div>
+    <div class="page">
+      <h3>Your projects</h3>
+      <div class="all-projects">${projects}</div>
+    </div>
   </message>
 
+  
   <message id="project">
-    <h4>${title}</h4>
+    <div class="elem">
+      <h4>${title}</h4>
       <div>
         ${description}
       </div>
+    </div>
   </message>
 
+
   <message id="project-page">
-    <h1>${projectName}</h1>
-    <div>${description}</div>
-    <div>${boards}</div>
+    <div class="page">
+      <h3>${projectName}</h3>
+      <div>${description}</div>
+      <div>${boards}</div>
+    </div>
   </message>
 
   <message id="board-page">
-    <h1>${boardName}</h1>
-    <div>${description}</div>
-    <div>Created by ${creator}</div>
-    <div>${unlockDrag}</div>
-    <div class="row">
-      <div class="col-4 task-list">
-        <h2>Open</h2>
-        <div class="cont">${openTasks}</div>
-      </div>
-      <div class="col-4 task-list">
-        <h2>In Progres</h2>
-        <div class="cont">${inProgressTasks}</div>
-      </div>
-      <div class="col-4 task-list">
-        <h2>Closed</h2>
-        <div class="cont">${closedTasks}</div>
+    <div class="elem">
+      <h3>${boardName}</h3>
+      <div>${description}</div>
+      <div>Created by ${creator}</div>
+      <div class="btn-enable">${unlockDrag}</div>
+      <div class="row boards-tasks">
+        <div class="col-4 task-list">
+          <h2>Open</h2>
+          <div class="cont">${openTasks}</div>
+        </div>
+        <div class="col-3 task-list">
+          <h2>In Progres</h2>
+          <div class="cont">${inProgressTasks}</div>
+        </div>
+        <div class="col-4 task-list">
+          <h2>Closed</h2>
+          <div class="cont">${closedTasks}</div>
+        </div>
       </div>
     </div>
   </message>
@@ -182,12 +197,14 @@
   </message>
 
   <message id="board-list-item">
-    <h4>${title}</h4>
-      <div>
-        ${description}
-      </div>
-      <div>
-        Created by ${creator}
+    <div class='elem'>
+      <h4>${title}</h4>
+        <div>
+          ${description}
+        </div>
+        <div>
+          Created by ${creator}
+        </div>
       </div>
   </message>
 
@@ -223,3 +240,4 @@
   <message id="promote-user">Promote this user to administrator</message>
   <message id="no-users-found">No users found</message>
 </messages>
+
