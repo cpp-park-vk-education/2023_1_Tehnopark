@@ -12,7 +12,7 @@ Project MainPadgeController::GetProjectById(size_t projectId)
     return projectRepo_->GetProjectById(projectId);
 }
 
-bool MainPadgeController::CreateProject(size_t userId, const std::string &projectName)
+Project MainPadgeController::CreateProject(size_t userId, const std::string &projectName, const std::string &text)
 {
-    return projectRepo_->CreateProject(userId, projectName);
+    return projectRepo_->CreateProject(userId, projectName, text);
 }

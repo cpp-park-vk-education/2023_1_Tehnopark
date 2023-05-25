@@ -32,12 +32,12 @@ Project ProjectRepo::GetProjectById(int projectId)
     return serializationProject(answer[0]);
 }
 
-bool ProjectRepo::CreateProject(int creatorId, const std::string &projectName)
+Project ProjectRepo::CreateProject(int creatorId, const std::string &projectName, const std::string &text)
 {
     if (!dr_->Connected())
         throw std::runtime_error("Database is unavailable");
-    dr_->Exec("INSERT INTO project (name, creator_Id) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ")");
-    return true;
+    auto answer = dr_->Exec("INSERT INTO project (name, creator_Id, text) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ",\'" + text + "\') RETURNING *");
+    return serializationProject(answer[0]);
 }
 
 bool ProjectRepo::RemoveProjectById(int projectId)

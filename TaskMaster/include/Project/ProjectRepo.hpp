@@ -12,7 +12,7 @@ public:
     ProjectRepo(DbDriverSPtr dr);
     std::vector<Project> GetUserProjects(int userId) override;
     Project GetProjectById(int projectId) override;
-    bool CreateProject(int userId, const std::string &projectName) override;
+    Project CreateProject(int userId, const std::string &projectName, const std::string &text) override;
     bool RemoveProjectById(int projectId) override;
     bool AddUserToProject(int userId, int projectId) override;
     bool SetDescription(int projectId, const std::string &description) override;

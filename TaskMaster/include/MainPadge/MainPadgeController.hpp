@@ -14,7 +14,7 @@ public:
     MainPadgeController(IProjectRepoUptr projectRepo);
     std::vector<Project> GetUserProjects(size_t userId) override;
     virtual Project GetProjectById(size_t projectId) override;
-    virtual bool CreateProject(size_t userId, const std::string &projectName) override;
+    virtual Project CreateProject(size_t userId, const std::string &projectName, const std::string &text) override;
 
 private:
     IProjectRepoUptr projectRepo_;
