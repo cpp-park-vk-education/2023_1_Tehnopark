@@ -27,6 +27,7 @@ void MainPage::createProject()
     auto name = projectTitle_->text().toUTF8();
     auto text = projectDescription_->text().toUTF8();
     auto newProject = session_.mainPadgeController().CreateProject(id, name, text);
+    showProject(newProject);
 }
 
 void MainPage::showProject(const Project &proj)
