@@ -10,6 +10,8 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WTemplate.h>
 #include <Wt/WText.h>
+#include <Wt/WComboBox.h>
+#include <Wt/WStringListModel.h>
 
 #include "Session.h"
 #include "ProjectListItem.h"
@@ -35,6 +37,11 @@ private:
 
   Wt::WContainerWidget *boardsListWidget_;
 
+  Wt::WComboBox *usersDropDown_;
+  std::shared_ptr<Wt::WStringListModel> userStringModel_;
+
+  void bindAdmin();
+  void addUser();
   void showBoards();
   void showBoard(const Board& board);
 

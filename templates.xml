@@ -137,7 +137,6 @@
       <div class="all-projects">${projects}</div>
     </div>
   </message>
-
   
   <message id="project">
     <div class="elem">
@@ -148,6 +147,12 @@
     </div>
   </message>
 
+  <message id="project-page-admin">
+    <h1>${projectName}</h1>
+    <div>${description}</div>
+    <div class="row"><div class="users-list">${usersList}</div><div>${inviveButton}</div></div>
+    <div>${boards}</div>
+  </message>
 
   <message id="project-page">
     <div class="page">

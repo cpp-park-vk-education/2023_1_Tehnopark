@@ -74,7 +74,7 @@ std::vector<User> UserRepo::GetUsersForProject(int projectId)
 
 std::vector<User> UserRepo::GetUsers()
 {
-    auto answer = _dr->Exec("SELECT * FROM user;");
+    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user;");
     if (answer.size() == 0)
         throw std::runtime_error("Database has no \"user\"");
     std::vector<User> res;
