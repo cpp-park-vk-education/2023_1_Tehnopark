@@ -20,7 +20,7 @@ body {
     background-color: #f6f7f5;
     border: #528B12 solid 1px;
     border-radius: 25px;
-    height: 27em;
+    min-height: 27em;
   }
 
   .cont{
@@ -352,4 +352,10 @@ body {
 
 h2, .h2 {
   border-bottom: #107007 solid 2px;
+}
+
+.dialog-layout{
+position: relative;
+bottom: 160px;
+right: 190px;
 }

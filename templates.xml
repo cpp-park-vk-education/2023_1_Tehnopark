@@ -219,8 +219,10 @@
 
   <message id="user-task-list-item">
     <div class="usetasklistitem">
-    ${username}
-      </div>
+      <ul>
+        <li>${username}</li>
+      </ul>
+    </div>
   </message>
  
   <message id="archive-title">
