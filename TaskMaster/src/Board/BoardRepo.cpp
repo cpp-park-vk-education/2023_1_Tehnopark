@@ -3,12 +3,12 @@
 #include <exception>
 #include <iostream>
 
-bool BoardRepo::CreateBoard(int projectId, int creatorId, const std::string &name, const std::string &text)
+Board BoardRepo::CreateBoard(int projectId, int creatorId, const std::string &name, const std::string &text)
 {
-    _dbDriver->Exec("INSERT INTO board (project_id, creator_id, name, text) VALUES ("
+    auto answer = _dbDriver->Exec("INSERT INTO board (project_id, creator_id, name, text) VALUES ("
                      + std::to_string(projectId) + ", " + std::to_string(creatorId) + ", \'"
                      + name + "\', \'" + text + "\');");
-    return true;
+    return serializationBoard(answer[0]);
 }
 
 Board BoardRepo::GetBoard(int boardId)
