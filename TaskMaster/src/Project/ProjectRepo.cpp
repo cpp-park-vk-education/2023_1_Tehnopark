@@ -38,7 +38,7 @@ Project ProjectRepo::CreateProject(int creatorId, const std::string &projectName
         throw std::runtime_error("Database is unavailable");
     auto answer = dr_->Exec("INSERT INTO project (name, creator_Id, text) VALUES (\'" + projectName + "\'," + std::to_string(creatorId) + ",\'" + text + "\') RETURNING *");
     Project pr = serializationProject(answer[0]);
-    dr_->Exec("INSERT INTO project_users (project_id, user_id) VALUES (" + std::to_string(pr.Id) + std::to_string(pr.CreatorId) + ");");
+    dr_->Exec("INSERT INTO project_users (project_id, user_id) VALUES (" + std::to_string(pr.Id) + "," + std::to_string(pr.CreatorId) + ")");
     return pr;
 }
 
