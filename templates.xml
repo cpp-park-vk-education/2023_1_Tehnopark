@@ -199,7 +199,7 @@
             <div>Text: ${text}${textInput}</div>
             <div>AssignedUsers:</div>
             <div>${AssignedUsers}</div>
-            <div>${cancelButton} ${editButton}</div>
+            <div>${cancelButton} ${editButton} ${deleteButton}</div>
         </div>
     </li>
   </ul>

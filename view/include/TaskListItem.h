@@ -31,6 +31,7 @@ private:
   bool new_;
   Wt::WPushButton* editButton_;
   Wt::WPushButton* cancelButton_;
+  Wt::WPushButton* deleteButton_;
   WText* titleLabel_;
   WText* descriptionLabel_;
   WLineEdit* titleEdit_;
@@ -38,7 +39,8 @@ private:
 
   Wt::WSelectionBox* userSelectionBox_;
   std::shared_ptr<Wt::WStringListModel> userStringModel_;
-
+  
+  void DeleteBtnClicked();
   void ShowUsers();
   void EditBtnClicked();
   void CancelBtnClicked();

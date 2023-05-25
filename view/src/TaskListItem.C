@@ -25,6 +25,10 @@ TaskListItem::TaskListItem(Session& session, const Task& task) :
     cancelButton_->addStyleClass("btn");
     cancelButton_->addStyleClass("btn-success");
     cancelButton_->clicked().connect(this, &TaskListItem::CancelBtnClicked);
+    deleteButton_ = this->bindWidget("deleteButton", std::make_unique<WPushButton>("delete"));
+    deleteButton_->addStyleClass("btn");
+    deleteButton_->addStyleClass("btn-danger");
+    deleteButton_->clicked().connect(this, &TaskListItem::DeleteBtnClicked);
     editButton_ = this->bindWidget("editButton", std::make_unique<WPushButton>("edit"));
     editButton_->addStyleClass("btn");
     editButton_->addStyleClass("btn-success");
@@ -32,6 +36,14 @@ TaskListItem::TaskListItem(Session& session, const Task& task) :
     titleEdit_->hide();
     descriptionEdit_->hide();
     cancelButton_->hide();
+    deleteButton_->hide();
+}
+
+
+void TaskListItem::DeleteBtnClicked()
+{
+    session_.taskController().DeleteTask(task_.Id);
+    this->removeFromParent();
 }
 
 void TaskListItem::CancelBtnClicked()
@@ -41,6 +53,7 @@ void TaskListItem::CancelBtnClicked()
     titleEdit_->hide();
     descriptionEdit_->hide();
     cancelButton_->hide();
+    deleteButton_->hide();
     editButton_->setText("edit");
     editStatus_ = false;
 }
@@ -59,6 +72,7 @@ void TaskListItem::EditBtnClicked()
         titleLabel_->hide();
         descriptionLabel_->hide();
         titleEdit_->show();
+        deleteButton_->show();
         descriptionEdit_->show();
         cancelButton_->show();
         editStatus_ = true;

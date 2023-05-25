@@ -22,7 +22,7 @@ void ProjectPage::bindAdmin()
 {
     usersDropDown_ = this->bindWidget("usersList", std::make_unique<Wt::WComboBox>());
     userStringModel_ = std::make_shared<Wt::WStringListModel>();
-    auto users = session_.userController().GetUsers();
+    auto users = session_.userController().GetUsersNotInProject(proj_.Id);
     for (size_t i = 0; i < users.size(); i++){
         userStringModel_->addString(users[i].UserName);
         userStringModel_->setData(i, 0, users[i].Id, Wt::ItemDataRole::User);
