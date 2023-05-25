@@ -39,10 +39,10 @@ int main(int argc, char **argv)
 
     Session::configureAuth();
 
-    auto mainDb = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=4Hg*kP9VGl~A}Zk");
+    auto mainDb = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=4*eOqoFuk1JViF7");
 
     std::unique_ptr<Wt::Dbo::SqlConnectionPool> blogDb
-      = Session::createConnectionPool("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=4Hg*kP9VGl~A}Zk");
+      = Session::createConnectionPool("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=4*eOqoFuk1JViF7");
 
     server.addEntryPoint(Wt::EntryPointType::Application,
                          std::bind(&createApplication, std::placeholders::_1, blogDb.get(), mainDb), BlogUrl);

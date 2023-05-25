@@ -39,6 +39,9 @@ public:
     app->messageResourceBundle().use(Wt::WApplication::appRoot() + "templates");
     app->useStyleSheet("css/style.css");
     app->useStyleSheet("css/bootstrap.css");
+    app->useStyleSheet("css/wt.css");
+    app->useStyleSheet("css/form.css");
+    app->useStyleSheet("css/webkit-transitions.css");
     app->internalPathChanged().connect(this, &ViewImpl::handlePathChange);
 
     loginStatus_ = this->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-login-status")));

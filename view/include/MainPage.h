@@ -11,6 +11,7 @@
 #include <Wt/WTemplate.h>
 #include <Wt/WText.h>
 #include <Wt/WTextArea.h>
+#include <Wt/WMessageBox.h>
 
 #include "Session.h"
 #include "ProjectListItem.h"
