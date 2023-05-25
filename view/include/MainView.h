@@ -3,6 +3,8 @@
 #include <Wt/WCompositeWidget.h>
 #include "DbDriverInterface.hpp"
 #include "AuthUser.h"
+#include "User.hpp"
+#include "MainPage.h"
 
 namespace Wt {
   class WContainerWidget;
@@ -17,7 +19,7 @@ public:
 
   void setInternalBasePath(const std::string& basePath);
 
-  Wt::Dbo::ptr<AuthUser> user();
+  const User user();
   void login(const std::string& user);
   void logout();
 

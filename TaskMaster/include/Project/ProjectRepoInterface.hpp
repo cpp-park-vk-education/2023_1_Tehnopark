@@ -10,6 +10,6 @@ public:
     virtual Project GetProjectById(int projectId) = 0;
     virtual bool CreateProject(int userId, const std::string &projectName) = 0;
     virtual bool RemoveProjectById(int projectId) = 0;
-    virtual bool AddUserToProject(int projectId, const std::string &userName) = 0;
-    virtual bool UpdateProject(const Project& project) = 0;
+    virtual bool AddUserToProject(int userId, int projectId) = 0;
+    virtual bool SetDescription(int projectId, const std::string &description) = 0;
 };

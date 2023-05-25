@@ -12,27 +12,36 @@
 #include <Wt/WText.h>
 
 #include "Session.h"
-#include "ProjectListItem.h"
+#include "Board.hpp"
+#include "Task.hpp"
 
 
-class MainPage : public Wt::WTemplate
+class BoardPage : public Wt::WTemplate
 {
 public:
 
-  MainPage(Session& session);
+  BoardPage(Session& session, const Board& board);
+  void ChangeDrag();
 
 protected:
   virtual void renderTemplate(std::ostream& result);
 
 private:
   Session& session_;
-
-  Wt::WContainerWidget *projects_;
+  Board board_;
+  std::vector<Task> tasks_;
+  bool dragStatus;
 
   User user_;
 
-  void showProjects();
-  void showProject(const Project& proj);
+  Wt::WContainerWidget *openListWidget_;
+  Wt::WContainerWidget *closedListWidget_;
+  Wt::WContainerWidget *progressListWidget_;
+  Wt::WPushButton* dragChangeButton_;
+
+  void showTasks();
+  void showTask(const Task& task);
+  void SetDrag(bool drag);
 
   using WWebWidget::render;
 };

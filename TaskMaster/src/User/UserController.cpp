@@ -4,9 +4,11 @@ bool UserController::EditUser(size_t userId, const std::string &userName)
 {
     return _repo->EditUser(userId, userName);
 }
-bool UserController::CreateUser(const std::string &userName)
+User UserController::CreateUser(const std::string &userName)
 {
-    return _repo->CreateUser(userName);
+    _repo->CreateUser(userName);
+    return User();
+   // return _repo->GetUserByName(userName);
 }
 bool UserController::AddTaskToUser(int userId, int taskId)
 {
@@ -47,9 +49,10 @@ User UserController::GetUserByIdentity(int userIdentityId)
     return _repo->GetUserByIdentity(userIdentityId);
 }
 
-bool UserController::CreateUserWithIdentity(int userIdentityId)
+User UserController::CreateUserWithIdentity(int userIdentityId)
 {
-    return _repo->CreateUserWithIdentity(userIdentityId);
+    _repo->CreateUserWithIdentity(userIdentityId);
+    return _repo->GetUserByIdentity(userIdentityId);
 }
 
 std::vector<User> UserController::GetUsersNotInProject(int projectId)

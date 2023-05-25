@@ -29,7 +29,7 @@ std::vector<Board> BoardRepo::GetAllBoardsForProject(int projectId)
 {
     auto answer = _dbDriver->Exec("SELECT * FROM board WHERE project_id=" + std::to_string(projectId) + ";");
     if (answer.size() == 0)
-        throw std::runtime_error("Boards with project_Id=" + std::to_string(projectId) + " not found");
+        return std::vector<Board>();
     std::vector<Board> res;
     for (const auto &data : answer)
     {

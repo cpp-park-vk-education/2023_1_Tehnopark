@@ -16,6 +16,7 @@ public:
     UserRepo(DbDriverSPtr dr) : _dr(dr) {}
     bool EditUser(size_t userId, const std::string &userName) override;
     bool CreateUser(const std::string &userName) override;
+    User GetUserByName(const std::string &userName) override;
     bool AddTaskToUser(int userId, int taskId) override;
     bool DeleteTaskFromUser(int userId, int taskId) override;
     bool AddProjectToUser(int userId, int projectId) override;

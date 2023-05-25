@@ -2,24 +2,28 @@
 
 #include <Wt/WTemplate.h>
 
-
+#include "Board.hpp"
 #include "Session.h"
+
+using namespace Wt;
 
 namespace Wt {
   class WText;
 }
 
-class ProjectListItem : public Wt::WTemplate
+class BoardListItem : public Wt::WTemplate
 {
 public:
-  ProjectListItem(Session& session, const Project& proj);
+  BoardListItem(Session& session, const Board& board);
 
 protected:
   virtual void renderTemplate(std::ostream& result);
 
 private:
   Session& session_;
-  Project project_;
+  Board board_;
+
+
 
   using WWebWidget::render;
 };

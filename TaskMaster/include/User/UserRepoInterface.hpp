@@ -12,6 +12,7 @@ public:
     virtual ~UserRepoInterface() {}
     virtual bool EditUser(size_t userId, const std::string &userName) = 0;
     virtual bool CreateUser(const std::string &userName) = 0;
+    virtual User GetUserByName(const std::string &userName) = 0;
     virtual bool AddTaskToUser(int userId, int taskId) = 0;
     virtual bool DeleteTaskFromUser(int userId, int taskId) = 0;
     virtual bool AddProjectToUser(int userId, int projectId) = 0;

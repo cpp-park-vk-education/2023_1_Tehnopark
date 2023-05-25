@@ -17,6 +17,8 @@
 
 #include "Session.h"
 #include "LoginWidget.h"
+#include "ProjectPage.h"
+#include "BoardPage.h"
 
 namespace dbo = Wt::Dbo;
 
@@ -35,7 +37,8 @@ public:
     Wt::WApplication *app = Wt::WApplication::instance();
 
     app->messageResourceBundle().use(Wt::WApplication::appRoot() + "templates");
-    app->useStyleSheet("style.css");
+    app->useStyleSheet("css/style.css");
+    app->useStyleSheet("css/bootstrap.css");
     app->internalPathChanged().connect(this, &ViewImpl::handlePathChange);
 
     loginStatus_ = this->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-login-status")));
@@ -64,6 +67,8 @@ public:
     loginStatus_->bindWidget("login", std::move(loginWidget));
     loginStatus_->bindWidget("login-link", std::move(loginLink));
     loginStatus_->bindWidget("register-link", std::move(registerLink));
+
+    setInternalBasePath(basePath_);
 
     onUserChanged();
 
@@ -115,6 +120,7 @@ private:
 
     refresh();
     panel_->hide();
+    page_->clear();
   }
 
   void loggedIn() {
@@ -128,8 +134,6 @@ private:
 
     auto profileLink = std::make_unique<Wt::WText>(tr("profile"));
     profileLink->setStyleClass("link");
-
-    dbo::ptr<AuthUser> user = session().user();
 
     loginStatus_->bindWidget("profile-link", std::move(profileLink));
 
@@ -146,21 +150,27 @@ private:
     if (app->internalPathMatches(basePath_)) {
       std::string path = app->internalPathNextPart(basePath_);
       if(path.empty()){
-        
+        if(session_.user().Id != 0)
+          page_->clear();
+          page_->addWidget(std::make_unique<MainPage>(session_));
+      } else if (path == "project"){                 // добавить проверку что пользователь принадлежит проекту
+        std::string projIdstr = app->internalPathNextPart("/project/");
+        int projId = std::stoi(projIdstr);
+        page_->clear();
+        page_->addWidget(std::make_unique<ProjectPage>(session_, session_.mainPadgeController().GetProjectById(projId)));
+      } else if (path == "board")
+      {
+        std::string boardIdstr = app->internalPathNextPart("/board/");
+        int boardId = std::stoi(boardIdstr);
+        page_->clear();
+        page_->addWidget(std::make_unique<BoardPage>(session_, session_.projectController().GetBoard(boardId)));
       }
     }
   }
 
   bool checkLoggedIn()
   {
-    if (session_.user()) return true;
-    panel_->show();
-    if (!mustLoginWarning_){
-      mustLoginWarning_ =
-        panel_->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-mustlogin")));
-    }
-    panel_->setCurrentWidget(mustLoginWarning_);
-    return false;
+
   }
 
 };
@@ -181,10 +191,7 @@ void MainView::setInternalBasePath(const std::string& basePath)
 }
 
 
-dbo::ptr<AuthUser> MainView::user()
+const User MainView::user()
 {
-  if (impl_->session().user())
-    return impl_->session().user();
-  else
-    return dbo::ptr<AuthUser>();
+  return impl_->session().user();
 }

@@ -18,6 +18,7 @@
 
 
 #include "AuthUser.h"
+#include "User.hpp"
 
 namespace dbo = Wt::Dbo;
 
@@ -34,7 +35,7 @@ public:
 
   Session(dbo::SqlConnectionPool& connectionPool, std::shared_ptr<DbDriverInterface> mainDb);
 
-  dbo::ptr<AuthUser> user() const;
+  const User user();
 
   UserDatabase& users() { return users_; }
   Wt::Auth::Login& login() { return login_; }

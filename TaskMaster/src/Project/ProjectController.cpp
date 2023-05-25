@@ -8,9 +8,9 @@ void ProjectController::CreateBoard(int projectId, int creatorId, const std::str
 {
     boardRepo_->CreateBoard(projectId, creatorId, boardName, text);
 }
-void ProjectController::AddUser(int projectId, const std::string &userName)
+void ProjectController::AddUser(int userId, int projectId)
 {
-    // userRepo_->AddProjectToUser()
+    userRepo_->AddProjectToUser(userId, projectId);
 }
 std::vector<User> ProjectController::GetAllUsers(int projectId)
 {
@@ -19,4 +19,9 @@ std::vector<User> ProjectController::GetAllUsers(int projectId)
 std::vector<Board> ProjectController::GetAllBoards(int projectId)
 {
     return boardRepo_->GetAllBoardsForProject(projectId);
+}
+
+Board ProjectController::GetBoard(int boardId)
+{
+    return boardRepo_->GetBoard(boardId);
 }
