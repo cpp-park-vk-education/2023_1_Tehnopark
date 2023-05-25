@@ -26,12 +26,8 @@ public:
     std::vector<User> GetUsers() override;
     User GetUser(int userId) override;
     User GetUserByIdentity(int userIdentityId) override;
-<<<<<<< HEAD
-    bool CreateUserWithIdentity(int userIdentityId) override;
-    std::vector<User> GetUsersNotInProject(int projectId) override;
-=======
     User CreateUserWithIdentity(int userIdentityId) override;
->>>>>>> 14e35495c0901db205c4043110e84b0afac9a199
+    std::vector<User> GetUsersNotInProject(int projectId) override;
     ~UserController(){}
 private:
     UserRepoUPtr _repo;

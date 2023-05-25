@@ -11,7 +11,7 @@
 int main()
 {
 
-    auto db = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=");
+    auto db = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=4Hg*kP9VGl~A}Zk");
     
     // auto rep = std::make_unique<ProjectRepo>(db);
     // MainPadgeController m(std::move(rep));
@@ -23,7 +23,7 @@ int main()
 
     auto repo = std::make_unique<UserRepo>(db);
     UserController mp(std::move(repo));
-    std::vector<User> res = mp.GetUsersNotInProject(1);
+    std::vector<User> res = mp.GetUsersNotInProject(5);
     for (const auto &user : res)
     {
         std::cout << user.UserName << std::endl;

@@ -71,11 +71,9 @@ std::vector<User> UserRepo::GetUsersForProject(int projectId)
     }
     return res;
 }
-<<<<<<< HEAD
 std::vector<User> UserRepo::GetUsersNotInProject(int projectId)
 {
-    // project_users.project_id<>" + std::to_string(projectId) + "
-    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user FULL OUTER JOIN project_users ON project_users.user_id=public.user.id WHERE project_users.project_id=" + std::to_string(projectId) + " AND project_users.user_id IS NULL;");
+    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user WHERE public.user.id NOT IN (SELECT user_id FROM project_users WHERE project_users.project_id=" + std::to_string(projectId) + ");");
     if (answer.size() == 0)
         return std::vector<User>();
     std::vector<User> res;
@@ -85,9 +83,6 @@ std::vector<User> UserRepo::GetUsersNotInProject(int projectId)
     }
     return res;
 }
-=======
-
->>>>>>> 14e35495c0901db205c4043110e84b0afac9a199
 std::vector<User> UserRepo::GetUsers()
 {
     auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user;");
