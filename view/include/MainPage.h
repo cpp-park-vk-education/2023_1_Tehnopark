@@ -10,6 +10,7 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WTemplate.h>
 #include <Wt/WText.h>
+#include <Wt/WTextArea.h>
 
 #include "Session.h"
 #include "ProjectListItem.h"
@@ -28,10 +29,13 @@ private:
   Session& session_;
 
   Wt::WContainerWidget *projects_;
-
+  Wt::WPushButton* createButton_;
+  Wt::WLineEdit* projectTitle_;
+  Wt::WLineEdit* projectDescription_;
   User user_;
 
   void showProjects();
+  void createProject();
   void showProject(const Project& proj);
 
   using WWebWidget::render;

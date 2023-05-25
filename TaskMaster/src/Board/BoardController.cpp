@@ -1,6 +1,6 @@
 #include "BoardController.hpp"
 
-bool BoardController::AddTask(int boardId, const std::string& taskName, const std::string &text)
+Task BoardController::AddTask(int boardId, const std::string& taskName, const std::string &text)
 {
     auto task = Task(boardId, taskName, text);
     return _taskRepo->CreateTask(task);

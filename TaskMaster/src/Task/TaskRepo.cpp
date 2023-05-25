@@ -14,12 +14,12 @@ bool TaskRepo::EditTask(const Task& newTask)
     return true;
 }
     
-bool TaskRepo::CreateTask(const Task& Task)
+Task TaskRepo::CreateTask(const Task& Task)
 {
     if (!_dr->Connected())
-        return false;
-    _dr->Exec("INSERT INTO task (board_id, name, text) VALUES (" + std::to_string(Task.BoardId) + ",\'" + Task.Name + "\'," + "\'" + Task.Text + "\');");
-    return true;
+        std::runtime_error("Database is unavailable");
+    auto obj = _dr->Exec("INSERT INTO task (board_id, name, text) VALUES (" + std::to_string(Task.BoardId) + ",\'" + Task.Name + "\'," + "\'" + Task.Text + "\') RETURNING *;");
+    return serializationTask(obj[0]);
 }
     
 std::vector<Task> TaskRepo::GetAllTasksForBoard(int boardId)

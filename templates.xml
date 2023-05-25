@@ -134,6 +134,9 @@
   <message id="main-page">
     <div class="page">
       <h3>Your projects</h3>
+      ${createProjectButton}
+      ${projectNameInput}
+      ${projectTextInput}
       <div class="all-projects">${projects}</div>
     </div>
   </message>
@@ -250,4 +253,3 @@
   <message id="promote-user">Promote this user to administrator</message>
   <message id="no-users-found">No users found</message>
 </messages>
-

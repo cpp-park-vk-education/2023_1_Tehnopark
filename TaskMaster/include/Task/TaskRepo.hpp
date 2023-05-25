@@ -16,7 +16,7 @@ public:
     TaskRepo(DbDriverUPtr dr): _dr(std::move(dr)) {}
 
     bool EditTask(const Task& newTask) override;
-    bool CreateTask(const Task& Task) override;
+    Task CreateTask(const Task& Task) override;
     std::vector<Task> GetAllTasksForBoard(int boardId) override;
     bool ChangeTaskStatus(TaskStatus status, int taskId) override;
     bool DeleteTask(int taskId) override;
