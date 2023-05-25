@@ -150,9 +150,10 @@ private:
     if (app->internalPathMatches(basePath_)) {
       std::string path = app->internalPathNextPart(basePath_);
       if(path.empty()){
-        if(session_.user().Id != 0)
+        if(session_.user().Id != 0){
           page_->clear();
           page_->addWidget(std::make_unique<MainPage>(session_));
+        }
       } else if (path == "project"){                 // добавить проверку что пользователь принадлежит проекту
         std::string projIdstr = app->internalPathNextPart("/project/");
         int projId = std::stoi(projIdstr);
@@ -168,9 +169,10 @@ private:
     }
   }
 
+
   bool checkLoggedIn()
   {
-
+      return true;
   }
 
 };
