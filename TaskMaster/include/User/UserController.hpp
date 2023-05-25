@@ -28,6 +28,7 @@ public:
     User GetUserByIdentity(int userIdentityId) override;
     User CreateUserWithIdentity(int userIdentityId) override;
     std::vector<User> GetUsersNotInProject(int projectId) override;
+    std::vector<User> GetUsersNotInTask(int projectId, int taskId) override;
     ~UserController(){}
 private:
     UserRepoUPtr _repo;

@@ -28,6 +28,7 @@ public:
     User GetUserByIdentity(int userIdentityId) override;
     bool CreateUserWithIdentity(int userIdentityId) override;
     std::vector<User> GetUsersNotInProject(int projectId) override;
+    std::vector<User> GetUsersNotInTask(int projectId, int taskId) override;
     ~UserRepo() {}
 
 private:

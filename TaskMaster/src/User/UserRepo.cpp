@@ -71,6 +71,19 @@ std::vector<User> UserRepo::GetUsersForProject(int projectId)
     }
     return res;
 }
+std::vector<User> UserRepo::GetUsersNotInTask(int projectId, int taskId)
+{
+    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user INNER JOIN project_users ON project_users.user_id=public.user.id WHERE project_users.project_id="
+                             + std::to_string(projectId) + " AND public.user.id NOT IN (SELECT user_id FROM task_users WHERE task_users.task_id=" + std::to_string(taskId) + ");");
+    if (answer.size() == 0)
+        return std::vector<User>();
+    std::vector<User> res;
+    for (const auto &data : answer)
+    {
+        res.push_back(serializationUser(data));
+    }
+    return res;
+}
 std::vector<User> UserRepo::GetUsersNotInProject(int projectId)
 {
     auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user WHERE public.user.id NOT IN (SELECT user_id FROM project_users WHERE project_users.project_id=" + std::to_string(projectId) + ");");

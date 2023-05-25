@@ -59,3 +59,8 @@ std::vector<User> UserController::GetUsersNotInProject(int projectId)
 {
     return _repo->GetUsersNotInProject(projectId);
 }
+
+std::vector<User> UserController::GetUsersNotInTask(int projectId, int taskId)
+{
+    return _repo->GetUsersNotInTask(projectId, taskId);
+}

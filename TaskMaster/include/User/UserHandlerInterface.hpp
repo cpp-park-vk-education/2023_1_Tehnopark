@@ -23,5 +23,5 @@ public:
     virtual User CreateUserWithIdentity(int userIdentityId) = 0;
     virtual std::vector<User> GetUsers() = 0;
     virtual std::vector<User> GetUsersNotInProject(int projectId) = 0;
-
+    virtual std::vector<User> GetUsersNotInTask(int projectId, int taskId) = 0;
 };

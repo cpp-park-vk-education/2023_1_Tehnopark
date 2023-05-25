@@ -23,7 +23,7 @@ int main()
 
     auto repo = std::make_unique<UserRepo>(db);
     UserController mp(std::move(repo));
-    std::vector<User> res = mp.GetUsersNotInProject(5);
+    std::vector<User> res = mp.GetUsersNotInTask(2, 5);
     for (const auto &user : res)
     {
         std::cout << user.UserName << std::endl;
