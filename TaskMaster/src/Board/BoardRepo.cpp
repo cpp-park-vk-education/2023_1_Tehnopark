@@ -7,7 +7,7 @@ Board BoardRepo::CreateBoard(int projectId, int creatorId, const std::string &na
 {
     auto answer = _dbDriver->Exec("INSERT INTO board (project_id, creator_id, name, text) VALUES ("
                      + std::to_string(projectId) + ", " + std::to_string(creatorId) + ", \'"
-                     + name + "\', \'" + text + "\');");
+                     + name + "\', \'" + text + "\') RETURNING *;");
     return serializationBoard(answer[0]);
 }
 
