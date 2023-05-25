@@ -9,7 +9,9 @@ ProjectRepo::ProjectRepo(DbDriverSPtr dr) : dr_(dr) {}
 
 std::vector<Project> ProjectRepo::GetUserProjects(int userId)
 {
-    auto answer = dr_->Exec("SELECT * FROM project WHERE creator_id=" + std::to_string(userId));
+    auto answer = dr_->Exec("SELECT * FROM project INNER JOIN project_users ON project_users.project_id=project.id WHERE project_users.user_id=" + std::to_string(userId) + ";");
+    if (answer.size() == 0)
+        throw std::runtime_error("Projects with user_Id=" + std::to_string(userId) + " not found");
     std::vector<Project> res;
     for (const auto &data : answer)
     {

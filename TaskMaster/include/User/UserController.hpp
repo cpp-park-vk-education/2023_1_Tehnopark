@@ -27,6 +27,7 @@ public:
     User GetUser(int userId) override;
     User GetUserByIdentity(int userIdentityId) override;
     bool CreateUserWithIdentity(int userIdentityId) override;
+    std::vector<User> GetUsersNotInProject(int projectId) override;
     ~UserController(){}
 private:
     UserRepoUPtr _repo;

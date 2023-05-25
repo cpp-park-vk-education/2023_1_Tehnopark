@@ -51,3 +51,8 @@ bool UserController::CreateUserWithIdentity(int userIdentityId)
 {
     return _repo->CreateUserWithIdentity(userIdentityId);
 }
+
+std::vector<User> UserController::GetUsersNotInProject(int projectId)
+{
+    return _repo->GetUsersNotInProject(projectId);
+}

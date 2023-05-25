@@ -61,6 +61,19 @@ std::vector<User> UserRepo::GetUsersForProject(int projectId)
     }
     return res;
 }
+std::vector<User> UserRepo::GetUsersNotInProject(int projectId)
+{
+    // project_users.project_id<>" + std::to_string(projectId) + "
+    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM public.user FULL OUTER JOIN project_users ON project_users.user_id=public.user.id WHERE project_users.project_id=" + std::to_string(projectId) + " AND project_users.user_id IS NULL;");
+    if (answer.size() == 0)
+        return std::vector<User>();
+    std::vector<User> res;
+    for (const auto &data : answer)
+    {
+        res.push_back(serializationUser(data));
+    }
+    return res;
+}
 std::vector<User> UserRepo::GetUsers()
 {
     auto answer = _dr->Exec("SELECT * FROM user;");
@@ -101,3 +114,4 @@ bool UserRepo::CreateUserWithIdentity(int userIdentityId)
     _dr->Exec("INSERT INTO user (name, auth_identity_id) SELECT auth_identity.identity, auth_identity.id FROM auth_identity WHERE auth_identity.id =" + std::to_string(userIdentityId) + ";");
     return true;
 }
+

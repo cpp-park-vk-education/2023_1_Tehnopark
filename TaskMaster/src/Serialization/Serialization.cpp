@@ -34,7 +34,7 @@ Task serializationTask(const std::vector<std::string> &answer)
 {
     Task task;
     task.Id = std::stoi(answer[0]);
-    task.BoardId = std::stoi(answer[4]);
+    task.BoardId = std::stoi(answer[1]);
     task.Name = answer[1];
     task.Text = answer[2];
     task.Status = static_cast<TaskStatus>(std::stoi(answer[3]));

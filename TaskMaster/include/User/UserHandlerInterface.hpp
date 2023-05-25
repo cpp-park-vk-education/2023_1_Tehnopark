@@ -22,4 +22,6 @@ public:
     virtual User GetUserByIdentity(int userIdentityId) = 0;
     virtual bool CreateUserWithIdentity(int userIdentityId) = 0;
     virtual std::vector<User> GetUsers() = 0;
+    virtual std::vector<User> GetUsersNotInProject(int projectId) = 0;
+
 };
