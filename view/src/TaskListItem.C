@@ -18,9 +18,9 @@ TaskListItem::TaskListItem(Session& session, const Task& task) :
     titleEdit_ = this->bindWidget("nameInput", std::make_unique<WLineEdit>(task.Name));
     descriptionLabel_ = this->bindWidget("text", std::make_unique<Wt::WText>(task.Text));
     descriptionEdit_ = this->bindWidget("textInput", std::make_unique<WLineEdit>(task.Text));
-    //users_ = session_.userController().GetUsersForTask(task_.Id);
+    users_ = session_.userController().GetUsersForTask(task_.Id);
     usersListWidget_ = this->bindWidget("AssignedUsers", std::make_unique<WContainerWidget>());
-    //ShowUsers();
+    ShowUsers();
     cancelButton_ = this->bindWidget("cancelButton", std::make_unique<WPushButton>("cancel"));
     cancelButton_->addStyleClass("btn");
     cancelButton_->addStyleClass("btn-success");
@@ -76,8 +76,11 @@ void TaskListItem::EditBtnClicked()
 
 void TaskListItem::ShowUsers()
 {
-    for(auto user : users_)
-        usersListWidget_->addWidget(std::make_unique<Wt::WText>(user.UserName));
+    usersListWidget_->clear();
+    for(auto user : users_){
+        auto widget = usersListWidget_->addWidget(std::make_unique<Wt::WTemplate>(tr("user-task-list-item")));
+        widget->bindString("username", user.UserName);
+    }
 }
 
 void TaskListItem::SetStatus(TaskStatus status)

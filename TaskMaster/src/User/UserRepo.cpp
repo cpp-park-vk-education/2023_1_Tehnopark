@@ -48,9 +48,7 @@ bool UserRepo::DeleteProjectFromUser(int userId, int projectId)
 }
 std::vector<User> UserRepo::GetUsersForTask(int taskId)
 {
-    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN task_users ON task_users.user_id=users.id WHERE task_users.task_id=" + std::to_string(taskId) + ";");
-   if (answer.size() == 0)
-       throw std::runtime_error("Users with task_Id=" + std::to_string(taskId) + " not found");
+    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".identity FROM \"user\" INNER JOIN task_users ON task_users.user_id=public.user.id WHERE task_users.task_id=" + std::to_string(taskId) + ";");
     std::vector<User> res;
     for (const auto &data : answer)
     {
@@ -61,9 +59,7 @@ std::vector<User> UserRepo::GetUsersForTask(int taskId)
 
 std::vector<User> UserRepo::GetUsersForProject(int projectId)
 {
-    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".name FROM \"user\" INNER JOIN project_users ON project_users.user_id=users.id WHERE project_users.project_id="+ std::to_string(projectId) + ";");
-    if (answer.size() == 0)
-        throw std::runtime_error("Users with project_Id=" + std::to_string(projectId) + " not found");
+    auto answer = _dr->Exec("SELECT \"user\".id, \"user\".identity FROM \"user\" INNER JOIN project_users ON project_users.user_id=public.user.id WHERE project_users.project_id="+ std::to_string(projectId) + ";");
     std::vector<User> res;
     for (const auto &data : answer)
     {
@@ -113,7 +109,7 @@ User UserRepo::GetUser(int userId)
 {
     if (!_dr->Connected())
         throw std::runtime_error("Database is unavailable");
-    auto answer = _dr->Exec("SELECT * FROM \"user\" WHERE id=" + std::to_string(userId) + ";");
+    auto answer = _dr->Exec("SELECT public.user.id, public.user.identity FROM \"user\" WHERE id=" + std::to_string(userId) + ";");
     if (answer.size() == 0)
         throw std::runtime_error("Users with userId=" + std::to_string(userId) + " not found");
     return serializationUser(answer[0]);

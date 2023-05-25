@@ -213,6 +213,11 @@
       </div>
   </message>
 
+  <message id="user-task-list-item">
+    <div class="user-task-list-item">
+    ${username}
+      </div>
+  </message>
  
   <message id="archive-title">
     <h4>Archive</h4>
