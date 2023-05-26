@@ -135,8 +135,6 @@
     <div class="page">
       <h3>Your projects</h3>
       ${createProjectButton}
-      ${projectNameInput}
-      ${projectTextInput}
       <div class="all-projects">${projects}</div>
     </div>
   </message>
