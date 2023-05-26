@@ -31,8 +31,6 @@ private:
 
   Wt::WContainerWidget *projects_;
   Wt::WPushButton* createButton_;
-  Wt::WLineEdit* projectTitle_;
-  Wt::WLineEdit* projectDescription_;
   User user_;
 
   void showProjects();

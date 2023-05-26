@@ -18,7 +18,7 @@ MainPage::MainPage(Session &session) : session_(session)
     setTemplateText(tr("main-page"));
     projects_ = this->bindWidget("projects", std::make_unique<Wt::WContainerWidget>());
     user_ = session.user();
-    createButton_ = this->bindWidget("createProjectButton", std::make_unique<Wt::WPushButton>("createProject"));
+    createButton_ = this->bindWidget("createProjectButton", std::make_unique<Wt::WPushButton>("Create project"));
     createButton_->clicked().connect(this, &MainPage::createProject);
     createButton_->addStyleClass("btn btn-success");
     showProjects();

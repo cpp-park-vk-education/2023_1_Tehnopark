@@ -36,13 +36,14 @@ private:
   User user_;
 
   Wt::WContainerWidget *boardsListWidget_;
-
+  Wt::WPushButton* createButton_;
   Wt::WComboBox *usersDropDown_;
   std::shared_ptr<Wt::WStringListModel> userStringModel_;
 
   void bindAdmin();
   void addUser();
   void showBoards();
+  void createBoard();
   void showBoard(const Board& board);
 
   using WWebWidget::render;
