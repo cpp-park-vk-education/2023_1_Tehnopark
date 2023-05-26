@@ -7,9 +7,11 @@
 #include "Session.h"
 #include "MainView.h"
 #include "DbDriver.hpp"
+#include <libconfig.h++>
 
+using libconfig::Config;
+using libconfig::Setting;
 
-static const char *FeedUrl = "/blog/feed/";
 static const char *BlogUrl = "/";
 
 class BlogApplication : public Wt::WApplication
@@ -33,16 +35,19 @@ std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env,
 int main(int argc, char **argv)
 {
   char* argvDebug[] = {"./taskmaster.wt", "--docroot", "../;/css","--approot", "../", "--http-listen", "0.0.0.0", "--resources-dir", "."};
+  Config cfg;
+  cfg.readFile("config.cfg");
+  
   
   try {
     Wt::WServer server(9, argvDebug, WTHTTP_CONFIGURATION);
 
     Session::configureAuth();
 
-    auto mainDb = std::make_shared<DbDriver>("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=");
+    auto mainDb = std::make_shared<DbDriver>((std::string)cfg.lookup("connection_string"));
 
     std::unique_ptr<Wt::Dbo::SqlConnectionPool> blogDb
-      = Session::createConnectionPool("hostaddr=95.165.158.58 port=28009 dbname=TaskMaster user=umlaut-super password=");
+      = Session::createConnectionPool((std::string)cfg.lookup("connection_string"));
 
     server.addEntryPoint(Wt::EntryPointType::Application,
                          std::bind(&createApplication, std::placeholders::_1, blogDb.get(), mainDb), BlogUrl);

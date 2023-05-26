@@ -5,6 +5,9 @@ Project(TaskMaster)
 FIND_PACKAGE(Wt REQUIRED Wt HTTP)
 ADD_DEFINITIONS(-DHPDF_DLL)
 
+find_package(PkgConfig)
+pkg_check_modules(LIBCONFIG REQUIRED IMPORTED_TARGET libconfig++)
+
 option(BUILD_TESTS "build tests")
 
 if(BUILD_TESTS)
@@ -27,7 +30,7 @@ add_executable(taskmaster.wt
 )
 
 target_include_directories(taskmaster.wt PUBLIC model/include view/include)
-target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres)
+target_link_libraries(taskmaster.wt Wt::Wt Wt::HTTP Wt::Dbo TaskMasterDB wtdbopostgres config++)
 
 add_subdirectory(TaskMaster)
 include_directories(TaskMaster/include)
