@@ -16,3 +16,18 @@ Project MainPadgeController::CreateProject(size_t userId, const std::string &pro
 {
     return projectRepo_->CreateProject(userId, projectName, text);
 }
+
+void MainPadgeController::DeleteProject(const Project &project)
+{
+    projectRepo_->RemoveProjectById(project.Id);
+}
+
+void MainPadgeController::DeleteUserFromProject(const Project &project, size_t userId)
+{
+    projectRepo_->DeleteUserFromProject(project.Id, userId);
+}
+
+void MainPadgeController::EditProject(const Project &project)
+{
+    projectRepo_->EditProject(project);
+}

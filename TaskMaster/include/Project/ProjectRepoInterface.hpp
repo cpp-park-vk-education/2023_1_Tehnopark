@@ -11,5 +11,6 @@ public:
     virtual Project CreateProject(int userId, const std::string &projectName, const std::string &text) = 0;
     virtual bool RemoveProjectById(int projectId) = 0;
     virtual bool AddUserToProject(int userId, int projectId) = 0;
-    virtual bool SetDescription(int projectId, const std::string &description) = 0;
+    virtual bool EditProject(const Project &project) = 0;
+    virtual void DeleteUserFromProject(int projectId, size_t userId) = 0;
 };

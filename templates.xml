@@ -143,7 +143,11 @@
     <div class="elem">
       <h4>${title}</h4>
       <div>
-        ${description}
+      Text:
+      ${description}
+      ${nameInput}
+      ${textInput}
+      ${cancelButtonProject} ${editButtonProject} ${deleteButtonProject}
       </div>
     </div>
   </message>

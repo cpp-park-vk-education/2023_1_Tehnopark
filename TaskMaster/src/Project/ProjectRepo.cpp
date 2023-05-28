@@ -52,10 +52,17 @@ bool ProjectRepo::AddUserToProject(int userId, int projectId)
     return true;
 }
 
-bool ProjectRepo::SetDescription(int projectId, const std::string &description)
+bool ProjectRepo::EditProject(const Project &project)
 {
     if (!dr_->Connected())
         throw std::runtime_error("Database is unavailable");
-    dr_->Exec("UPDATE project SET description = " + description + " WHERE projectId = " + std::to_string(projectId) + ")");
+    dr_->Exec("UPDATE project SET text = \'" + project.Description + "\', name = \'" + project.Name + "\' WHERE id = " + std::to_string(project.Id));
     return true;
+}
+
+void ProjectRepo::DeleteUserFromProject(int projectId, size_t userId)
+{
+    if (!dr_->Connected())
+        throw std::runtime_error("Database is unavailable");
+dr_->Exec("DELETE FROM project_users WHERE project_id = " + std::to_string(projectId) + " AND user_id = " + std::to_string(userId));
 }
