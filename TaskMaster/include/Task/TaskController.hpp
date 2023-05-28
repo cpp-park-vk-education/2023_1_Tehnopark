@@ -16,6 +16,7 @@ public:
     bool EditTask(const Task& newTask) override;
     Task CreateTask(const Task& Task) override;
     bool DeleteTask(int taskId) override;
+    std::vector<Task> GetTasksForUser(int userId) override;
 
 private:
     TRepoUPtr _repo;

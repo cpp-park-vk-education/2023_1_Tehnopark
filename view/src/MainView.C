@@ -19,6 +19,7 @@
 #include "LoginWidget.h"
 #include "ProjectPage.h"
 #include "BoardPage.h"
+#include "MyTasksPage.h"
 
 namespace dbo = Wt::Dbo;
 
@@ -162,12 +163,14 @@ private:
         int projId = std::stoi(projIdstr);
         page_->clear();
         page_->addWidget(std::make_unique<ProjectPage>(session_, session_.mainPadgeController().GetProjectById(projId)));
-      } else if (path == "board")
-      {
+      } else if (path == "board") {
         std::string boardIdstr = app->internalPathNextPart("/board/");
         int boardId = std::stoi(boardIdstr);
         page_->clear();
         page_->addWidget(std::make_unique<BoardPage>(session_, session_.projectController().GetBoard(boardId)));
+      }else if (path == "mytasks") {
+        page_->clear();
+        page_->addWidget(std::make_unique<MyTasksPage>(session_));
       }
     }
   }

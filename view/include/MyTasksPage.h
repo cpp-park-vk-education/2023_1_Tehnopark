@@ -10,34 +10,38 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WTemplate.h>
 #include <Wt/WText.h>
-#include <Wt/WTextArea.h>
-#include <Wt/WMessageBox.h>
 
 #include "Session.h"
-#include "ProjectListItem.h"
+#include "Board.hpp"
+#include "Task.hpp"
 
 
-class MainPage : public Wt::WTemplate
+class MyTasksPage : public Wt::WTemplate
 {
 public:
 
-  MainPage(Session& session);
+  MyTasksPage(Session& session);
+  void ChangeDrag();
 
 protected:
   virtual void renderTemplate(std::ostream& result);
 
 private:
   Session& session_;
+  std::vector<Task> tasks_;
+  bool dragStatus;
 
-  Wt::WContainerWidget *projects_;
-  Wt::WPushButton* createButton_;
-  Wt::WPushButton* myTasksButton_;
   User user_;
 
-  void showProjects();
-  void createProject();
-  void redirectToMyTasks();
-  void showProject(const Project& proj);
+  Wt::WContainerWidget *openListWidget_;
+  Wt::WContainerWidget *closedListWidget_;
+  Wt::WContainerWidget *progressListWidget_;
+  Wt::WPushButton* dragChangeButton_;
+
+  void showDialogAddTask();
+  void showTasks();
+  void showTask(const Task& task);
+  void SetDrag(bool drag);
 
   using WWebWidget::render;
 };

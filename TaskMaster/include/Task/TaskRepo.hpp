@@ -20,6 +20,7 @@ public:
     std::vector<Task> GetAllTasksForBoard(int boardId) override;
     bool ChangeTaskStatus(TaskStatus status, int taskId) override;
     bool DeleteTask(int taskId) override;
+    std::vector<Task> GetTasksForUser(int userId) override;
     
     ~TaskRepo() {}
 private:

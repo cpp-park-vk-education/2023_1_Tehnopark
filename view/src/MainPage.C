@@ -18,9 +18,15 @@ MainPage::MainPage(Session &session) : session_(session)
     setTemplateText(tr("main-page"));
     projects_ = this->bindWidget("projects", std::make_unique<Wt::WContainerWidget>());
     user_ = session.user();
+    
     createButton_ = this->bindWidget("createProjectButton", std::make_unique<Wt::WPushButton>("Create project"));
     createButton_->clicked().connect(this, &MainPage::createProject);
     createButton_->addStyleClass("btn btn-success");
+    
+    myTasksButton_ = this->bindWidget("myTasksButton", std::make_unique<Wt::WPushButton>("My tasks"));
+    myTasksButton_->addStyleClass("btn btn-primary");
+    myTasksButton_->clicked().connect(this, &MainPage::redirectToMyTasks);
+    
     showProjects();
 }
 
@@ -99,6 +105,10 @@ void MainPage::createProject()
 void MainPage::showProject(const Project &proj)
 {
     projects_->addWidget(std::make_unique<ProjectListItem>(session_, proj));
+}
+
+void MainPage::redirectToMyTasks() {
+    Wt::WApplication::instance()->setInternalPath("/mytasks", true);
 }
 
 void MainPage::renderTemplate(std::ostream &result)

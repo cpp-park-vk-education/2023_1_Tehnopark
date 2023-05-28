@@ -14,3 +14,8 @@ bool TaskController::DeleteTask(int taskId)
 {
     return _repo->DeleteTask(taskId);
 }
+
+std::vector<Task> TaskController::GetTasksForUser(int userId)
+{
+    return _repo->GetTasksForUser(userId);
+}

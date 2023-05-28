@@ -135,6 +135,7 @@
     <div class="page">
       <h3>Your projects</h3>
       ${createProjectButton}
+      ${myTasksButton}
       <div class="all-projects">${projects}</div>
     </div>
   </message>
@@ -175,6 +176,28 @@
       <div>Created by ${creator}</div>
       <div class="btn-enable">${unlockDrag}</div>
       <div class="btn-enable">${createTask}</div>
+      <div class="row boards-tasks">
+        <div class="col-4 task-list">
+          <h2>Open</h2>
+          <div class="cont">${openTasks}</div>
+        </div>
+        <div class="col-3 task-list">
+          <h2>In Progres</h2>
+          <div class="cont">${inProgressTasks}</div>
+        </div>
+        <div class="col-4 task-list">
+          <h2>Closed</h2>
+          <div class="cont">${closedTasks}</div>
+        </div>
+      </div>
+    </div>
+  </message>
+
+  <message id="mytasks-page">
+    <div class="elem">
+      <h3>${boardName}</h3>
+      <div>${description}</div>
+      <div class="btn-enable">${unlockDrag}</div>
       <div class="row boards-tasks">
         <div class="col-4 task-list">
           <h2>Open</h2>
