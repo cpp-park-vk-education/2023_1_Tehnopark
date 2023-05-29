@@ -38,11 +38,9 @@ void ProjectPage::bindAdmin()
 {
     userNameEdit_ = this->bindWidget("userNameEdit", std::make_unique<Wt::WLineEdit>());
     usersDropDown_ = this->bindWidget("usersList", std::make_unique<Wt::WComboBox>());
-    for (size_t i = 0; i < users_.size(); i++){
-        usersDropDown_->insertItem(i, users_[i].UserName);
-    }
+
     usersDropDown_->setNoSelectionEnabled(true);
-    userNameEdit_->changed().connect([this]() {
+    usersDropDown_->clicked().connect([this]() {
         usersDropDown_->clear();    
         std::string text = userNameEdit_->text().toUTF8();
         int k = 0;
@@ -52,7 +50,6 @@ void ProjectPage::bindAdmin()
             }
         }
     });
-
     auto inviteButton = this->bindWidget("inviveButton", std::make_unique<Wt::WPushButton>("Invite to project"));
     inviteButton->addStyleClass("btn");
     inviteButton->addStyleClass("btn-success");
