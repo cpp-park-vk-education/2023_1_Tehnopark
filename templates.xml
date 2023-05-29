@@ -156,7 +156,12 @@
   <message id="project-page-admin">
     <h1>${projectName}</h1>
     <div>${description}</div>
-    <div class="row"><div class="users-list">${usersList}</div><div>${inviveButton} ${createBoardButton}</div></div>
+    <div class="row">
+    <div class="users-list">
+      ${userNameEdit}
+      ${usersList}
+    </div>
+    <div>${inviveButton} ${createBoardButton}</div></div>
     <div>${boards}</div>
   </message>
 

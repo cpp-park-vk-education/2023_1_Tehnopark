@@ -17,6 +17,7 @@ public:
     UserController(UserRepoUPtr repo): _repo(std::move(repo)) {}
     bool EditUser(size_t userId, const std::string &userName) override;
     User CreateUser(const std::string &userName) override;
+    User GetUserByName(const std::string &userName) override;
     bool AddTaskToUser(int userId, int taskId) override;
     bool DeleteTaskFromUser(int userId, int taskId) override;
     bool AddProjectToUser(int userId, int projectId) override;

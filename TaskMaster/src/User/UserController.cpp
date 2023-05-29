@@ -8,7 +8,10 @@ User UserController::CreateUser(const std::string &userName)
 {
     _repo->CreateUser(userName);
     return User();
-   // return _repo->GetUserByName(userName);
+}
+User UserController::GetUserByName(const std::string &userName)
+{
+    return _repo->GetUserByName(userName);
 }
 bool UserController::AddTaskToUser(int userId, int taskId)
 {

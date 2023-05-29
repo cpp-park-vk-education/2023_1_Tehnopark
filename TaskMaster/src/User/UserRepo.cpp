@@ -16,9 +16,7 @@ User UserRepo::GetUserByName(const std::string &userName)
 {
     if (!_dr->Connected())
         throw std::runtime_error("Database is unavailable");
-    auto answer = _dr->Exec("SELECT id, identity FROM \"user\" WHERE identity=" + userName + ";");
-    if (answer.size() == 0)
-        throw std::runtime_error("User with name=" + userName + " not found");
+    auto answer = _dr->Exec("SELECT id, identity FROM \"user\" WHERE identity=\'" + userName + "\';");
     return serializationUser(answer[0]);
 }
 

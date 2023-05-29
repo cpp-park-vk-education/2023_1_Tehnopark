@@ -13,11 +13,13 @@
 #include <Wt/WPushButton.h>
 #include <Wt/WRegExpValidator.h>
 #include <Wt/WText.h>
+#include <string>
 
 ProjectPage::ProjectPage(Session& session, const Project& proj):session_(session), proj_(proj)
 {
     if( session_.user().Id == proj.CreatorId ){
         setTemplateText(tr("project-page-admin"));
+        users_ = session_.userController().GetUsersNotInProject(proj_.Id);
         bindAdmin();
     }else
         setTemplateText(tr("project-page"));
@@ -34,15 +36,23 @@ ProjectPage::ProjectPage(Session& session, const Project& proj):session_(session
 
 void ProjectPage::bindAdmin()
 {
+    userNameEdit_ = this->bindWidget("userNameEdit", std::make_unique<Wt::WLineEdit>());
     usersDropDown_ = this->bindWidget("usersList", std::make_unique<Wt::WComboBox>());
-    userStringModel_ = std::make_shared<Wt::WStringListModel>();
-    auto users = session_.userController().GetUsersNotInProject(proj_.Id);
-    for (size_t i = 0; i < users.size(); i++){
-        userStringModel_->addString(users[i].UserName);
-        userStringModel_->setData(i, 0, users[i].Id, Wt::ItemDataRole::User);
+    for (size_t i = 0; i < users_.size(); i++){
+        usersDropDown_->insertItem(i, users_[i].UserName);
     }
     usersDropDown_->setNoSelectionEnabled(true);
-    usersDropDown_->setModel(userStringModel_);
+    userNameEdit_->changed().connect([this]() {
+        usersDropDown_->clear();    
+        std::string text = userNameEdit_->text().toUTF8();
+        int k = 0;
+        for (size_t i = 0; i < users_.size(); i++) {
+            if (text.empty() || users_[i].UserName.find(text) != std::string::npos) {
+                usersDropDown_->insertItem(k++, users_[i].UserName);
+            }
+        }
+    });
+
     auto inviteButton = this->bindWidget("inviveButton", std::make_unique<Wt::WPushButton>("Invite to project"));
     inviteButton->addStyleClass("btn");
     inviteButton->addStyleClass("btn-success");
@@ -121,11 +131,10 @@ void ProjectPage::createBoard()
 
 void ProjectPage::addUser()
 {
-    auto ind = usersDropDown_->currentIndex();
-    if(usersDropDown_->currentIndex() == -1) return;
-
-    auto userId = (int)Wt::asNumber(userStringModel_->data(userStringModel_->index(usersDropDown_->currentIndex(), 0), Wt::ItemDataRole::User));
-    session_.userController().AddProjectToUser(userId, proj_.Id);
+    auto name = usersDropDown_->currentText().toUTF8();
+    if(name.empty()) return;
+    User user = session_.userController().GetUserByName(name);
+    session_.userController().AddProjectToUser(user.Id, proj_.Id);
     usersDropDown_->removeItem(usersDropDown_->currentIndex());
 }
 

@@ -34,11 +34,11 @@ private:
   std::vector<Board> boards_;
 
   User user_;
-
+  std::vector<User> users_;
   Wt::WContainerWidget *boardsListWidget_;
   Wt::WPushButton* createButton_;
+  Wt::WLineEdit* userNameEdit_;
   Wt::WComboBox *usersDropDown_;
-  std::shared_ptr<Wt::WStringListModel> userStringModel_;
 
   void bindAdmin();
   void addUser();
