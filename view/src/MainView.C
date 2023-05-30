@@ -131,7 +131,6 @@ private:
     Wt::WApplication::instance()->changeSessionId();
 
     refresh();
-
     loginStatus_->resolveWidget("login")->show();
     loginStatus_->resolveWidget("login-link")->hide();
     loginStatus_->resolveWidget("register-link")->hide();

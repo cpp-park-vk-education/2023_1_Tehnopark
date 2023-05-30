@@ -143,12 +143,15 @@
   <message id="project">
     <div class="elem">
       <h4>${title}</h4>
-      <div>
-      Text:
-      ${description}
-      ${nameInput}
-      ${textInput}
-      ${cancelButtonProject} ${editButtonProject} ${deleteButtonProject}
+      <div class="row">
+        <div class="col-9">
+          ${description}
+          ${nameInput}
+          ${textInput}
+        </div>
+        <div class="col-3">
+          ${cancelButtonProject}  ${editButtonProject} ${deleteButtonProject}
+        </div>
       </div>
     </div>
   </message>
