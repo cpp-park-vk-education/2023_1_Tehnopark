@@ -1,6 +1,6 @@
 #include "ProjectPage.h"
 #include "BoardListItem.h"
-
+#include <algorithm>
 #include <Wt/WDialog.h>
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
@@ -38,9 +38,11 @@ void ProjectPage::bindAdmin()
 {
     userNameEdit_ = this->bindWidget("userNameEdit", std::make_unique<Wt::WLineEdit>());
     usersDropDown_ = this->bindWidget("usersList", std::make_unique<Wt::WComboBox>());
-
     usersDropDown_->setNoSelectionEnabled(true);
-    usersDropDown_->clicked().connect([this]() {
+    for (size_t i = 0; i < users_.size(); i++) {
+        usersDropDown_->insertItem(i, users_[i].UserName);
+    }
+    userNameEdit_->changed().connect([this]() {
         usersDropDown_->clear();    
         std::string text = userNameEdit_->text().toUTF8();
         int k = 0;
@@ -131,6 +133,11 @@ void ProjectPage::addUser()
     auto name = usersDropDown_->currentText().toUTF8();
     if(name.empty()) return;
     User user = session_.userController().GetUserByName(name);
+    auto criteria = [&name](const User& user) {
+        return user.UserName == name;
+    };
+    users_.erase(std::remove_if(users_.begin(), users_.end(), criteria), users_.end());
+    
     session_.userController().AddProjectToUser(user.Id, proj_.Id);
     usersDropDown_->removeItem(usersDropDown_->currentIndex());
 }

@@ -9,7 +9,6 @@
 #include <Wt/WStackedWidget.h>
 #include <Wt/WTemplate.h>
 #include <Wt/WText.h>
-
 #include <Wt/Auth/PasswordService.h>
 #include <Wt/Auth/PasswordVerifier.h>
 
@@ -26,14 +25,14 @@ namespace dbo = Wt::Dbo;
 class ViewImpl : public Wt::WContainerWidget
 {
 public:
-  ViewImpl(const std::string& basePath, dbo::SqlConnectionPool& connectionPool,
+  ViewImpl(const std::string &basePath, dbo::SqlConnectionPool &connectionPool,
            std::shared_ptr<DbDriverInterface> mainDb, MainView *blogView)
-    : basePath_(basePath),
-      session_(connectionPool, mainDb),
-      panel_(nullptr),
-      mustLoginWarning_(nullptr),
-      invalidUser_(nullptr),
-      page_(nullptr)
+      : basePath_(basePath),
+        session_(connectionPool, mainDb),
+        panel_(nullptr),
+        mustLoginWarning_(nullptr),
+        invalidUser_(nullptr),
+        page_(nullptr)
   {
     Wt::WApplication *app = Wt::WApplication::instance();
 
@@ -51,8 +50,7 @@ public:
 
     session_.login().changed().connect(this, &ViewImpl::onUserChanged);
 
-    auto loginWidget
-        = std::make_unique<LoginWidget>(session_, basePath);
+    auto loginWidget = std::make_unique<LoginWidget>(session_, basePath);
     loginWidget_ = loginWidget.get();
     loginWidget_->hide();
 
@@ -67,7 +65,6 @@ public:
     registerLink->clicked().connect(loginWidget_,
                                     &LoginWidget::registerNewUser);
 
-
     loginStatus_->bindWidget("login", std::move(loginWidget));
     loginStatus_->bindWidget("login-link", std::move(loginLink));
     loginStatus_->bindWidget("register-link", std::move(registerLink));
@@ -79,7 +76,8 @@ public:
     loginWidget_->processEnvironment();
   }
 
-  void onUserChanged() {
+  void onUserChanged()
+  {
     if (session_.login().loggedIn())
       loggedIn();
     else
@@ -87,14 +85,16 @@ public:
     session_.user();
   }
 
-  Session& session() { return session_; }
+  Session &session() { return session_; }
 
-  void setInternalBasePath(const std::string& basePath) {
+  void setInternalBasePath(const std::string &basePath)
+  {
     basePath_ = basePath;
     refresh();
   }
 
-  ~ViewImpl() {
+  ~ViewImpl()
+  {
     clear();
   }
 
@@ -103,17 +103,19 @@ private:
   Session session_;
   LoginWidget *loginWidget_;
 
-  Wt::WStackedWidget* panel_;
+  Wt::WStackedWidget *panel_;
   Wt::WTemplate *mustLoginWarning_;
   Wt::WTemplate *invalidUser_;
   Wt::WTemplate *loginStatus_;
   WContainerWidget *page_;
 
-  void logout() {
+  void logout()
+  {
     session_.login().logout();
   }
 
-  void loggedOut() {
+  void loggedOut()
+  {
     loginStatus_->bindEmpty("profile-link");
     loginStatus_->bindEmpty("author-panel-link");
     loginStatus_->bindEmpty("userlist-link");
@@ -127,9 +129,16 @@ private:
     page_->clear();
   }
 
-  void loggedIn() {
+  void loggedIn()
+  {
+    if (int(session_.user().Id) == 0)
+    {
+      session_.login().logout();
+      Wt::WMessageBox::show("Account Created", "Your account has been created. Please log in to authorize.",
+                            Wt::StandardButton::Ok);
+      return;
+    }
     Wt::WApplication::instance()->changeSessionId();
-
     refresh();
     loginStatus_->resolveWidget("login")->show();
     loginStatus_->resolveWidget("login-link")->hide();
@@ -139,64 +148,67 @@ private:
     profileLink->setStyleClass("link");
 
     loginStatus_->bindWidget("profile-link", std::move(profileLink));
-
   }
 
-
-  void refresh() {
+  void refresh()
+  {
     handlePathChange(Wt::WApplication::instance()->internalPath());
   }
 
-  void handlePathChange(const std::string&) {
+  void handlePathChange(const std::string &)
+  {
     Wt::WApplication *app = Wt::WApplication::instance();
 
-    if (app->internalPathMatches(basePath_)) {
+    if (app->internalPathMatches(basePath_))
+    {
       std::string path = app->internalPathNextPart(basePath_);
-      if(path.empty()){
-        if(int(session_.user().Id) != 0){
+      if (path.empty())
+      {
+        if (int(session_.user().Id) != 0)
+        {
           page_->clear();
           page_->addWidget(std::make_unique<MainPage>(session_));
         }
-      } else if (path == "project"){                 // добавить проверку что пользователь принадлежит проекту
+      }
+      else if (path == "project")
+      { // добавить проверку что пользователь принадлежит проекту
         std::string projIdstr = app->internalPathNextPart("/project/");
         int projId = std::stoi(projIdstr);
         page_->clear();
         page_->addWidget(std::make_unique<ProjectPage>(session_, session_.mainPadgeController().GetProjectById(projId)));
-      } else if (path == "board") {
+      }
+      else if (path == "board")
+      {
         std::string boardIdstr = app->internalPathNextPart("/board/");
         int boardId = std::stoi(boardIdstr);
         page_->clear();
         page_->addWidget(std::make_unique<BoardPage>(session_, session_.projectController().GetBoard(boardId)));
-      }else if (path == "mytasks") {
+      }
+      else if (path == "mytasks")
+      {
         page_->clear();
         page_->addWidget(std::make_unique<MyTasksPage>(session_));
       }
     }
   }
 
-
   bool checkLoggedIn()
   {
-      return true;
+    return true;
   }
-
 };
 
-
-
-
-MainView::MainView(const std::string& basePath, Wt::Dbo::SqlConnectionPool& db, std::shared_ptr<DbDriverInterface> mainDb)
-  : WCompositeWidget(),
-    userChanged_()
+MainView::MainView(const std::string &basePath, Wt::Dbo::SqlConnectionPool &db, std::shared_ptr<DbDriverInterface> mainDb)
+    : WCompositeWidget(),
+      userChanged_()
 {
   impl_ = setImplementation(std::make_unique<ViewImpl>(basePath, db, mainDb, this));
 }
 
-void MainView::setInternalBasePath(const std::string& basePath)
+void MainView::setInternalBasePath(const std::string &basePath)
 {
   impl_->setInternalBasePath(basePath);
 }
-
 
 const User MainView::user()
 {
