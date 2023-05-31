@@ -21,6 +21,8 @@ BoardPage::BoardPage(Session& session, const Board& board):session_(session), bo
     this->bindString("boardName", board.Name);
     this->bindString("description", board.Text);
     this->bindWidget("creator", std::make_unique<Wt::WText>(session_.userController().GetUser(board.CreatorId).UserName));
+    user_ = session_.user();
+    isCreator = user_.Id == board_.CreatorId;
     tasks_ = session_.boardController().GetAllTasksForBoard(board_.Id);
     dragChangeButton_ = this->bindWidget("unlockDrag", std::make_unique<Wt::WPushButton>("Enable Drag"));
     dragChangeButton_->addStyleClass("btn");
@@ -35,6 +37,7 @@ BoardPage::BoardPage(Session& session, const Board& board):session_(session), bo
     openListWidget_ = this->bindWidget("openTasks", std::make_unique<TasksContainer>(TaskStatus::Open));
     progressListWidget_ = this->bindWidget("inProgressTasks", std::make_unique<TasksContainer>(TaskStatus::InProgress));
     closedListWidget_ = this->bindWidget("closedTasks", std::make_unique<TasksContainer>(TaskStatus::Closed));
+    
     showTasks();
 }
 
@@ -87,13 +90,13 @@ void BoardPage::showTask(const Task& task)
     switch (task.Status)
     {
     case TaskStatus::Open:
-        openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, isCreator));
         break;
     case TaskStatus::InProgress:
-        progressListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        progressListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, isCreator));
         break;
     case TaskStatus::Closed:
-        closedListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        closedListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, isCreator));
         break;
     }
 }
@@ -117,6 +120,8 @@ void BoardPage::showDialogAddTask()
     descriptionLabel->setBuddy(descriptionEdit);
 
     dialog->contents()->addStyleClass("form-group");
+    descriptionEdit->addStyleClass("form-control");
+    nameEdit->addStyleClass("form-control");
 
     auto validator = std::make_shared<Wt::WRegExpValidator>("^(?!\\s*$).+");
     validator->setMandatory(true);
@@ -162,7 +167,7 @@ void BoardPage::showDialogAddTask()
             task.Text = descriptionEdit->text().toUTF8();
             task.Status = TaskStatus::Open;
             task = session_.taskController().CreateTask(task);
-            openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+            openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, isCreator));
         }
         this->removeChild(dialog);
     });

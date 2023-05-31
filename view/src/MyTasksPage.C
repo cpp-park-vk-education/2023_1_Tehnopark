@@ -82,13 +82,13 @@ void MyTasksPage::showTask(const Task& task)
     switch (task.Status)
     {
     case TaskStatus::Open:
-        openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, false));
         break;
     case TaskStatus::InProgress:
-        progressListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        progressListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, false));
         break;
     case TaskStatus::Closed:
-        closedListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+        closedListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, false));
         break;
     }
 }
@@ -157,7 +157,7 @@ void MyTasksPage::showDialogAddTask()
             task.Text = descriptionEdit->text().toUTF8();
             task.Status = TaskStatus::Open;
             task = session_.taskController().CreateTask(task);
-            openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task));
+            openListWidget_->addWidget(std::make_unique<TaskListItem>(session_, task, false));
         }
         this->removeChild(dialog);
     });

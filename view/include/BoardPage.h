@@ -31,8 +31,10 @@ private:
   Board board_;
   std::vector<Task> tasks_;
   bool dragStatus;
+  bool isCreator;
 
   User user_;
+
 
   Wt::WContainerWidget *openListWidget_;
   Wt::WContainerWidget *closedListWidget_;

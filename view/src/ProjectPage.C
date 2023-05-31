@@ -30,7 +30,7 @@ ProjectPage::ProjectPage(Session& session, const Project& proj):session_(session
     createButton_->addStyleClass("btn btn-success");
     boardsListWidget_ = this->bindWidget("boards", std::make_unique<Wt::WContainerWidget>());
     boards_ = session_.projectController().GetAllBoards(proj.Id);
-    user_ = session.user();  //добавить в сесстию кеширование юзера
+    user_ = session.user();
     showBoards();
 }
 

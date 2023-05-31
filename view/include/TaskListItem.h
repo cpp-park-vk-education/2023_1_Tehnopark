@@ -15,8 +15,7 @@ namespace Wt {
 class TaskListItem : public Wt::WTemplate
 {
 public:
-  TaskListItem(Session& session, const Task& task);
-  TaskListItem(Session& Session, int boardId);  //для создания новой таски
+  TaskListItem(Session& session, const Task& task, bool canAssign);
   void SetStatus(TaskStatus status);
 
 protected:
@@ -28,7 +27,6 @@ private:
   std::vector<User> users_;
   Wt::WContainerWidget* usersListWidget_;
   bool editStatus_;
-  bool new_;
   Wt::WPushButton* editButton_;
   Wt::WPushButton* cancelButton_;
   Wt::WPushButton* deleteButton_;
@@ -37,13 +35,17 @@ private:
   WLineEdit* titleEdit_;
   WLineEdit* descriptionEdit_;
 
-  Wt::WSelectionBox* userSelectionBox_;
+  Wt::WComboBox* userSelectionBox_;
   std::shared_ptr<Wt::WStringListModel> userStringModel_;
   
   void DeleteBtnClicked();
+  void AssignYourself();
+  void AddUser(const User& user);
   void ShowUsers();
   void EditBtnClicked();
   void CancelBtnClicked();
+  void LoadUsersToAssign();
+  void AssignButtonClicked();
 
   using WWebWidget::render;
 };

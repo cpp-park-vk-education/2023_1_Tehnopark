@@ -237,6 +237,24 @@
             <div>Text: ${text}${textInput}</div>
             <div>AssignedUsers:</div>
             <div>${AssignedUsers}</div>
+            <div> ${AssignYourself}</div>
+            <div>${cancelButton} ${editButton} ${deleteButton}</div>
+        </div>
+    </li>
+  </ul>
+  </message>
+
+  <message id="task-list-item-assign">
+    <ul class="m-d expand-list">
+	  <li data-md-content="200">
+		<label name="tab" for="tab1" tabindex="-1" class="tab_lab" role="tab">${title}</label>
+		<input type="checkbox" class="tab" id="tab1" tabindex="0"/>
+		<div class="content">
+            ${nameInput}
+            <div>Text: ${text}${textInput}</div>
+            <div>AssignedUsers:</div>
+            <div>${AssignedUsers}</div>
+            <div>${ToAssign} ${AssignButton}</div>
             <div>${cancelButton} ${editButton} ${deleteButton}</div>
         </div>
     </li>
