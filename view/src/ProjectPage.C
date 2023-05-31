@@ -74,6 +74,8 @@ void ProjectPage::createBoard()
     descriptionLabel->setBuddy(descriptionEdit);
 
     dialog->contents()->addStyleClass("form-group");
+    descriptionEdit->addStyleClass("form-control");
+    titleEdit->addStyleClass("form-control");
 
     auto validator = std::make_shared<Wt::WRegExpValidator>("^(?!\\s*$).+");
     validator->setMandatory(true);
