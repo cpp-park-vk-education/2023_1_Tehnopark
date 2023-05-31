@@ -39,15 +39,12 @@ void ProjectPage::bindAdmin()
     userNameEdit_ = this->bindWidget("userNameEdit", std::make_unique<Wt::WLineEdit>());
     usersDropDown_ = this->bindWidget("usersList", std::make_unique<Wt::WComboBox>());
     usersDropDown_->setNoSelectionEnabled(true);
-    for (size_t i = 0; i < users_.size(); i++) {
-        usersDropDown_->insertItem(i, users_[i].UserName);
-    }
     userNameEdit_->changed().connect([this]() {
         usersDropDown_->clear();    
         std::string text = userNameEdit_->text().toUTF8();
         int k = 0;
         for (size_t i = 0; i < users_.size(); i++) {
-            if (text.empty() || users_[i].UserName.find(text) != std::string::npos) {
+            if (users_[i].UserName.find(text) != std::string::npos) {
                 usersDropDown_->insertItem(k++, users_[i].UserName);
             }
         }
