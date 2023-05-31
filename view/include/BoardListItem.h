@@ -22,8 +22,20 @@ protected:
 private:
   Session& session_;
   Board board_;
+  Wt::WPushButton* editButton_;
+  Wt::WPushButton* cancelButton_;
+  Wt::WPushButton* deleteButton_;
+  Wt::WAnchor* titleLabel_;
+  WText* descriptionLabel_;
+  WLineEdit* titleEdit_;
+  WLineEdit* descriptionEdit_;
+  bool editStatus_;
+  int userId_;
 
-
+  void bindAdmin();
+  void DeleteBtnClicked();
+  void EditBtnClicked();
+  void CancelBtnClicked();
 
   using WWebWidget::render;
 };

@@ -14,4 +14,6 @@ public:
     virtual std::vector<User> GetAllUsers(int projectId) = 0;
     virtual std::vector<Board> GetAllBoards(int projectId) = 0;
     virtual Board GetBoard(int boardId) = 0;
+    virtual void DeleteBoard(int boardId) = 0;
+    virtual void EditBoard(const Board &board) = 0;
 };

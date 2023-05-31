@@ -13,6 +13,7 @@ public:
     Board CreateBoard(int projectId, int creatorId, const std::string &name, const std::string &text) override;
     bool DeleteBoard(int boardId) override;
     Board GetBoard(int boardId) override;
+    void EditBoard(const Board &board)  override;
 private:
     DbDriverSPtr _dbDriver;
 };

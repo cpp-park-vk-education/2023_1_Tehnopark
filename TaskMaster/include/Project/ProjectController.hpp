@@ -24,6 +24,9 @@ public:
     std::vector<User> GetAllUsers(int projectId) override;
     std::vector<Board> GetAllBoards(int projectId) override;
     Board GetBoard(int boardId) override;
+    void DeleteBoard(int boardId) override;
+    void EditBoard(const Board &board) override;
+
 private:
     IProjectRepoUptr projectRepo_;
     IBoardRepoUptr boardRepo_;

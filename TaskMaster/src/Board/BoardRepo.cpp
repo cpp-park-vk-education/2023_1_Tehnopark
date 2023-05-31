@@ -19,6 +19,13 @@ Board BoardRepo::GetBoard(int boardId)
     return serializationBoard(answer[0]);
 }
 
+void BoardRepo::EditBoard(const Board &board)
+{
+    if (!_dbDriver->Connected())
+        throw std::runtime_error("Database is unavailable");
+    _dbDriver->Exec("UPDATE board SET text = \'" + board.Text + "\', name = \'" + board.Name + "\' WHERE id = " + std::to_string(board.Id));
+}
+
 bool BoardRepo::DeleteBoard(int boardId)
 {
     _dbDriver->Exec("DELETE FROM board WHERE id=" + std::to_string(boardId) + ";");

@@ -17,17 +17,17 @@ ProjectListItem::ProjectListItem(Session& session, const Project& proj) : sessio
     titleEdit_ = this->bindWidget("nameInput", std::make_unique<WLineEdit>(proj.Name));
     descriptionEdit_ = this->bindWidget("textInput", std::make_unique<WLineEdit>(proj.Description));
 
-    cancelButton_ = this->bindWidget("cancelButtonProject", std::make_unique<WPushButton>("cancel"));
+    cancelButton_ = this->bindWidget("cancelButton", std::make_unique<WPushButton>("cancel"));
     cancelButton_->addStyleClass("btn");
     cancelButton_->addStyleClass("btn-success");
     cancelButton_->clicked().connect(this, &ProjectListItem::CancelBtnClicked);
     
-    deleteButton_ = this->bindWidget("deleteButtonProject", std::make_unique<WPushButton>(project_.CreatorId == userId_ ? "delete project" : "leave project"));
+    deleteButton_ = this->bindWidget("deleteButton", std::make_unique<WPushButton>(project_.CreatorId == userId_ ? "delete project" : "leave project"));
     deleteButton_->addStyleClass("btn");
     deleteButton_->addStyleClass("btn-danger");
     deleteButton_->clicked().connect(this, &ProjectListItem::DeleteBtnClicked);
     
-    editButton_ = this->bindWidget("editButtonProject", std::make_unique<WPushButton>("edit"));
+    editButton_ = this->bindWidget("editButton", std::make_unique<WPushButton>("edit"));
     editButton_->addStyleClass("btn");
     editButton_->addStyleClass("btn-success");
     editButton_->clicked().connect(this, &ProjectListItem::EditBtnClicked);

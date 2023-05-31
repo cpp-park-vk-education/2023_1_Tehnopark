@@ -154,7 +154,7 @@
           ${textInput}
         </div>
         <div class="col-3">
-          ${cancelButtonProject}  ${editButtonProject} ${deleteButtonProject}
+          ${cancelButton}  ${editButton} ${deleteButton}
         </div>
       </div>
     </div>
@@ -241,6 +241,23 @@
         </div>
     </li>
   </ul>
+  </message>
+
+  <message id="board-list-item-admin">
+    <div class="elem">
+      <h4>${title}</h4>
+      <div class="row">
+        <div class="col-9">
+          ${description}
+          ${nameInput}
+          ${textInput}
+          Created by ${creator}
+        </div>
+        <div class="col-3">
+          ${cancelButton}  ${editButton} ${deleteButton}
+        </div>
+      </div>
+    </div>
   </message>
 
   <message id="board-list-item">

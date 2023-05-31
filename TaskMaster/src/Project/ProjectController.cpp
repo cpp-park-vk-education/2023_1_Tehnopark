@@ -25,3 +25,13 @@ Board ProjectController::GetBoard(int boardId)
 {
     return boardRepo_->GetBoard(boardId);
 }
+
+void ProjectController::DeleteBoard(int boardId)
+{
+    boardRepo_->DeleteBoard(boardId);
+}
+
+void ProjectController::EditBoard(const Board &board)
+{
+    boardRepo_->EditBoard(board);
+}
