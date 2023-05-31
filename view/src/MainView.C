@@ -19,6 +19,7 @@
 #include "ProjectPage.h"
 #include "BoardPage.h"
 #include "MyTasksPage.h"
+#include "Errors.h"
 
 namespace dbo = Wt::Dbo;
 
@@ -158,38 +159,63 @@ private:
   void handlePathChange(const std::string &)
   {
     Wt::WApplication *app = Wt::WApplication::instance();
+    int userId = session_.user().Id;
+    if (!app->internalPathMatches(basePath_) || userId == 0)
+      return;
 
-    if (app->internalPathMatches(basePath_))
+    std::string path = app->internalPathNextPart(basePath_);
+    page_->clear();
+    if (path.empty())
+      page_->addWidget(std::make_unique<MainPage>(session_));
+    else if (path == "project")
     {
-      std::string path = app->internalPathNextPart(basePath_);
-      if (path.empty())
-      {
-        if (int(session_.user().Id) != 0)
-        {
-          page_->clear();
-          page_->addWidget(std::make_unique<MainPage>(session_));
-        }
+      int projId = std::stoi(app->internalPathNextPart("/project/"));
+      std::vector<User> projectUsers;
+      try { 
+        projectUsers = session_.userController().GetUsersForProject(projId); 
+      } catch (...) { 
+        page_->addWidget(std::make_unique<Page404>());
+        return;
       }
-      else if (path == "project")
-      { // добавить проверку что пользователь принадлежит проекту
-        std::string projIdstr = app->internalPathNextPart("/project/");
-        int projId = std::stoi(projIdstr);
+      auto userWithId = std::find_if(projectUsers.begin(), projectUsers.end(), [userId](const User& user) {
+        return user.Id == userId;
+      });
+      if (userWithId != projectUsers.end()) { 
         page_->clear();
         page_->addWidget(std::make_unique<ProjectPage>(session_, session_.mainPadgeController().GetProjectById(projId)));
-      }
-      else if (path == "board")
-      {
-        std::string boardIdstr = app->internalPathNextPart("/board/");
-        int boardId = std::stoi(boardIdstr);
-        page_->clear();
-        page_->addWidget(std::make_unique<BoardPage>(session_, session_.projectController().GetBoard(boardId)));
-      }
-      else if (path == "mytasks")
-      {
-        page_->clear();
-        page_->addWidget(std::make_unique<MyTasksPage>(session_));
+      } else {
+        page_->addWidget(std::make_unique<Page403>());
+        return;
       }
     }
+    else if (path == "board")
+    {
+      int boardId = std::stoi(app->internalPathNextPart("/board/"));
+      std::vector<User> projectUsers;
+      try { 
+        int projId = session_.projectController().GetBoard(boardId).ProjectId;
+        projectUsers = session_.userController().GetUsersForProject(projId);
+      } catch (...) { 
+        page_->addWidget(std::make_unique<Page404>());
+        return;
+      }
+      auto userWithId = std::find_if(projectUsers.begin(), projectUsers.end(), [userId](const User& user) {
+        return user.Id == userId;
+      });
+      if (userWithId != projectUsers.end()) { 
+        page_->clear();
+        page_->addWidget(std::make_unique<BoardPage>(session_, session_.projectController().GetBoard(boardId)));      
+      } else {
+        page_->addWidget(std::make_unique<Page403>());
+        return;
+      }
+    }
+    else if (path == "mytasks")
+    {
+      page_->clear();
+      page_->addWidget(std::make_unique<MyTasksPage>(session_));
+    } else
+      page_->addWidget(std::make_unique<Page404>());
   }
 
   bool checkLoggedIn()

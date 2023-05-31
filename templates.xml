@@ -139,6 +139,10 @@
       <div class="all-projects">${projects}</div>
     </div>
   </message>
+
+  <message id="error">
+    <h3>${ErrorText}</h3>
+  </message>
   
   <message id="project">
     <div class="elem">
