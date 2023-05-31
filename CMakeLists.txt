@@ -29,6 +29,7 @@ add_executable(taskmaster.wt
   view/src/TasksContainer.C
   view/src/MyTasksPage.C
   view/src/Errors.C
+  view/src/MainView.C
 )
 
 target_include_directories(taskmaster.wt PUBLIC model/include view/include)
