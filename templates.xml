@@ -9,7 +9,7 @@
   <message id="blog-login-status">
     <div class="login-box">
       <div>
-      <h1><a href="http://localhost/" style="color: black;">TaskMaster</a></h1>
+      <h1><a href="http://localhost/" style="color: white;">TaskMaster</a></h1>
       </div>
       <div class="menu">
         <div class="login-menu">
@@ -302,6 +302,12 @@
     <h4>Archive</h4>
   </message>
 
+  <message id="main-view">
+    <div class="container">
+      ${main-image}
+    </div>
+  </message>
+  
   <message id="login">Login</message>
   <message id="login-tooshort">Login too short (must be at least {1} characters)</message>
   <message id="passwd-mismatch">Passwords don't match.</message>

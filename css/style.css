@@ -354,3 +354,15 @@ body {
 h2, .h2 {
   border-bottom: #107007 solid 2px;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.container img {
+  max-width: 100%;
+  max-height: 100%;
+}

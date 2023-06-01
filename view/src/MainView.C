@@ -1,4 +1,5 @@
 #include "MainView.h"
+#include "ImageWidget.h"
 #include <Wt/WApplication.h>
 #include <Wt/WMessageBox.h>
 
@@ -25,7 +26,6 @@ ViewImpl::ViewImpl(const std::string &basePath, dbo::SqlConnectionPool &connecti
   loginStatus_ = this->addWidget(std::make_unique<Wt::WTemplate>(tr("blog-login-status")));
   panel_ = this->addWidget(std::make_unique<Wt::WStackedWidget>());
   page_ = this->addWidget(std::make_unique<Wt::WContainerWidget>());
-
   session_.login().changed().connect(this, &ViewImpl::onUserChanged);
 
   auto loginWidget = std::make_unique<LoginWidget>(session_, basePath);
@@ -94,6 +94,7 @@ void ViewImpl::loggedOut()
   refresh();
   panel_->hide();
   page_->clear();
+  page_->addWidget(std::make_unique<ImageWidget>());
 }
 
 void ViewImpl::loggedIn()
@@ -126,8 +127,10 @@ void ViewImpl::handlePathChange(const std::string &path_)
 {
   Wt::WApplication *app = Wt::WApplication::instance();
   int userId = session_.user().Id;
-  if (!app->internalPathMatches(basePath_) || userId == 0)
+  if (!app->internalPathMatches(basePath_) || userId == 0) {
+    page_->addWidget(std::make_unique<ImageWidget>());
     return;
+  }
 
   std::string path = app->internalPathNextPart(basePath_); 
   page_->clear();
